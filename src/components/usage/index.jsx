@@ -1,6 +1,7 @@
 import React from "react";
 import usageData from "../../Assets/Data/usageData";
 
+
 const Index = () => {
   return (
     <div data-aos="fade-up" className="w-full pt-4 pb-6 px-6 sm:px-12 md:px-16">

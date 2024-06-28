@@ -11,7 +11,10 @@ import SmartDoc from './Pages/SmartDoc';
 import Settings from './Pages/Settings';
 import CustomView from './Pages/CustomView';
 import AOS from "aos";
+import "aos/dist/aos.css";
 import LandingPage from './Pages/LandingPage';
+import Login from './Pages/Login';
+import Signup from './Pages/Signup';
 
 
 export default function App() {
@@ -24,7 +27,8 @@ export default function App() {
   const router = createBrowserRouter(createRoutesFromElements(
     <Route path='/' >
       <Route index element={<LandingPage />} />
-      <Route path='' element={<h />} />
+      <Route path='/auth/login' element={<Login />} />
+      <Route path='/auth/signup' element={<Signup />} />
       <Route path='/dashboard' element={<DashLayout />} >
         <Route index element={<Dashboard />} />
         <Route path='smart-doc' element={<SmartDoc />} />

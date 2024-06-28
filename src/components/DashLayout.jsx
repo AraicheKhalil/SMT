@@ -25,7 +25,7 @@ function DashLayout() {
 
 
   return (
-    <main className="page-wrapper ">
+    <main className="page-wrapper font-Poppins ">
       {/* left of page */}
       <div className=''>
        {<Sidebar />} 

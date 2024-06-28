@@ -19,7 +19,8 @@ module.exports = {
     extend: {
       fontFamily : {
         "Poppins" : ["Poppins, sans-serif"],
-        "Rubik" : ["Rubik, sans-serif"]
+        "Rubik" : ["Rubik, sans-serif"],
+        // "Exo" : ["Exo 2, sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",
