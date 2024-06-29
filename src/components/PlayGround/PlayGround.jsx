@@ -16,7 +16,7 @@ import { formatResponse } from "../../Utils/ResponseFormatter";
 import ExtractedResponse from "../ExtractTabs/extractedResponse";
 import { scanDocument } from "@/Redux/Actions";
 
-const PlayGround = () => {
+const PlayGround = ({setdata}) => {
   const [selectedFile, setSelectedFiles] = useState(null);
   const [documentType, setDocumentType] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -28,6 +28,13 @@ const PlayGround = () => {
     documentType: "",
     response: "",
   });
+
+  // console.log(`limit ${responseData}`)
+  console.log(responseData)
+
+  if (responseData){
+    setdata(responseData)
+  }
 
   function errorHandler(text, type = "fileError") {
     setError((pre) => {
