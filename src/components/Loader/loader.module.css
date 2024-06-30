@@ -88,7 +88,7 @@ background-size: 200px 200px;
     inset: 20px;
     left: 50%;
     transform: translateX(-50%);
-    width: calc(100%- 40px);
+    width: calc(100% - 40px);
     height: 2px;
     background-color: var(--golden);
     animation: animateLine 4s linear infinite;
