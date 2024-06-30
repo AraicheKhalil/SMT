@@ -1,7 +1,7 @@
 import {  Combine, FileBarChart2, LayoutDashboardIcon, ListTodo, MessagesSquare, NotebookTabs, PieChart, Power, Settings } from 'lucide-react'
 import React, { useContext, useEffect } from 'react'
 import SideBarContext from '@/hooks/context/SideBarContext';
-import { Link, useLocation } from 'react-router-dom';
+import {  NavLink, useLocation } from 'react-router-dom';
 
 
 
@@ -30,7 +30,7 @@ export default function Sidebar() {
 
 
   const Menus = [
-    { route : "/dashboard", title: "Overview", src: <LayoutDashboardIcon /> },
+    { route : "/", title: "Overview", src: <LayoutDashboardIcon /> },
     { route : "custom-view", title: "Custom View", src: <PieChart /> },
     { route : "smart-doc", title: "Smart Doc ", src:  <FileBarChart2  /> ,gap: true},
     { route : "tasks", title: "Tasks ", src: <Combine />  },
@@ -77,14 +77,14 @@ export default function Sidebar() {
                 className={`flex rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-300 text-sm items-center gap-x-4 
                 ${Menu.gap ? "mt-9" : "mt-2"} ${pathname === `/dashboard/${Menu.route}` && "bg-gray-900 font-medium"} `}
               >
-                <Link to={`${Menu.route}`} className='flex items-center gap-x-4 w-full'>
+                <NavLink to={`${Menu.route}`} className='flex items-center gap-x-4 w-full'>
                   <div>{Menu.src}</div>
                   <span
                     className={`${!open && "hidden"} origin-left duration-200`}
                   >
                     {Menu.title}
                   </span>
-                </Link>
+                </NavLink>
               </li>
             ))}
           </ul>

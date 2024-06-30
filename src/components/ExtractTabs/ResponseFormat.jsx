@@ -3,6 +3,7 @@ import { formatDocument, formatForCopy } from "../../Utils/ResponseFormatter";
 import { IoCopy } from "react-icons/io5";
 import { LuCopyCheck } from "react-icons/lu";
 import { Check } from "lucide-react";
+import EditableDocs from "../EditableDocs";
 
 const ResponseFormat = ({ data }) => {
   let formattedData = formatDocument(data);
@@ -11,7 +12,6 @@ const ResponseFormat = ({ data }) => {
   const [copySuccess, setCopySuccess] = useState(false);
   const [styledFormat,setStyledFormat] = useState(null)
 
-  // console.log(fprma)
 
   async function copyToClipboard(e) {
     await navigator.clipboard.writeText(copyData);
@@ -61,6 +61,7 @@ const ResponseFormat = ({ data }) => {
         result[currentKey] += ` ${line.trim()}`;
       }
     });
+
   
     return result;
   

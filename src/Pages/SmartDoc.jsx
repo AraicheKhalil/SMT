@@ -126,6 +126,7 @@ export default function SmartDoc() {
     }
   };
   
+  console.log(dataResponse)
 
   return (
     <div className='Smart-Doc flex min-h-screen relative'>

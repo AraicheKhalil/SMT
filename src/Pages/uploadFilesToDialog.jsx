@@ -31,11 +31,10 @@ const UploadFilesToDialog = () => {
     response: "",
   });
 
-  console.log(responseData)
 
-//   if (responseData){
-//     setdata(responseData)
-//   }
+  if (responseData){
+      console.log(responseData)
+  }
 
   function errorHandler(text, type = "fileError") {
     setError((pre) => {
@@ -101,23 +100,11 @@ const UploadFilesToDialog = () => {
     // }
   }
 
-//   const renderFiles = () => (
-//     [selectedFile]?.map(file => (
-//       <div key={file.path} >
-//         {file.type.startsWith('image/') && (
-//           <img src={file.preview} alt={file.name}  />
-//         )}
-//         <p>{file.name}</p>
-//         <p>{file.size} bytes</p>
-//       </div>
-//     ))
-//   );
 
-//   console.log(renderFiles())
-console.log(selectedFile?.name)
-console.log(selectedFile?.lastModifiedDate)
-console.log(selectedFile?.path)
-console.log(documentType)
+// console.log(selectedFile?.name)
+// console.log(selectedFile?.lastModifiedDate)
+// console.log(selectedFile?.path)
+// console.log(documentType)
 
 
   return (
@@ -141,35 +128,6 @@ console.log(documentType)
             <Button onClick={handleSubmit} text="Extract"  />
           </div>
         </div>
-        {/* {fileUpload ? (
-          <div className="flex-grow basis-[400px] ">
-            <div className="w-full flex justify-start items-start flex-col">
-              <div className="w-full flex justify-start items-stretch border border-[--black]">
-                {["response", "JSON", "Extracted Data"].map((item, index) => (
-                  <BtnTabs
-                    key={index}
-                    active={activeTab === item}
-                    onClick={() => {
-                      setActiveTab(item);
-                    }}
-                    text={item}
-                  />
-                ))}
-              </div>
-              <div className="w-full relative min-h-[250px] px-3  pt-4 pb-4 border border-[--black]">
-                {loading ? (
-                  <FileLoader />
-                ) : activeTab === "Extracted Data" ? (
-                  <ExtractedResponse data={responseData} />
-                ) : activeTab === "JSON" ? (
-                  <JsonFormat data={responseData} />
-                ) : (
-                  <ResponseFormat data={responseData} />
-                )}
-              </div>
-            </div>
-          </div>
-        ) : null} */}
       </div>
     </div>
   );

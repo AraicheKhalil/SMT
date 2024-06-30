@@ -32,9 +32,6 @@ const PlayGround = ({setdata}) => {
   // console.log(`limit ${responseData}`)
   console.log(responseData)
 
-  if (responseData){
-    setdata(responseData)
-  }
 
   function errorHandler(text, type = "fileError") {
     setError((pre) => {
