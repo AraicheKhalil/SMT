@@ -33,7 +33,7 @@ function DashLayout() {
       </div>
       {/* right side/content of the page */}
       <div className={`content-wrapper transition  ${open ? "ml-[250px]" : "ml-[80px]"} max-sm:ml-0`}>
-        {shouldRenderSidebar && <Header />  }
+        {!shouldRenderSidebar && <Header />  }
         <Outlet />
       </div>
     </main>

@@ -36,8 +36,12 @@ const documentData = {
 
 export default function DocResult({Response , setFiletoSmartDoc}) {
 
+  
+
   const [FileToResult,setFileToResult] = useState(null)
   const [copied, setCopied] = useState(false);
+
+  // console.log(Response)
 
   const handleCopy = () => {
     setCopied(true);

@@ -41,8 +41,9 @@ export default function SmartDoc() {
   const [selectedImage, setSelectedImage] = useState(data[0] || null);
   const [dataResponse,setDataResponse] = useState([])
   const [FileToSmartDoc,setFiletoSmartDoc] = useState(null)
+  // const [selectedImage,setSelectedImage] = useState()
 
-  console.log(dataResponse)
+  console.log(FileToSmartDoc)
 
   // console.log(`from child ${dataResponse}` )
 
@@ -126,14 +127,14 @@ export default function SmartDoc() {
     }
   };
   
-  console.log(dataResponse)
+  // console.log(dataResponse)
 
   return (
     <div className='Smart-Doc flex min-h-screen relative'>
-      <SmartDocSide data={data} onImageClick={handleImageClick}/>
+      <SmartDocSide data={FileToSmartDoc} onImageClick={handleImageClick}/>
 
       <div className='px-4 py-6 md:p-7 bg-gray-100 w-full mr-[450px] ml-[150px]'>
-        <PlayGround setdata={setDataResponse}  />
+        <PlayGround setdata={setDataResponse} setFiletoSmartDoc={setFiletoSmartDoc}  />
       </div>
 
       <DocResult Response={dataResponse} setFiletoSmartDoc={setFiletoSmartDoc} />

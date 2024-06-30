@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useReducer, useState } from "react";
 import Filedrop from "../Dropzone/FileDrop";
 import { IoCloudUploadSharp } from "react-icons/io5";
 import Button from "../Button/Button";
@@ -16,7 +16,9 @@ import { formatResponse } from "../../Utils/ResponseFormatter";
 import ExtractedResponse from "../ExtractTabs/extractedResponse";
 import { scanDocument } from "@/Redux/Actions";
 
-const PlayGround = ({setdata}) => {
+const PlayGround = ({setdata,setFiletoSmartDoc}) => {
+  // const [state, dispatch] = useReducer(reducer, initialState);
+
   const [selectedFile, setSelectedFiles] = useState(null);
   const [documentType, setDocumentType] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -30,7 +32,22 @@ const PlayGround = ({setdata}) => {
   });
 
   // console.log(`limit ${responseData}`)
+  console.log(documentType)
+  console.log(selectedFile)
+  console.log(fileUpload)
   console.log(responseData)
+
+  if (selectedFile){
+    setFiletoSmartDoc(selectedFile)
+  }
+
+  if (responseData){
+    setdata(responseData)
+  }
+
+
+
+
 
 
   function errorHandler(text, type = "fileError") {

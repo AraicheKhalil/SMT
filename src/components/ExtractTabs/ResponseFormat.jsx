@@ -9,6 +9,8 @@ const ResponseFormat = ({ data }) => {
   let formattedData = formatDocument(data);
   let copyData = formatForCopy(data);
 
+  console.log()
+
   const [copySuccess, setCopySuccess] = useState(false);
   const [styledFormat,setStyledFormat] = useState(null)
 
@@ -22,7 +24,7 @@ const ResponseFormat = ({ data }) => {
     }, 2000);
   }
 
-  console.log(`this is ${formattedData}`)
+  // console.log(`this is ${formattedData}`)
 
   function parseDocumentData(dataString) {
     const result = {};
