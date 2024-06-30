@@ -30,12 +30,12 @@ export default function Sidebar() {
 
 
   const Menus = [
-    { route : "dashboard", title: "Overview", src: <LayoutDashboardIcon /> },
-    { route : "dashboard/custom-view", title: "Custom View", src: <PieChart /> },
-    { route : "dashboard/smart-doc", title: "Smart Doc ", src:  <FileBarChart2  /> ,gap: true},
-    { route : "dashboard/tasks", title: "Tasks ", src: <Combine />  },
-    { route : "dashboard/chat-doc", title: "Chat Doc", src:  <MessagesSquare /> },
-    { route : "dashboard/settings", title: "Settings", src:  <Settings  />, gap : true },
+    { route : "/dashboard", title: "Overview", src: <LayoutDashboardIcon /> },
+    { route : "custom-view", title: "Custom View", src: <PieChart /> },
+    { route : "smart-doc", title: "Smart Doc ", src:  <FileBarChart2  /> ,gap: true},
+    { route : "tasks", title: "Tasks ", src: <Combine />  },
+    { route : "chat-doc", title: "Chat Doc", src:  <MessagesSquare /> },
+    { route : "settings", title: "Settings", src:  <Settings  />, gap : true },
     { route : "sign-out", title: "Sign Out ", src:  <Power />,  },
     ];
 
@@ -75,9 +75,9 @@ export default function Sidebar() {
               <li
                 key={index}
                 className={`flex rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-300 text-sm items-center gap-x-4 
-                ${Menu.gap ? "mt-9" : "mt-2"} ${pathname === `/${Menu.route}` && "bg-gray-900 font-medium"} `}
+                ${Menu.gap ? "mt-9" : "mt-2"} ${pathname === `/dashboard/${Menu.route}` && "bg-gray-900 font-medium"} `}
               >
-                <Link to={`/${Menu.route}`} className='flex items-center gap-x-4 w-full'>
+                <Link to={`${Menu.route}`} className='flex items-center gap-x-4 w-full'>
                   <div>{Menu.src}</div>
                   <span
                     className={`${!open && "hidden"} origin-left duration-200`}

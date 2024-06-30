@@ -103,9 +103,6 @@ const PlayGround = ({setdata}) => {
   return (
     <div data-aos="zoom-in" className="w-full pt-3 px-12 pb-12">
       <div className="w-full flex justify-center items-center">
-        <h1 className="satoshi-900 text-[18px] sm:text-[20px] md:text-[24px]">
-          Quick Playground
-        </h1>
       </div>
       <div className="w-full flex justify-center items-stretch gap-10 flex-wrap mt-8">
         <div className={"flex-grow basis-[300px] max-w-[900px]"}>

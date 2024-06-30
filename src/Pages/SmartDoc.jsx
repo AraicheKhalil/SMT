@@ -40,6 +40,7 @@ const data = [
 export default function SmartDoc() {
   const [selectedImage, setSelectedImage] = useState(data[0] || null);
   const [dataResponse,setDataResponse] = useState([])
+  const [FileToSmartDoc,setFiletoSmartDoc] = useState(null)
 
   console.log(dataResponse)
 
@@ -131,19 +132,10 @@ export default function SmartDoc() {
       <SmartDocSide data={data} onImageClick={handleImageClick}/>
 
       <div className='px-4 py-6 md:p-7 bg-gray-100 w-full mr-[450px] ml-[150px]'>
-        {/* <div>
-        <div {...getRootProps({ className: 'dropzone' })} style={styles.dropzone}>
-          <input {...getInputProps()} />
-          <p>Drag 'n' drop some files here, or click to select files</p>
-        </div>
-        <div style={styles.fileList}>
-          {renderFiles()}
-        </div>
-    </div> */}
         <PlayGround setdata={setDataResponse}  />
       </div>
 
-      <DocResult Response={dataResponse} />
+      <DocResult Response={dataResponse} setFiletoSmartDoc={setFiletoSmartDoc} />
       
     </div>
   )

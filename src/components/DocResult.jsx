@@ -25,6 +25,8 @@ import CustomView from '@/Pages/CustomView'
 import ResponseFormat from './ExtractTabs/ResponseFormat';
 import { formatResponse } from '@/Utils/ResponseFormatter';
 import JsonFormat from './ExtractTabs/JsonFormat';
+import ExtractedResponse from './ExtractTabs/extractedResponse';
+import UploadFilesToDialog from '@/Pages/uploadFilesToDialog';
 
 // const initialData = {
 //   document_type: "Passport",
@@ -112,39 +114,40 @@ import JsonFormat from './ExtractTabs/JsonFormat';
 //     "server": "Tom"
 // }
 
-function formatJsonToObject(json, parentKey = '') {
-  let formattedObject = {};
+// function formatJsonToObject(json, parentKey = '') {
+//   let formattedObject = {};
 
-  for (const key in json) {
-    if (json.hasOwnProperty(key)) {
-      const value = json[key];
-      const newKey = parentKey ? `${parentKey}.${key}` : key;
+//   for (const key in json) {
+//     if (json.hasOwnProperty(key)) {
+//       const value = json[key];
+//       const newKey = parentKey ? `${parentKey}.${key}` : key;
 
-      if (typeof value === 'object' && !Array.isArray(value)) {
-        // If the value is an object (but not an array), recurse into it
-        Object.assign(formattedObject, formatJsonToObject(value, newKey));
-      } else if (Array.isArray(value)) {
-        // If the value is an array, flatten its objects
-        value.forEach(item => {
-          if (typeof item === 'object') {
-            Object.assign(formattedObject, formatJsonToObject(item, newKey));
-          } else {
-            formattedObject[newKey] = item;
-          }
-        });
-      } else {
-        // If the value is a primitive, add it to the result
-        formattedObject[newKey] = value;
-      }
-    }
-  }
+//       if (typeof value === 'object' && !Array.isArray(value)) {
+//         // If the value is an object (but not an array), recurse into it
+//         Object.assign(formattedObject, formatJsonToObject(value, newKey));
+//       } else if (Array.isArray(value)) {
+//         // If the value is an array, flatten its objects
+//         value.forEach(item => {
+//           if (typeof item === 'object') {
+//             Object.assign(formattedObject, formatJsonToObject(item, newKey));
+//           } else {
+//             formattedObject[newKey] = item;
+//           }
+//         });
+//       } else {
+//         // If the value is a primitive, add it to the result
+//         formattedObject[newKey] = value;
+//       }
+//     }
+//   }
 
-  return formattedObject;
-}
+//   return formattedObject;
+// }
 
-export default function DocResult({Response}) {
+export default function DocResult({Response , setFiletoSmartDoc}) {
 
-  let formattedJson = formatJsonToObject(Response);
+  const [FileToResult,setFileToResult] = useState(null)
+  let formattedJson = ResponseFormat(Response);
   console.log(formattedJson);
 
   // let NewResponse = formatResponse(Response)
@@ -160,8 +163,8 @@ export default function DocResult({Response}) {
   };
 
   return (
-    <div className="min-w-[450px] min-h-screen  h-full fixed z-50 right-0 ">
-      <div className="border-b border-gray-200 w-full ">
+    <div className="max-w-[450px] w-[450px] min-w-[450px]  bg-white min-h-screen  h-full fixed z-50 right-0 ">
+      <div className="border-b border-gray-200  ">
       <Dialog >
         <DialogTrigger asChild>
           <Button className="py-3 bg-gray-900 h-fit rounded-sm m-2 font-semibold mx-2 uppercase text-xs flex items-center gap-2 ml-auto ">
@@ -173,7 +176,7 @@ export default function DocResult({Response}) {
           <DialogHeader>
             <DialogTitle className='mb-4'>Import Files</DialogTitle>
             <div >
-              <CustomView />
+              <UploadFilesToDialog setFileToResult={setFileToResult} />
             </div>
           </DialogHeader>
         </DialogContent>
@@ -190,13 +193,16 @@ export default function DocResult({Response}) {
         </div>
       </div>
 
-      <Tabs defaultValue="FINAL RESULTS" >
+      <Tabs defaultValue="FINAL RESPONSE" className=' '>
         <TabsList className=" flex justify-start gap-3 bg-white border-b">
-          <TabsTrigger className=" text-xs font-medium" value="FINAL RESULTS">FINAL RESULTS</TabsTrigger>
+          {/* <TabsTrigger className=" text-xs font-medium" value="FINAL RESULTS">FINAL RESPONSE</TabsTrigger> */}
+          <TabsTrigger className=" text-xs font-medium" value="FINAL RESPONSE">FINAL RESPONSE</TabsTrigger>
           <TabsTrigger className=" text-xs font-medium" value="JSON">JSON</TabsTrigger>
+          <TabsTrigger className=" text-xs font-medium" value="RAW DATA">RAW DATA</TabsTrigger>
+
         </TabsList>
 
-        <TabsContent value="FINAL RESULTS" className="w-full">
+        {/* <TabsContent value="FINAL RESULTS" className="w-full">
 
           <div className="bg-white  m-0 rounded-lg px-4 max-h-[400px] overflow-auto">
               <div className='flex items-center gap-3'>
@@ -204,10 +210,10 @@ export default function DocResult({Response}) {
                 <Button variant={"none"} className="h-fit p-1 bg-gray-100">
                   <PenTool size={18} className='' />  
                 </Button>
-              </div>
+              </div> */}
 
-              {formattedJson == {} ?
-              <div className=" ">
+              
+              {/* <div className=" ">
                   {Object.entries(formattedJson).map(([key, value]) => (
                       <div key={key} className="flex gap-2 flex-nowrap text-sm font-Rubik my-3 justify-between">
                           <div className='min-w-[150px] '>
@@ -221,12 +227,13 @@ export default function DocResult({Response}) {
                           </div>
                       </div>
                   ))}
-              </div>
-              : <div className='text-xs text-gray-600 mt-1'>no data available right now </div>}
+              </div> */}
+              {/* : <div className='text-xs text-gray-600 mt-1'>no data available right now </div>} */}
 
-          </div>
+          {/* </div>
 
-        </TabsContent>
+        </TabsContent> */}
+
         <TabsContent value="JSON" >
           <div className="text-sm px-4 max-w-[450px] mx-auto bg-white shadow-lg rounded-lg max-h-[400px] overflow-auto pb-2">
             <CopyToClipboard text={JSON.stringify(Response, null, 2)} onCopy={handleCopy} >
@@ -239,6 +246,54 @@ export default function DocResult({Response}) {
             </pre>
           </div>
         </TabsContent>
+        
+        <TabsContent value="FINAL RESPONSE" >
+          <div className="text-sm pl-4 pr-1 max-w-[450px] mx-auto bg-white shadow-lg rounded-lg max-h-[400px] overflow-auto pb-2">
+            {/* <CopyToClipboard text={JSON.stringify(Response, null, 2)} onCopy={handleCopy} > */}
+            <div className='flex items-center justify-between gap-3 text-gray-900'>
+                <h2 className="text-lg font-semibold font-Rubik ">Fields</h2>
+                <Dialog >
+                  <DialogTrigger asChild>
+                    <Button variant={"none"} className="h-fit p-1.5 bg-gray-100 mr-5 flex items-center gap-2">
+                      <PenTool size={18} className='' />  
+                      <div className='text-sm '>try Edit</div>
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent>
+                    <DialogHeader className={"font-bold"}>Edit Fields</DialogHeader>
+                  </DialogContent>
+                </Dialog>
+              </div> 
+            <ResponseFormat data={Response} />
+              {/* <Button className="text-xs bg-gray-400 text-white font-bold rounded-lg h-fit w-fit py-2 px-3 mb-3 ">
+                {copied ? 'Copied!' : 'Copy JSON'}
+              </Button> */}
+            {/* </CopyToClipboard> */}
+            {/* <pre className="bg-gray-100 p-4 rounded overflow-auto">
+              {JSON.stringify(Response, null, 2)}
+            </pre> */}
+          </div>
+        </TabsContent>
+        <TabsContent value="RAW DATA" >
+          <div className="text-sm px-4 max-w-[450px] mx-auto bg-white shadow-lg rounded-lg max-h-[400px] overflow-auto pb-2">
+            {/* <CopyToClipboard text={JSON.stringify(Response, null, 2)} onCopy={handleCopy} > */}
+            <pre className='bg-gray-100 p-4 rounded overflow-auto'>
+              <ExtractedResponse data={Response} />
+
+            </pre>
+              {/* <Button className="text-xs bg-gray-400 text-white font-bold rounded-lg h-fit w-fit py-2 px-3 mb-3 ">
+                {copied ? 'Copied!' : 'Copy JSON'}
+              </Button> */}
+            {/* </CopyToClipboard> */}
+            {/* <pre className="bg-gray-100 p-4 rounded overflow-auto">
+              {JSON.stringify(Response, null, 2)}
+            </pre> */}
+          </div>
+        </TabsContent>
+        {/* <TabsContent value="RAW-DATA" >
+          <ResponseFormat data={Response} />
+        </TabsContent> */}
+        {/* <ExtractedResponse data={responseData} /> */}
       </Tabs>
 
       <div className='w-full flex text-xs items-center h-[60px]  border-t border-gray-200 bg-gray-50 shadow-inner absolute bottom-0 right-0'>

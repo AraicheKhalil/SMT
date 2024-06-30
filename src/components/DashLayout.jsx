@@ -15,6 +15,7 @@ function DashLayout() {
   const noSidebarRoutes = ['/dashboard/smart-doc'];
   const shouldRenderSidebar = !noSidebarRoutes.includes(location.pathname);
 
+  console.log(location.pathname)
 
   if (!shouldRenderSidebar) {
     setOpen(false)
