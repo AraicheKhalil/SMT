@@ -31,7 +31,7 @@ export default function Tasks() {
   return (
     <>
       <div className='Tasks px-4 py-6 md:p-7'>
-        <TitlePage title={"All Tasks"} description={"Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatem nostrum laboriosam deleniti tempora dolores "} />
+        <TitlePage title={"All Tasks"}  />
         
         <div className='table-statics flex items-center justify-between bg-gray-100 rounded-xl py-4 px-8 flex-wrap gap-6 shadow-lg'>
         {data.map((item,index) => (

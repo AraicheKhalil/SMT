@@ -2,27 +2,34 @@
 
 
 
+import React from 'react'
 
-
-
-
-
-
-
-
-
-import React from 'react';
-import DocumentProcessor from "@/components/DocumentProcessor/DocumentProcessor";
-
-const CustomView = () => {
+export default function CustomView() {
   return (
-    <div className="container mx-auto p-4">
-      <DocumentProcessor />
-    </div>
-  );
-};
+    <div>This Page is</div>
+  )
+}
 
-export default CustomView;
+
+
+
+
+
+
+
+
+// import React from 'react';
+// import DocumentProcessor from "@/components/DocumentProcessor/DocumentProcessor";
+
+// const CustomView = () => {
+//   return (
+//     <div className="container mx-auto p-4">
+//       <DocumentProcessor />
+//     </div>
+//   );
+// };
+
+// export default CustomView;
 
 
 

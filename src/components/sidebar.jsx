@@ -31,7 +31,7 @@ export default function Sidebar() {
 
   const Menus = [
     { route : "", title: "Overview", src: <LayoutDashboardIcon /> },
-    { route : "custom-view", title: "Custom View", src: <PieChart /> },
+    // { route : "custom-view", title: "Custom View", src: <PieChart /> },
     { route : "smart-doc", title: "Smart Doc ", src:  <FileBarChart2  /> ,gap: true},
     { route : "tasks", title: "Tasks ", src: <Combine />  },
     { route : "chat-doc", title: "Chat Doc", src:  <MessagesSquare /> },

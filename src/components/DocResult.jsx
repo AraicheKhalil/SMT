@@ -51,7 +51,7 @@ export default function DocResult({Response , setFiletoSmartDoc}) {
 
   return (
     <div className="max-w-[450px] w-[450px] min-w-[450px]  bg-white min-h-screen  h-full fixed z-50 right-0 ">
-      <div className="border-b border-gray-200  ">
+      {/* <div className="border-b border-gray-200  ">
       <Dialog >
         <DialogTrigger asChild>
           <Button className="py-3 bg-gray-900 h-fit rounded-sm m-2 font-semibold mx-2 uppercase text-xs flex items-center gap-2 ml-auto ">
@@ -78,7 +78,7 @@ export default function DocResult({Response , setFiletoSmartDoc}) {
         >
           {"Pending"}
         </div>
-      </div>
+      </div> */}
 
       <Tabs defaultValue="JSON" className=' '>
         <TabsList className=" flex justify-start gap-3 bg-white border-b">
@@ -87,8 +87,8 @@ export default function DocResult({Response , setFiletoSmartDoc}) {
           <TabsTrigger className=" text-xs font-medium" value="FINAL RESPONSE">FINAL RESPONSE</TabsTrigger>
         </TabsList>
 
-        <TabsContent value="JSON" >
-          <div className="text-sm px-4 max-w-[450px] mx-auto bg-white shadow-lg rounded-lg max-h-[400px] overflow-auto pb-2">
+        <TabsContent value="JSON" className="h-full" >
+          <div className="text-sm px-4 max-w-[450px] mx-auto bg-white shadow-lg rounded-lg max-h-[500px] overflow-auto pb-2">
             <CopyToClipboard text={JSON.stringify(Response, null, 2)} onCopy={handleCopy} >
               <Button className="text-xs bg-gray-400 text-white font-bold rounded-lg h-fit w-fit py-2 px-3 mb-3 ">
                 {copied ? 'Copied!' : 'Copy JSON'}
@@ -101,7 +101,7 @@ export default function DocResult({Response , setFiletoSmartDoc}) {
         </TabsContent>
         
         <TabsContent value="FINAL RESPONSE" >
-          <div className="text-sm pl-4 pr-1 max-w-[450px] mx-auto bg-white shadow-lg rounded-lg max-h-[400px] overflow-auto pb-2">
+          <div className="text-sm pl-4 pr-1 max-w-[450px] mx-auto bg-white shadow-lg rounded-lg max-h-[500px] overflow-auto pb-2 ">
             <div className='flex items-center justify-between gap-3 text-gray-900'>
                 <h2 className="text-lg font-semibold font-Rubik ">Fields</h2>
                 {/* <Dialog >
@@ -120,7 +120,7 @@ export default function DocResult({Response , setFiletoSmartDoc}) {
           </div>
         </TabsContent>
         <TabsContent value="RAW DATA" >
-          <div className="text-sm px-4 max-w-[450px] mx-auto bg-white shadow-lg rounded-lg max-h-[400px] overflow-auto pb-2">
+          <div className="text-sm px-4 max-w-[450px] mx-auto bg-white shadow-lg rounded-lg max-h-[550px] overflow-auto pb-2">
             <pre className='bg-gray-100 p-4 rounded overflow-auto'>
               <ExtractedResponse data={Response} />
             </pre>
@@ -128,9 +128,15 @@ export default function DocResult({Response , setFiletoSmartDoc}) {
         </TabsContent>
       </Tabs>
 
-      <div className='w-full flex text-xs items-center h-[60px]  border-t border-gray-200 bg-gray-50 shadow-inner absolute bottom-0 right-0'>
+      <div className='w-full flex text-xs items-center h-[60px] pr-4  border-t border-gray-200 bg-white shadow-inner absolute bottom-0 right-0'>
         <Button className="bg-green-700 flex items-center gap-2 ml-auto text-xs mr-4 ">
-          <Check size={15} /> Improve file 
+          <Check size={15} /> Approve  
+        </Button>
+        <Button className="bg-orange-500 flex items-center gap-2 ml-auto text-xs mr-4 ">
+          <Check size={15} /> Review   
+        </Button>
+        <Button className="bg-blue-500 flex items-center gap-2 ml-auto text-xs mr-4 ">
+          <Check size={15} /> Export    
         </Button>
       </div>
     </div>
