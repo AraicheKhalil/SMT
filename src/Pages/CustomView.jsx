@@ -2,13 +2,49 @@
 
 
 
-import React from 'react'
 
-export default function CustomView() {
+
+
+
+
+
+
+
+
+import React from 'react';
+import DocumentProcessor from "@/components/DocumentProcessor/DocumentProcessor";
+
+const CustomView = () => {
   return (
-    <div>CustomView</div>
-  )
-}
+    <div className="container mx-auto p-4">
+      <DocumentProcessor />
+    </div>
+  );
+};
+
+export default CustomView;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -104,6 +140,11 @@ export default function CustomView() {
 // };
 
 // export default CustomView;
+
+
+
+
+
 
 // // // CustomView.js
 // // import React, { useCallback, useState } from 'react';

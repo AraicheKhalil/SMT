@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {  useState } from "react";
 import { formatDocument, formatForCopy } from "../../Utils/ResponseFormatter";
 import { IoCopy } from "react-icons/io5";
 import { LuCopyCheck } from "react-icons/lu";
@@ -6,25 +6,11 @@ import { Check } from "lucide-react";
 import EditableDocs from "../EditableDocs";
 
 const ResponseFormat = ({ data }) => {
-  let formattedData = formatDocument(data);
-  let copyData = formatForCopy(data);
+  let [formattedData,setFormatedData] = useState(formatDocument(data));
 
-  console.log()
-
-  const [copySuccess, setCopySuccess] = useState(false);
-  const [styledFormat,setStyledFormat] = useState(null)
-
-
-  async function copyToClipboard(e) {
-    await navigator.clipboard.writeText(copyData);
-    e.target.focus();
-    setCopySuccess(true);
-    setTimeout(() => {
-      setCopySuccess(false);
-    }, 2000);
-  }
-
-  // console.log(`this is ${formattedData}`)
+  const [editableData, setEditableData] = useState(parseDocumentData(formattedData));
+  const [editMode, setEditMode] = useState(null);
+  const [newValue, setNewValue] = useState('');
 
   function parseDocumentData(dataString) {
     const result = {};
@@ -70,53 +56,58 @@ const ResponseFormat = ({ data }) => {
 
 }
 
-// console.log(parseDocumentData(formattedData))
+  const handleValueClick = (key) => {
+    setEditMode(key);
+    setNewValue(editableData[key]);
+  };
 
-  return formattedData ? (
-    <div className="w-full overflow-x-hidden text-clip h-[350px] overflow-y-auto">
-      <div className="flex justify-end items-center">
-        <button
-          onClick={copyToClipboard}
-          className={`${
-            copySuccess
-              ? "bg-[--black] text-green-400"
-              : "bg-[--black] text-[--golden] hover:bg-[--golden] hover:text-[--black]"
-          } satoshi-700 py-1 px-4  rounded-md transition-all ease-in-out duration-500  flex justify-center items-center gap-2`}
-        >
-          {copySuccess ? (
-            <>
-              <LuCopyCheck />
-              Copied
-            </>
-          ) : (
-            <>
-              <IoCopy />
-              Copy
-            </>
-          )}
-        </button>
-      </div>
-      {/* text-clip whitespace-pre-wrap */}
-      <div className="">
-        {/* {formattedData} */}
-        {Object.entries(parseDocumentData(formattedData)).map(([key, value]) => (
-          <div key={key} className="flex gap-2 flex-nowrap text-sm font-Rubik my-3 justify-between mr-1 ">
-              <div className='min-w-[150px] '>
-                <div className="text-gray-500">{key.replace(/_/g, ' ')}</div>
-              </div>
-              <div className='full w-full max-w-[200px] '>
-                <div className='line-clamp-2'>{value}</div>
-              </div>
-              <div className=''>
-                <Check size={18} className='border border-green-700 text-green-800 rounded-full p-1' /> 
-              </div>
+  const handleInputChange = (e) => {
+    setNewValue(e.target.value);
+  };
+
+  const handleBlur = (key) => {
+    setEditableData({ ...editableData, [key]: newValue });
+    setEditMode(null);
+  };
+
+
+  return (
+  <>
+    {editableData ? 
+    <div className="">
+        {Object.entries(editableData).map(([key, value]) => (
+        <div key={key} className="flex gap-2 flex-nowrap text-sm font-Rubik my-3 justify-between mr-1">
+          <div className='min-w-[150px]'>
+            <div className="text-gray-500">{key.replace(/_/g, ' ')}</div>
           </div>
-        ))}
+          <div className='full w-full max-w-[200px]'>
+            {editMode === key ? (
+              <input
+                type="text"
+                value={newValue}
+                onChange={handleInputChange}
+                onBlur={() => handleBlur(key)}
+                autoFocus
+                className="w-full border rounded px-1"
+              />
+            ) : (
+              <div className='line-clamp-2' onClick={() => handleValueClick(key)}>{value}</div>
+            )}
+          </div>
+          <div className=''>
+            <Check size={18} className='border border-green-700 text-green-800 rounded-full p-1' />
+          </div>
+        </div>
+      ))}
+
+      
       </div>
-    </div>
-  ) : (
+   : (
     <h1>No formated data</h1>
-  );
+  )}
+  
+  </>
+  )
 };
 
 export default ResponseFormat;

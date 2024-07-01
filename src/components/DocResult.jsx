@@ -36,6 +36,7 @@ const documentData = {
 
 export default function DocResult({Response , setFiletoSmartDoc}) {
 
+  console.log(Response)
   
 
   const [FileToResult,setFileToResult] = useState(null)
@@ -79,11 +80,11 @@ export default function DocResult({Response , setFiletoSmartDoc}) {
         </div>
       </div>
 
-      <Tabs defaultValue="FINAL RESPONSE" className=' '>
+      <Tabs defaultValue="JSON" className=' '>
         <TabsList className=" flex justify-start gap-3 bg-white border-b">
-          <TabsTrigger className=" text-xs font-medium" value="FINAL RESPONSE">FINAL RESPONSE</TabsTrigger>
           <TabsTrigger className=" text-xs font-medium" value="JSON">JSON</TabsTrigger>
           <TabsTrigger className=" text-xs font-medium" value="RAW DATA">RAW DATA</TabsTrigger>
+          <TabsTrigger className=" text-xs font-medium" value="FINAL RESPONSE">FINAL RESPONSE</TabsTrigger>
         </TabsList>
 
         <TabsContent value="JSON" >
@@ -103,7 +104,7 @@ export default function DocResult({Response , setFiletoSmartDoc}) {
           <div className="text-sm pl-4 pr-1 max-w-[450px] mx-auto bg-white shadow-lg rounded-lg max-h-[400px] overflow-auto pb-2">
             <div className='flex items-center justify-between gap-3 text-gray-900'>
                 <h2 className="text-lg font-semibold font-Rubik ">Fields</h2>
-                <Dialog >
+                {/* <Dialog >
                   <DialogTrigger asChild>
                     <Button variant={"none"} className="h-fit p-1.5 bg-gray-100 mr-5 flex items-center gap-2">
                       <PenTool size={18} className='' />  
@@ -113,9 +114,9 @@ export default function DocResult({Response , setFiletoSmartDoc}) {
                   <DialogContent className="max-h-[400px] overflow-auto">
                     <EditableDocs documentData={documentData} />
                   </DialogContent>
-                </Dialog>
+                </Dialog> */}
               </div> 
-            <ResponseFormat data={Response} />
+              <ResponseFormat data={Response} />
           </div>
         </TabsContent>
         <TabsContent value="RAW DATA" >

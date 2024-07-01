@@ -10,6 +10,7 @@ import { TbZoomReset } from "react-icons/tb";
 const classess =
   "p-2 text-base sm:text-xl md:text-2xl border border-black rounded-md";
 
+
 const Controls = () => {
   const { zoomIn, zoomOut, resetTransform } = useControls();
 
@@ -36,11 +37,13 @@ const Filedrop = ({
   description,
   icon,
 }) => {
+
+  console.log(selectedFiles)
   return (
     <div className="flex-grow basis-48 rounded-md border-[2px] border-dashed pb-8 cursor-pointer">
       {selectedFiles && (
         <>
-          <div className="w-full flex justify-center items-center overflow-auto flex-col">
+          <div className="w-full flex justify-center items-center overflow-auto flex-col max-h-[300px]">
             <TransformWrapper
               initialScale={1}
               initialPositionX={0}
@@ -63,7 +66,7 @@ const Filedrop = ({
           </div>
         </>
       )}
-      <Dropzone onDrop={onDrop} multiple={false}>
+      {/* <Dropzone onDrop={onDrop} multiple={false}>
         {({ getRootProps, getInputProps }) => (
           <section className="px-2">
             <div
@@ -87,7 +90,32 @@ const Filedrop = ({
             </div>
           </section>
         )}
-      </Dropzone>
+      </Dropzone> */}
+      <Dropzone onDrop={onDrop} multiple={true}>
+  {({ getRootProps, getInputProps }) => (
+    <section className="px-2">
+      <div
+        {...getRootProps({
+          className: "dropzone",
+        })}
+      >
+        <input {...getInputProps()} />
+        {error && (
+          <div className="text-[13px] font-semibold text-center text-red-400">
+            <p>**{error}**</p>
+          </div>
+        )}
+        <h3 className="satoshi-500 mt-2 text-[12px] text-center md:text-[14px] xl:text-[16px]">
+          {headerText}{" "}
+          <span className="text-blue-700 satoshi-500">browse</span>
+        </h3>
+        <p className="text-[--gray] text-[11px] sm:text-[12px] md:text-[14px] text-center">
+          {description}
+        </p>
+      </div>
+    </section>
+  )}
+</Dropzone>
     </div>
   );
 };

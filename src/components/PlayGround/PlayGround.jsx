@@ -62,8 +62,12 @@ const PlayGround = ({setdata,setFiletoSmartDoc}) => {
     setDocumentType(e.target.value);
   }
 
+  console.log(selectedFile)
+  console.log(fileUpload)
+
   const onDropImage = (files) => {
     // Check if the dropped file has an allowed extension
+    console.log(files)
     errorHandler(null);
     const allowedExtensions = ["png", "jpg", "jpeg", "pdf"];
     const fileExtension = files[0].name.split(".").pop().toLowerCase();
@@ -114,12 +118,14 @@ const PlayGround = ({setdata,setFiletoSmartDoc}) => {
     // }
   }
 
+
+
   return (
-    <div data-aos="zoom-in" className="w-full pt-3 px-12 pb-12">
+    <div data-aos="zoom-in" className="w-full  px-12 pb-12">
       <div className="w-full flex justify-center items-center">
       </div>
       <div className="w-full flex justify-center items-stretch gap-10 flex-wrap mt-8">
-        <div className={"flex-grow basis-[300px] max-w-[900px]"}>
+        <div className={"flex-grow basis-[300px] max-w-[900px] max-h"}>
           <Filedrop
             onDrop={onDropImage}
             selectedFiles={selectedFile}
@@ -135,7 +141,7 @@ const PlayGround = ({setdata,setFiletoSmartDoc}) => {
             <Button onClick={handleSubmit} text="Extract" />
           </div>
         </div>
-        {fileUpload ? (
+        {/* {fileUpload ? (
           <div className="flex-grow basis-[400px] ">
             <div className="w-full flex justify-start items-start flex-col">
               <div className="w-full flex justify-start items-stretch border border-[--black]">
@@ -163,7 +169,7 @@ const PlayGround = ({setdata,setFiletoSmartDoc}) => {
               </div>
             </div>
           </div>
-        ) : null}
+        ) : null} */}
       </div>
     </div>
   );
