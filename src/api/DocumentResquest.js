@@ -37,7 +37,7 @@ export const uploadFiles = async (files) => {
   });
 
   try {
-    const response = await axios.post('http://dsfsmd-container.eastus.azurecontainer.io:8000/process-document/', formData, {
+    const response = await axios.post('https://dsfsmd.fly.dev/process-document/', formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
