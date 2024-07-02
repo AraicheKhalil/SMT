@@ -1,5 +1,5 @@
 import {  Combine, FileBarChart2, LayoutDashboardIcon, ListTodo, MessagesSquare, NotebookTabs, PieChart, Power, Settings } from 'lucide-react'
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import SideBarContext from '@/hooks/context/SideBarContext';
 import {  NavLink, useLocation } from 'react-router-dom';
 
@@ -7,26 +7,8 @@ import {  NavLink, useLocation } from 'react-router-dom';
 
 export default function Sidebar() {
 
+  const { open, setOpen } = useContext(SideBarContext);
   const {pathname} = useLocation()
-
-  useEffect(() => {
-
-    function SidebarToggle() {
-      if (window.innerWidth <= "1000") {
-        setOpen(false);
-      } else {
-        setOpen(true);
-      }
-    }
-
-    window.addEventListener('resize', SidebarToggle);
-
-    SidebarToggle();
-
-    // return () => {
-    //   window.removeEventListener('resize', SidebarToggle);
-    // };
-  }, []);
 
 
   const Menus = [
@@ -39,7 +21,7 @@ export default function Sidebar() {
     { route : "sign-out", title: "Sign Out ", src:  <Power />,  },
     ];
 
-    const { open, setOpen } = useContext(SideBarContext);
+    
 
   return (
     // <div className="sidebar w-[250px] bg-gray-950 border-r ${open ? "w-[250px]" : "w-[80px]"}">

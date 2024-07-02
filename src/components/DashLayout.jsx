@@ -3,7 +3,7 @@
 import { Outlet, useLocation } from 'react-router-dom'
 import Sidebar from './sidebar'
 import Header from './header'
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import SideBarContext from '@/hooks/context/SideBarContext';
 
 
@@ -12,16 +12,18 @@ function DashLayout() {
   const location = useLocation();
   const { open, setOpen } = useContext(SideBarContext);
 
-  const noSidebarRoutes = ['/dashboard/smart-doc'];
-  const shouldRenderSidebar = !noSidebarRoutes.includes(location.pathname);
+  // const noSidebarRoutes = ['/dashboard/smart-doc'];
+  // const shouldRenderSidebar = !noSidebarRoutes.includes(location.pathname);
 
-  console.log(location.pathname)
+  // console.log(location.pathname)
 
-  if (!shouldRenderSidebar) {
-    setOpen(false)
-  }else{
-    setOpen(prevValue => !prevValue)
-  }
+  // if (!shouldRenderSidebar) {
+  //   setOpen(false)
+  // }else{
+  //   setOpen(prevValue => !prevValue)
+  // }
+
+  // const [open , setOpen] = useState(true)
 
 
 
@@ -33,7 +35,7 @@ function DashLayout() {
       </div>
       {/* right side/content of the page */}
       <div className={`content-wrapper transition  ${open ? "ml-[250px]" : "ml-[80px]"} max-sm:ml-0`}>
-        {shouldRenderSidebar && <Header />  }
+        { <Header />  }
         <Outlet />
       </div>
     </main>

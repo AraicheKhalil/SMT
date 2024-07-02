@@ -45,7 +45,7 @@ export default function App() {
       <div className='font-Poppins' >
         <RouterProvider router={router} />
       </div>
-    </SideBarContext.Provider>
+     </SideBarContext.Provider> 
   )
 }
 
