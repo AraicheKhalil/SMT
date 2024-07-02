@@ -12,16 +12,8 @@ function DashLayout() {
   const location = useLocation();
   const { open, setOpen } = useContext(SideBarContext);
 
-  // const noSidebarRoutes = ['/dashboard/smart-doc'];
-  // const shouldRenderSidebar = !noSidebarRoutes.includes(location.pathname);
-
-  // console.log(location.pathname)
-
-  // if (!shouldRenderSidebar) {
-  //   setOpen(false)
-  // }else{
-  //   setOpen(prevValue => !prevValue)
-  // }
+  let noSidebarRoutes = ['/dashboard/smart-doc'];
+  let shouldRenderHeader = !noSidebarRoutes.includes(location.pathname);
 
   // const [open , setOpen] = useState(true)
 
@@ -35,7 +27,7 @@ function DashLayout() {
       </div>
       {/* right side/content of the page */}
       <div className={`content-wrapper transition  ${open ? "ml-[250px]" : "ml-[80px]"} max-sm:ml-0`}>
-        { <Header />  }
+        {shouldRenderHeader && <Header />  }
         <Outlet />
       </div>
     </main>
