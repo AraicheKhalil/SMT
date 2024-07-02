@@ -5,7 +5,7 @@ export const scanDocument = async (payload) => {
     const formData = new FormData();
     formData.append(`files`, payload);
     const response = await axios.post(
-      "http://dsfsmd-container.eastus.azurecontainer.io:8000/process-document/",
+      "https://dsfsmd.fly.dev/process-document/",
       formData,
       {
         headers: { "Content-Type": "multipart/form-data" },
