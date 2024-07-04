@@ -250,7 +250,7 @@ const DocResult = ({ images, selectedImageIndex }) => {
       <Tabs defaultValue="JSON">
         <TabsList className="flex justify-start gap-3 bg-white border-b">
           <TabsTrigger className="text-xs font-medium" value="JSON">JSON</TabsTrigger>
-          <TabsTrigger className="text-xs font-medium" value="RAW DATA">RAW DATA</TabsTrigger>
+          {/* <TabsTrigger className="text-xs font-medium" value="RAW DATA">RAW DATA</TabsTrigger> */}
           <TabsTrigger className="text-xs font-medium" value="FINAL RESPONSE">FINAL RESPONSE</TabsTrigger>
           <TabsTrigger className="text-xs font-medium" value="EXCEL">EXCEL</TabsTrigger>
         </TabsList>
@@ -277,13 +277,13 @@ const DocResult = ({ images, selectedImageIndex }) => {
           </div>
         </TabsContent>
 
-        <TabsContent value="RAW DATA">
+        {/* <TabsContent value="RAW DATA">
           <div className="text-sm px-4 max-w-[450px] mx-auto bg-white shadow-lg rounded-lg max-h-[500px] overflow-auto pb-2">
             <pre className='bg-gray-100 p-4 rounded overflow-auto'>
               <ExtractedResponse data={Response} />
             </pre>
           </div>
-        </TabsContent>
+        </TabsContent> */}
 
         <TabsContent value="EXCEL">
           <div className="text-sm px-4 max-w-[450px] mx-auto bg-white shadow-lg rounded-lg max-h-[500px] overflow-auto pb-2">
