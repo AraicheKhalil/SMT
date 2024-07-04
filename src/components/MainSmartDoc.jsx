@@ -2,7 +2,7 @@ import React from 'react';
 import { useDropzone } from 'react-dropzone';
 
 
-const MainSmartDoc = ({ onDrop, selectedImageIndex, previews, handleUpload }) => {
+const MainSmartDoc = ({ onDrop, selectedImageIndex, previews, handleUpload  }) => {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
   return (

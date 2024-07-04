@@ -41,14 +41,14 @@ import { IoReload } from 'react-icons/io5';
 
 const SmartDocSide = ({ previews, selectedImageIndex, setSelectedImageIndex }) => {
   return (
-    <div className="absolute border-r-2 border-gray-400 bg-gray-200 min-w-40 max-w-[150px] py-4 overflow-y-auto min-h-screen ">
+    <div className="absolute border-r-2 border-gray-400 bg-gray-200 min-w-40 max-w-[150px] py-4  min-h-screen ">
       <Button veriant={"outline"}  onClick={() => setSelectedImageIndex(null)} className="btn btn-primary mb-2 ml-2 bg-gray-900">  Reset <IoReload size={20} className='ml-2' /></Button >
-      <div className="overflow-y-auto h-full">
+      <div className="overflow-scroll h-full">
         {previews.map((preview, index) => (
           <div
             key={index}
             // className={` cursor-pointer ${selectedImageIndex === index ? 'bg-blue-500 rounded' : ''}`}
-            className='c cursor-pointer mx-1.5 my-2'
+            className='c cursor-pointer mx-1.5 my-2 '
             onClick={() => setSelectedImageIndex(index)}
           >
             <img src={preview} alt={`Document ${index + 1}`} className={` object-cover  w-full rounded-xl h-[100px] border-[3px] ${selectedImageIndex === index ? 'border border-blue-500' : ""}`} />

@@ -42,6 +42,7 @@ const SmartDoc = () => {
   const [selectedImageIndex, setSelectedImageIndex] = useState(null);
   const [previews, setPreviews] = useState([]); // For storing preview images
   const [selectedFiles, setSelectedFiles] = useState([]); // For storing selected files
+  const [loading,setLoading] = useState(false)
 
   const onDrop = useCallback((acceptedFiles) => {
     const previews = acceptedFiles.map(file => URL.createObjectURL(file));
@@ -55,14 +56,17 @@ const SmartDoc = () => {
 
     const isMultiple = selectedFiles.length > 1;
     const filesToUpload = isMultiple ? selectedFiles : [selectedFiles[selectedImageIndex]];
-
     try {
+      setLoading(true); // Set loading to true before the API call
       const uploadedData = await uploadFiles(filesToUpload);
       const parsedData = uploadedData.map(data => formatResponse([data]));
 
       setImages(parsedData);
+      
     } catch (error) {
       console.error('Error processing files:', error);
+    } finally {
+      setLoading(false); // Set loading to false after the API call
     }
   };
 
@@ -78,6 +82,7 @@ const SmartDoc = () => {
         selectedImageIndex={selectedImageIndex}
         previews={previews}
         handleUpload={handleUpload} // Pass the handleUpload function to the CenterPanel
+        loading={loading} // Pass the loading state to the CenterPanel
       />
       {/* {selectedImageIndex !== null && ( */}
         <DocResult

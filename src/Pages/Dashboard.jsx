@@ -1,6 +1,7 @@
 
 import TinyBarChart from '@/components/Charts/TinyBarChart'
 import TinyLineChart from '@/components/Charts/TinyLineChart'
+import Dashdropzone from '@/components/dashdropzone'
 import { ArrowRight, History, ShoppingBag, TrendingDown, TrendingUp, User } from 'lucide-react'
 import React from 'react'
 
@@ -41,7 +42,6 @@ const data = [
 
 const maxCount = Math.max(...data.map(item => item.count));
 
-console.log(Number(UserDataST[2].incressment))
 
 export default  function Dashboard() {
   return (
@@ -80,6 +80,10 @@ export default  function Dashboard() {
 
             </div>
           ))}
+        </div>
+
+        <div className='font-Rubik  mt-5 p-4  border shadow-lg bg-gray-100 rounded-xl'>
+          <Dashdropzone />
         </div>
 
         <div className='flex pt-5 gap-5 flex-wrap md:flex-nowrap '>

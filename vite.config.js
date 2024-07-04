@@ -10,6 +10,10 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  server: {
+    host: 'localhost',
+    port: 3000
+  }
   // build: {
   //   chunkSizeWarningLimit: 1600,
   // },
