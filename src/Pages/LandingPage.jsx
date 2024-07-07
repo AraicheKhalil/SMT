@@ -10,7 +10,7 @@ import Usage from "@/components/usage/index"
 import './home.css'
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-
+import "./home.css"
 // import UseCase from "../../Components/UseCase/UseCase";
 
 const LandingPage = () => {

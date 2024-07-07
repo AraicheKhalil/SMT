@@ -1,9 +1,7 @@
-// http://dsfsmd-container.eastus.azurecontainer.io:8000/process-document/'
+// // http://dsfsmd-container.eastus.azurecontainer.io:8000/process-document/'
+// // https://dsfsmd.fly.dev/process-document/
 
-// https://dsfsmd.fly.dev/process-document/
 
-
-import { formatResponse } from '@/Utils/ResponseFormatter';
 import axios from 'axios';
 
 export const uploadFiles = async (files) => {
@@ -29,46 +27,25 @@ export const uploadFiles = async (files) => {
 
 
 
-// export const ConvertFiles = async (files) => {
-//   const formData = new FormData();
-//   files.forEach(file => {
-//     console.log(file)
-//     formData.append('pdfFile', file);
-//   });
-
-//   console.log(formData)
-
-//   try {
-//     const response = await axios.post('http://dsfsmd-container.eastus.azurecontainer.io:8000/convert/pdf-to-image/', formData, {
-//       headers: {
-//         'Content-Type': 'multipart/form-data',
-//       },
-//       mode: 'no-cors',
-//     });
-    
-//     console.log(response)
-//     return response;
-//   } catch (error) {
-//     console.error('Error uploading files:', error);
-//     throw error;
-//   }
-// };
 
 
-export const ConvertFiles = async (files) => {
+export const ConvertFiles = async (files,converterType) => {
+  // let url = `http://dsfsmd-container.eastus.azurecontainer.io:8000/convert/${converterType}/`;
+
+  console.log(files)
+
   const promises = files.map(file => {
     const formData = new FormData();
     formData.append('file', file);  // Use the correct field name expected by the backend
     
-    return axios.post('http://dsfsmd-container.eastus.azurecontainer.io:8000/convert/pdf-to-image/', formData, {
+    return axios.post('https://dsfsmd.fly.dev/convert/pdf-to-image/', formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
       },
-      responseType: 'blob',  // This is important to handle binary data
-    }).then(response => ({
-      filename: file.name.replace('.pdf', '.jpg'),
-      blob: response.data
-    }));
+      // responseType: 'blob' ,  // This is important to handle binary data
+    })
+
+    // return response.data;
   });
 
   try {
@@ -79,6 +56,7 @@ export const ConvertFiles = async (files) => {
     throw error;
   }
 };
+
 
 
 

@@ -43,6 +43,7 @@ const SmartDoc = () => {
   const [previews, setPreviews] = useState([]); // For storing preview images
   const [selectedFiles, setSelectedFiles] = useState([]); // For storing selected files
   const [loading,setLoading] = useState(false)
+  const [open,setOpen] = useState(false)
 
   const onDrop = useCallback((acceptedFiles) => {
     const previews = acceptedFiles.map(file => URL.createObjectURL(file));
@@ -71,11 +72,13 @@ const SmartDoc = () => {
   };
 
   return (
-    <div className="flex min-h-screen relative">
+    <div className="flex min-h-screen relative bg-gray-100 transition">
       <SmartDocSide
         previews={previews}
         selectedImageIndex={selectedImageIndex}
         setSelectedImageIndex={setSelectedImageIndex}
+        open={open}
+        setOpen={setOpen}
       />
       <MainSmartDoc
         onDrop={onDrop}
@@ -83,11 +86,13 @@ const SmartDoc = () => {
         previews={previews}
         handleUpload={handleUpload} // Pass the handleUpload function to the CenterPanel
         loading={loading} // Pass the loading state to the CenterPanel
+        open={open}
       />
       {/* {selectedImageIndex !== null && ( */}
         <DocResult
           images={images}
           selectedImageIndex={selectedImageIndex}
+          loading={loading}
         />
       {/* // )} */}
     </div>

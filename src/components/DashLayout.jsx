@@ -12,8 +12,9 @@ function DashLayout() {
   const location = useLocation();
   const { open, setOpen } = useContext(SideBarContext);
 
-  let noSidebarRoutes = ['/dashboard/smart-doc'];
-  let shouldRenderHeader = !noSidebarRoutes.includes(location.pathname);
+  let noHeaderInSmartDoc = ['/dashboard/smart-doc'];
+  let noHeaderInchat = ['/dashboard/chat-doc'];
+  let shouldRenderHeader = !noHeaderInSmartDoc.includes(location.pathname) && !noHeaderInchat.includes(location.pathname);
 
   // const [open , setOpen] = useState(true)
 

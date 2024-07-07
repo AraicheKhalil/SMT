@@ -15,6 +15,8 @@ import "aos/dist/aos.css";
 import LandingPage from './Pages/LandingPage';
 import Login from './Pages/Login';
 import Signup from './Pages/Signup';
+import Tools from './Pages/Tools';
+import ToolsTypes from './Pages/ToolsType';
 
 
 export default function App() {
@@ -34,6 +36,10 @@ export default function App() {
         <Route index element={<Dashboard />} />
         <Route path='smart-doc' element={<SmartDoc />} />
         <Route path='tasks' element={<Tasks/>} />
+        <Route path='tools' element={<Tools/>} />
+        <Route path='tools/:type'>
+          <Route index element={<ToolsTypes />} />
+        </Route>
         <Route path='chat-doc' element={<ChatDocs/>} />
         <Route path='settings' element={<Settings/>} />
         <Route path='custom-view' element={<CustomView/>} />

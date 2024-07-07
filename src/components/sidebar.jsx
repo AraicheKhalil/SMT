@@ -1,7 +1,8 @@
-import { Combine, FileBarChart2, LayoutDashboardIcon, ListTodo, MessagesSquare, NotebookTabs, PieChart, Power, Settings } from 'lucide-react'
+import { Combine, FileBarChart2, LayoutDashboardIcon, ListTodo, MessagesSquare, NotebookTabs, PieChart, Power, Settings, Telescope } from 'lucide-react'
 import React, { useContext, useEffect, useState } from 'react'
 import SideBarContext from '@/hooks/context/SideBarContext';
 import { NavLink, useLocation } from 'react-router-dom';
+import { FaTools } from 'react-icons/fa';
 
 
 
@@ -12,10 +13,11 @@ export default function Sidebar() {
 
 
   const Menus = [
-    { route: "", title: "Overview", src: <LayoutDashboardIcon /> },
+    { route: ".", title: "Overview", src: <LayoutDashboardIcon /> },
     // { route : "custom-view", title: "Custom View", src: <PieChart /> },
     { route: "smart-doc", title: "Smart Doc ", src: <FileBarChart2 />, gap: true },
     { route: "tasks", title: "Tasks ", src: <Combine /> },
+    { route: "tools", title: "Tools ", src: <Telescope /> },
     { route: "chat-doc", title: "Chat Doc", src: <MessagesSquare /> },
     { route: "settings", title: "Settings", src: <Settings />, gap: true },
     { route: "sign-out", title: "Sign Out ", src: <Power />, },
@@ -25,7 +27,7 @@ export default function Sidebar() {
 
   return (
     // <div className="sidebar w-[250px] bg-gray-950 border-r ${open ? "w-[250px]" : "w-[80px]"}">
-    <div className={`sidebar flex max-w-[250px] max-sm:hidden `}>
+    <div className={`sidebar flex max-w-[250px] max-sm:hidden z-10 `}>
       <div
         className={` ${open ? "w-72" : "w-20 "
           } bg-gray-950 h-screen p-5 pt-8 relative duration-300`}
