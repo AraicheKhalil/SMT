@@ -89,9 +89,18 @@ import React, { useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { Slider } from '@/components/ui/slider';
 import Cropper from 'react-easy-crop';
-import { Feather, Minus, Plus, RotateCw } from 'lucide-react';
+import { CloudUpload, Feather, Minus, Plus, RotateCw } from 'lucide-react';
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 
-const MainSmartDoc = ({ onDrop, selectedImageIndex, previews, handleUpload, open }) => {
+const MainSmartDoc = ({ onDrop, selectedImageIndex, previews, handleUpload, open, setDocumentType }) => {
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [rotation, setRotation] = useState(0);
@@ -111,7 +120,24 @@ const MainSmartDoc = ({ onDrop, selectedImageIndex, previews, handleUpload, open
     <div className={`px-4 py-6 md:p-7  w-full h-screen mr-[450px] ${open && "ml-[220px]"} `}>
       {selectedImageIndex !== null ? (
         <div className="flex w-full h-full flex-col justify-center items-center">
-          <div className="w-[600px] h-[450px]  mb-4 relative ">
+          <Select
+            onValueChange={(value) => {
+                setDocumentType(value)
+            }}
+          >
+            <SelectTrigger className="w-[260px] mb-8 bg-primary text-white">
+              <SelectValue placeholder="Select Processing type" />
+            </SelectTrigger>
+            <SelectContent className="">
+              <SelectGroup>
+                <SelectItem value="process-document">General Processor </SelectItem>
+                <SelectItem value="process-receipts">Receipts Processor </SelectItem>
+                <SelectItem value="process-invoices">Invoice Processor</SelectItem>
+                <SelectItem value="process-bank-statements">Bank Statements Processor </SelectItem>
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+          <div className="w-[600px] h-[450px] 2xl:w-[800px] 2xl:h-[700px]  mb-4 relative ">
             <Cropper
               image={previews[selectedImageIndex]}
               crop={crop}
@@ -163,13 +189,22 @@ const MainSmartDoc = ({ onDrop, selectedImageIndex, previews, handleUpload, open
       ) : (
         <div
           {...getRootProps()}
-          className={`border-dashed border-4 p-8 w-[500px] mx-auto mt-8 text-center flex-grow ${isDragActive ? 'border-blue-500' : 'border-gray-300'}`}
+          className={`border-dashed border-4 p-8 w-[500px] h-70 flex items-center justify-center mx-auto mt-8 text-center flex-grow ${isDragActive ? 'border-blue-500' : 'border-gray-300 rounded-lg'} 2xl:max-w-[800px] 2xl:w-[800px] 2xl:h-[400px]`}
         >
-          <input {...getInputProps()} />
+          <input {...getInputProps()} className=''/>
           {isDragActive ? (
             <p>Drop the files here...</p>
           ) : (
-            <p>Drag 'n' drop some files here, or click to select files</p>
+            <div className='flex-col text-sm items-center justify-center'>
+              <div class="flex items-center justify-center  flex-col ">
+                  <CloudUpload size={50} className='text-blue-500' />
+                  {/* <p class="max-w-[300px] text-gray-600">Drag and drop some files here, or click to select files</p> */}
+              </div>
+              <p className='text-gray-600 mt-6 '>
+              <span className='font-semibold'>Drag</span> and <span className='font-semibold'>Drop</span> some files here to extract data from documents seamlessly. After extracting the data, you can edit it as needed and download the updated document. Our AI-powered solution ensures accuracy and efficiency in document processing.
+              </p>
+            </div>
+
           )}
         </div>
       )}

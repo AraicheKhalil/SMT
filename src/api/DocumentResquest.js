@@ -4,14 +4,18 @@
 
 import axios from 'axios';
 
-export const uploadFiles = async (files) => {
+export const uploadFiles = async (files,documentType) => {
+  // console.log(documentType)
+  let type = await documentType;
+  console.log(`https://dsfsmd.fly.dev/${type}/`)
+  let url = `https://dsfsmd.fly.dev/${type}/`
   const formData = new FormData();
   files.forEach(file => {
     formData.append('files', file);
   });
 
   try {
-    const response = await axios.post('https://dsfsmd.fly.dev/process-document/', formData, {
+    const response = await axios.post(url, formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }

@@ -42,6 +42,7 @@ const SmartDoc = () => {
   const [selectedImageIndex, setSelectedImageIndex] = useState(null);
   const [previews, setPreviews] = useState([]); // For storing preview images
   const [selectedFiles, setSelectedFiles] = useState([]); // For storing selected files
+  const [documentType,setDocumentType] = useState("process-document")
   const [loading,setLoading] = useState(false)
   const [open,setOpen] = useState(false)
 
@@ -59,7 +60,7 @@ const SmartDoc = () => {
     const filesToUpload = isMultiple ? selectedFiles : [selectedFiles[selectedImageIndex]];
     try {
       setLoading(true); // Set loading to true before the API call
-      const uploadedData = await uploadFiles(filesToUpload);
+      const uploadedData = await uploadFiles(filesToUpload,documentType);
       const parsedData = uploadedData.map(data => formatResponse([data]));
 
       setImages(parsedData);
@@ -70,6 +71,8 @@ const SmartDoc = () => {
       setLoading(false); // Set loading to false after the API call
     }
   };
+
+  console.log(documentType)
 
   return (
     <div className="flex min-h-screen relative bg-gray-100 transition">
@@ -84,6 +87,7 @@ const SmartDoc = () => {
         onDrop={onDrop}
         selectedImageIndex={selectedImageIndex}
         previews={previews}
+        setDocumentType={setDocumentType}
         handleUpload={handleUpload} // Pass the handleUpload function to the CenterPanel
         loading={loading} // Pass the loading state to the CenterPanel
         open={open}

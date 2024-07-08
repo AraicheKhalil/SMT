@@ -9,14 +9,14 @@ const UserDataST = [
   {
     icon : <ShoppingBag className=''/>,
     title : "Total Document",
-    merge : `${"17 731"} Pages`,
+    merge : `${"17 731"} Progresses`,
     count : 9328,
     incressment : `+${"15.7"}`,
     added : `+${"10.4"}`,
   },
   {
     icon : <User />,
-    title : "Extractions",
+    title : "ChatDoc Queries",
     merge : `Avg. time:${"0:30"}m`,
     count : 1230,
     incressment : `+${"12.7"}`,
@@ -24,8 +24,8 @@ const UserDataST = [
   },
   {
     icon : <History />,
-    title : "Tasks Pending",
-    merge : `${2} Deleted`,
+    title : "Remaining Queries",
+    merge : `${2} Remaining`,
     count : 63,
     incressment : `-${"10.4"}`,
     added : `+${"1"}`,
@@ -82,9 +82,6 @@ export default  function Dashboard() {
           ))}
         </div>
 
-        <div className='font-Rubik  mt-5 p-4  border shadow-lg bg-gray-100 rounded-xl'>
-          <Dashdropzone />
-        </div>
 
         <div className='flex pt-5 gap-5 flex-wrap md:flex-nowrap '>
 
@@ -92,9 +89,13 @@ export default  function Dashboard() {
             <TinyBarChart />
           </div>
 
-          <div className=' basis-[100%] md:basis-[60%] p-2 border shadow-lg bg-gray-100 rounded-xl'>
+        <div className='font-Rubik  basis-[100%] md:basis-[60%]  p-4  border shadow-lg bg-gray-100 rounded-xl'>
+          <Dashdropzone />
+        </div>
+        
+          {/* <div className=' basis-[100%] md:basis-[60%] p-2 border shadow-lg bg-gray-100 rounded-xl'>
             <TinyLineChart />
-          </div>
+          </div> */}
 
         </div>
       </div>

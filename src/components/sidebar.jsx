@@ -1,4 +1,4 @@
-import { Combine, FileBarChart2, LayoutDashboardIcon, ListTodo, MessagesSquare, NotebookTabs, PieChart, Power, Settings, Telescope } from 'lucide-react'
+import { ChevronsLeft, Combine, FileBarChart2, LayoutDashboardIcon, ListTodo, MessagesSquare, NotebookTabs, PieChart, Power, Settings, Telescope } from 'lucide-react'
 import React, { useContext, useEffect, useState } from 'react'
 import SideBarContext from '@/hooks/context/SideBarContext';
 import { NavLink, useLocation } from 'react-router-dom';
@@ -32,13 +32,13 @@ export default function Sidebar() {
         className={` ${open ? "w-72" : "w-20 "
           } bg-gray-950 h-screen p-5 pt-8 relative duration-300`}
       >
-        <img
-          src="/Logo.png"
-          className={`hidden lg:block absolute cursor-pointer -right-3 top-9 w-7 border-dark-purple
+        <ChevronsLeft 
+          size={28}
+          className={`hidden bg-yellow-600 lg:block absolute cursor-pointer -right-3 top-9 p-0.5 border-dark-purple
       border-2 rounded-full ${!open && "rotate-180"}`}
           onClick={() => setOpen(!open)}
         />
-        <div className="flex gap-x-4 items-center">
+        <NavLink to="/" className="flex gap-x-4 items-center">
           <img
             src="/Logo.png"
             className={`w-10 h-10 cursor-pointer duration-500 ${open && "rotate-[360deg]"
@@ -50,7 +50,7 @@ export default function Sidebar() {
           >
             Smart Doc
           </h1>
-        </div>
+        </NavLink>
         <ul className="pt-6 ">
           {Menus.map((Menu, index) => (
             <li

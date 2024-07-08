@@ -123,19 +123,18 @@ const DocumentTypes = () => {
   return (
     <div className='pt-2 px-4 '>
       <div className='flex justify-between items-center pb-6'>
-        <h3 className='text-xl font-bold font-Rubik '>Document Types</h3>
+        <h3 className='text-xl font-bold font-Rubik '>Collaborator Progress</h3>
         <Select>
           <SelectTrigger className="w-fit">
             <SelectValue placeholder="Last 7 days" />
           </SelectTrigger>
-          <SelectContent>
+          <SelectContent className="pr-4">
             <SelectGroup>
-              <SelectLabel>Fruits</SelectLabel>
-              <SelectItem value="apple">Apple</SelectItem>
-              <SelectItem value="banana">Banana</SelectItem>
-              <SelectItem value="blueberry">Blueberry</SelectItem>
-              <SelectItem value="grapes">Grapes</SelectItem>
-              <SelectItem value="pineapple">Pineapple</SelectItem>
+              <SelectLabel>Time</SelectLabel>
+              <SelectItem value="apple">Last 30 Day</SelectItem>
+              <SelectItem value="banana">Last 60 Day</SelectItem>
+              <SelectItem value="blueberry">Last 120 Day</SelectItem>
+              <SelectItem value="grapes">Last Year</SelectItem>
             </SelectGroup>
           </SelectContent>
         </Select>

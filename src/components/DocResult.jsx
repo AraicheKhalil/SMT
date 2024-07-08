@@ -213,8 +213,8 @@ const jsonToTableData = (json) => {
 
 const jsonToExcel = (json) => {
   const { headers, rows } = jsonToTableData(json);
-  console.log('Headers:', headers);
-  console.log('Rows:', rows);
+  // console.log('Headers:', headers);
+  // console.log('Rows:', rows);
   const worksheet = XLSX.utils.aoa_to_sheet([headers, ...rows]);
   const workbook = XLSX.utils.book_new();
   XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
@@ -243,9 +243,9 @@ const DocResult = ({ images, selectedImageIndex, loading }) => {
 
   const Response = images[selectedImageIndex];
   const { headers, rows } = jsonToTableData(Array.isArray(Response) ? Response : [Response]);
-  console.log('Response:', Response);
-  console.log('Table Headers:', headers);
-  console.log('Table Rows:', rows);
+  // console.log('Response:', Response);
+  // console.log('Table Headers:', headers);
+  // console.log('Table Rows:', rows);
 
   const handleJsonDownload = () => {
     const blob = new Blob([JSON.stringify(Response, null, 2)], { type: 'application/json' });
