@@ -88,6 +88,7 @@ const SmartDoc = () => {
         selectedImageIndex={selectedImageIndex}
         previews={previews}
         setDocumentType={setDocumentType}
+        documentType={documentType}
         handleUpload={handleUpload} // Pass the handleUpload function to the CenterPanel
         loading={loading} // Pass the loading state to the CenterPanel
         open={open}

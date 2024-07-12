@@ -6,7 +6,7 @@ import TitlePage from '@/components/Custom/TitlePage';
 // Define the conversion options with icons and colors
 const conversionOptionsFromPDF = [
   { id: 1, title: 'PDF To Excel', description: 'Convert PDF to Excel or CSV online for free. Extract table data from PDF', link: 'pdf-to-excel', icon: MdInsertDriveFile, color: 'text-green-500' },
-  { id: 2, title: 'PDF To JPG', description: 'Get PDF pages converted to JPG, PNG or TIFF images', link: 'pdf-to-jpg', icon: MdImage, color: 'text-blue-500' },
+  { id: 2, title: 'PDF To Image', description: 'Get PDF pages converted to JPG, PNG or TIFF images', link: 'pdf-to-image', icon: MdImage, color: 'text-blue-500' },
   { id: 3, title: 'PDF To PPT', description: 'Convert PDF to PowerPoint online', link: 'pdf-to-ppt', icon: MdInsertDriveFile, color: 'text-orange-500' },
   { id: 4, title: 'PDF To Text', description: 'Copies all text from the PDF document and extracts it to a separate text file', link: 'pdf-to-text', icon: MdTextFields, color: 'text-purple-500' },
   { id: 5, title: 'PDF To Word', description: 'Convert from PDF to DOC online', link: 'pdf-to-word', icon: MdDescription, color: 'text-blue-700' },
@@ -14,8 +14,8 @@ const conversionOptionsFromPDF = [
 
 const conversionOptionsToPDF = [
   { id: 6, title: 'HTML To PDF', description: 'Convert web pages or HTML files to PDF documents', link: 'html-to-pdf', icon: MdWeb, color: 'text-pink-500' },
-  { id: 7, title: 'JPG To PDF', description: 'Convert Images to PDF', link: 'jpg-to-pdf', icon: MdImage, color: 'text-yellow-500' },
-  { id: 8, title: 'Word To PDF', description: 'Creates a PDF document from Microsoft Word .docx', link: 'word-to-pdf', icon: MdFileDownload, color: 'text-green-700' },
+  { id: 7, title: 'Image To PDF', description: 'Convert Images to PDF', link: 'image-to-pdf', icon: MdImage, color: 'text-yellow-500' },
+  { id: 8, title: 'Excel To PDF', description: 'Creates a PDF document from Microsoft Word .docx', link: 'excel-to-pdf', icon: MdFileDownload, color: 'text-green-700' },
 ];
 
 const Tools = () => {

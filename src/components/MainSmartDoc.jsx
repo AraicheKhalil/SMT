@@ -99,8 +99,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { Button } from './ui/button';
 
-const MainSmartDoc = ({ onDrop, selectedImageIndex, previews, handleUpload, open, setDocumentType }) => {
+const MainSmartDoc = ({ onDrop, selectedImageIndex, previews, handleUpload, open, setDocumentType, documentType }) => {
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [rotation, setRotation] = useState(0);
@@ -120,7 +121,7 @@ const MainSmartDoc = ({ onDrop, selectedImageIndex, previews, handleUpload, open
     <div className={`px-4 py-6 md:p-7  w-full h-screen mr-[450px] ${open && "ml-[220px]"} `}>
       {selectedImageIndex !== null ? (
         <div className="flex w-full h-full flex-col justify-center items-center">
-          <Select
+          {/* <Select
             onValueChange={(value) => {
                 setDocumentType(value)
             }}
@@ -136,7 +137,13 @@ const MainSmartDoc = ({ onDrop, selectedImageIndex, previews, handleUpload, open
                 <SelectItem value="process-bank-statements">Bank Statements Processor </SelectItem>
               </SelectGroup>
             </SelectContent>
-          </Select>
+          </Select> */}
+          <div className='flex p-2 gap-3'>
+            <Button className={`text-xs px-1.5 py-1 h-fit hover:bg-blue-500 ${documentType === "process-document" ? "bg-blue-500" : ""}`} onClick={() => setDocumentType("process-document")} >General Processor </Button>
+            <Button className={`text-xs px-1.5 py-1 h-fit hover:bg-blue-500 ${documentType === "process-receipts" ? "bg-blue-500" : ""}`} onClick={() => setDocumentType("process-receipts")} > Receipts Processor </Button>
+            <Button className={`text-xs px-1.5 py-1 h-fit hover:bg-blue-500 ${documentType === "process-invoices" ? "bg-blue-500" : ""}`} onClick={() => setDocumentType("process-invoices")} > Invoice Processor </Button>
+            <Button className={`text-xs px-1.5 py-1 h-fit hover:bg-blue-500 ${documentType === "process-bank-statements" ? "bg-blue-500" : ""}`} onClick={() => setDocumentType("process-bank-statements")} > Bank Statements Processor </Button>
+          </div>
           <div className="w-[600px] h-[450px] 2xl:w-[800px] 2xl:h-[700px]  mb-4 relative ">
             <Cropper
               image={previews[selectedImageIndex]}

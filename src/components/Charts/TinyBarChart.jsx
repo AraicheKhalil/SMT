@@ -110,10 +110,10 @@ import {
 } from "@/components/ui/select"
 
 const data = [
-  { name: 'Invoice', count: 212, color: 'bg-yellow-300' },
-  { name: 'Passport US', count: 132, color: 'bg-blue-300' },
-  { name: 'Bank Statement', count: 50, color: 'bg-red-300' },
-  { name: 'Pay Stubs', count: 12, color: 'bg-green-300' },
+  { name: 'Medical Invoices', count: 212, color: 'bg-yellow-300' },
+  { name: 'Passport US Card', count: 132, color: 'bg-blue-300' },
+  { name: 'Bank of America Statement', count: 50, color: 'bg-red-300' },
+  { name: 'Legal Document', count: 12, color: 'bg-green-300' },
   { name: 'Other', count: 177, color: 'bg-gray-500' },
 ];
 

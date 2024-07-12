@@ -33,10 +33,10 @@ const UserDataST = [
 ]
 
 const data = [
-  { name: 'Invoice', count: 112, color: 'bg-yellow-200' },
-  { name: 'Passport US', count: 32, color: 'bg-blue-200' },
-  { name: 'Bank Statement', count: 12, color: 'bg-red-200' },
-  { name: 'Pay Stubs', count: 4, color: 'bg-green-200' },
+  { name: 'Medical Invoice', count: 112, color: 'bg-yellow-200' },
+  { name: 'US Passport Card', count: 32, color: 'bg-blue-200' },
+  { name: 'Bank of America Statement', count: 12, color: 'bg-red-200' },
+  { name: 'Legal Document', count: 4, color: 'bg-green-200' },
   { name: 'Other', count: 198, color: 'bg-gray-200' },
 ];
 
@@ -89,14 +89,14 @@ export default  function Dashboard() {
             <TinyBarChart />
           </div>
 
+        
+          <div className=' basis-[100%] md:basis-[60%] p-2 border shadow-lg bg-gray-100 rounded-xl'>
+            <TinyLineChart />
+          </div>
+
+        </div>
         <div className='font-Rubik  basis-[100%] md:basis-[60%]  p-4  border shadow-lg bg-gray-100 rounded-xl'>
           <Dashdropzone />
-        </div>
-        
-          {/* <div className=' basis-[100%] md:basis-[60%] p-2 border shadow-lg bg-gray-100 rounded-xl'>
-            <TinyLineChart />
-          </div> */}
-
         </div>
       </div>
     </>

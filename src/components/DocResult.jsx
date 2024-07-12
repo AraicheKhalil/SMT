@@ -258,7 +258,7 @@ const DocResult = ({ images, selectedImageIndex, loading }) => {
   };
 
   return (
-    <div className="max-w-[450px] w-[450px] min-w-[450px] bg-white h-full fixed z-50 right-0 shadow-lg">
+    <div className="max-w-[450px] w-[450px] 2xl:max-w-[800px] 2xl:w-full min-w-[450px] bg-white h-full fixed z-50 right-0 shadow-lg">
       <h3 className=' text-lg font-semibold font-Rubik  ml-2 py-2'>Document Response</h3>
       <Tabs defaultValue="JSON" className=''>
         <TabsList className="flex justify-start gap-3 bg-white border-b ">
@@ -269,7 +269,7 @@ const DocResult = ({ images, selectedImageIndex, loading }) => {
         
 
         <TabsContent value="JSON">
-          <div className="text-sm px-2 max-w-[450px] mx-auto bg-white shadow-lg rounded-lg h-screen pb-32 overflow-auto ">              
+          <div className="text-sm px-2 max-w-[450px] 2xl:max-w-full 2xl:w-full mx-auto bg-white shadow-lg rounded-lg h-screen pb-32 overflow-auto ">              
           {loading ?
               <SkeletonResponse /> :
               <div>
@@ -284,29 +284,34 @@ const DocResult = ({ images, selectedImageIndex, loading }) => {
                 >
                   Download JSON
                 </button>
-                <pre className="bg-gray-100 p-4 rounded overflow-auto">
-                  {JSON.stringify(Response, null, 2)}
-                </pre>
+                <div className='mb-[50px]'>
+                  <pre className="bg-gray-100 p-4 rounded overflow-auto">
+                    {JSON.stringify(Response, null, 2)}
+                  </pre>
+
+                </div>
             </div>
           }
           </div>
         </TabsContent>
 
         <TabsContent value="FINAL RESPONSE">
-          <div className="text-sm pl-4 pr-1 max-w-[450px] mx-auto bg-white shadow-lg rounded-lg h-screen pb-32 overflow-auto ">
+          <div className="text-sm pl-4 pr-1 max-w-[450px] 2xl:max-w-full 2xl:w-full mx-auto bg-white shadow-lg rounded-lg h-screen pb-32 overflow-auto  ">
             {/* <div className='flex items-center justify-between gap-3 text-gray-900'>
               <h2 className="text-lg font-semibold font-Rubik">Fields</h2>
             </div> */}
             {loading ?
               <SkeletonResponse /> :
-              <ResponseFormat data={Response} />
+              <div className='mb-[50px]'>
+                <ResponseFormat data={Response} />
+              </div>
             }
           </div>
         </TabsContent>
 
 
-        <TabsContent value="EXCEL">
-          <div className="text-sm px-4 max-w-[450px] mx-auto bg-white shadow-lg rounded-lg max-h-[500px] overflow-auto pb-2">
+        <TabsContent  value="EXCEL">
+          <div className="text-sm px-4 max-w-[450px] 2xl:max-w-full 2xl:w-full mx-auto bg-white shadow-lg rounded-lg max-h-[500px] overflow-auto pb-2">
             <Button className="text-xs bg-green-400 text-white font-bold rounded-sm h-fit w-fit py-2 px-3 mb-3 " onClick={handleExport}>
               Download Excel
             </Button>
