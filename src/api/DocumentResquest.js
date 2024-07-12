@@ -112,7 +112,7 @@ export const ToolsResponse = async (files, type) => {
   const url = `https://dsfsmd.fly.dev/convert/${type}/`;
   const promises = files.map(async file => {
     const formData = new FormData();
-    formData.append('file', file);  // Use the correct field name expected by the backend
+    formData.append(type === 'image-to-pdf' ? 'files' : 'file', file);  // Use the correct field name expected by the backend
     
     let filename = 'downloaded_file';
     let response = await axios.post(url, formData, {

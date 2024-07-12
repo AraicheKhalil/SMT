@@ -101,7 +101,7 @@ const handleUpload = async () => {
             } hover:bg-blue-50`}
          >
           <input {...getInputProps()} />
-          <p className="text-lg">Drag and drop PDF files to use our PDF to Image converter.</p>
+          <p className="text-lg">{`Drag and drop files and use our ${title.slice(12)} converter.`}</p>
           <button className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-md">Select files</button>
          </div>
 
@@ -129,13 +129,15 @@ const handleUpload = async () => {
                             </div>
 
                         </div>
-                        <Button 
+                        {
+                          convertedFiles?.length >= 1 &&
+                          <Button 
                             className="px-4 py-2 bg-green-600 text-white rounded-md"
                             onClick={() => handleDownload(convertedFiles[index])}
-                            disabled={uploading}
-                        >
-                            Downloads 
-                        </Button>
+                          >
+                              Downloads 
+                          </Button>
+                        }
                     </li>
                 ))}
             </ul>
@@ -145,7 +147,7 @@ const handleUpload = async () => {
                   onClick={handleUpload}
                   disabled={uploading}
               >
-                  {uploading ? 'Uploading...' : 'Upload'}
+                  {uploading ? 'Uploading...' : 'Extract'}
               </Button>
             </div>
             {error && <p className="text-red-500 mt-2">{error}</p>}
