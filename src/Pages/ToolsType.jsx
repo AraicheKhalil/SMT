@@ -68,33 +68,20 @@ const handleUpload = async () => {
   }
 };
 
-  // const handleDownload = async (file) => {
-  //   const url = URL.createObjectURL(file.blob);
-  //   const a = document.createElement('a');
-  //   a.href = url;
-  //   a.download = file.filename;  // Set the default file name
-  //   document.body.appendChild(a);
-  //   a.click();
-  //   document.body.removeChild(a);
-  //   URL.revokeObjectURL(url);  // Clean up the URL object
-  // };
 
-  const handleDownload = () => {
-    if (convertedFiles) {
-      console.log(convertedFiles[0])
-      console.log(convertedFiles[0].blob)
-      console.log(convertedFiles[0].filename)
-
-        const url = URL.createObjectURL(convertedFiles[0].blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = convertedFiles[0].filename;  // Set the correct filename
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);  // Clean up the URL object
+  const handleDownload = (file) => {
+    if (file) {
+      const url = URL.createObjectURL(file.blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = file.filename;  // Set the correct filename
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);  // Clean up the URL object
     }
-};
+  };
+
 
 
   return (
@@ -144,7 +131,8 @@ const handleUpload = async () => {
                         </div>
                         <Button 
                             className="px-4 py-2 bg-green-600 text-white rounded-md"
-                            onClick={() => handleDownload(convertedFiles[0])}
+                            onClick={() => handleDownload(convertedFiles[index])}
+                            disabled={uploading}
                         >
                             Downloads 
                         </Button>
