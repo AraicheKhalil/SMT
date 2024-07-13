@@ -118,7 +118,7 @@ const MainSmartDoc = ({ onDrop, selectedImageIndex, previews, handleUpload, open
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
   return (
-    <div className={`px-4 py-6 md:p-7  w-full h-screen mr-[450px] ${open && "ml-[220px]"} `}>
+    <div className={`px-4 py-6 md:p-7  w-full h-screen mr-[450px] ${open && "ml-[180px]"} `}>
       {selectedImageIndex !== null ? (
         <div className="flex w-full h-full flex-col justify-center items-center">
           {/* <Select
@@ -139,10 +139,12 @@ const MainSmartDoc = ({ onDrop, selectedImageIndex, previews, handleUpload, open
             </SelectContent>
           </Select> */}
           <div className='flex p-2 gap-3'>
-            <Button className={`text-xs px-1.5 py-1 h-fit hover:bg-blue-500 ${documentType === "process-document" ? "bg-blue-500" : ""}`} onClick={() => setDocumentType("process-document")} >General Processor </Button>
-            <Button className={`text-xs px-1.5 py-1 h-fit hover:bg-blue-500 ${documentType === "process-receipts" ? "bg-blue-500" : ""}`} onClick={() => setDocumentType("process-receipts")} > Receipts Processor </Button>
-            <Button className={`text-xs px-1.5 py-1 h-fit hover:bg-blue-500 ${documentType === "process-invoices" ? "bg-blue-500" : ""}`} onClick={() => setDocumentType("process-invoices")} > Invoice Processor </Button>
-            <Button className={`text-xs px-1.5 py-1 h-fit hover:bg-blue-500 ${documentType === "process-bank-statements" ? "bg-blue-500" : ""}`} onClick={() => setDocumentType("process-bank-statements")} > Bank Statements Processor </Button>
+            <Button className={`text-xs px-1.5 py-1.5 h-fit hover:bg-blue-500 ${documentType === "process-document" ? "bg-blue-500" : ""}`} onClick={() => setDocumentType("process-document")} >General  </Button>
+            <Button className={`text-xs px-1.5 py-1.5 h-fit hover:bg-blue-500 ${documentType === "process-receipts" ? "bg-blue-500" : ""}`} onClick={() => setDocumentType("process-receipts")} > Receipts  </Button>
+            <Button className={`text-xs px-1.5 py-1.5 h-fit hover:bg-blue-500 ${documentType === "process-invoices" ? "bg-blue-500" : ""}`} onClick={() => setDocumentType("process-invoices")} > Invoice  </Button>
+            <Button className={`text-xs px-1.5 py-1.5 h-fit hover:bg-blue-500 ${documentType === "process-bank-statements" ? "bg-blue-500" : ""}`} onClick={() => setDocumentType("process-bank-statements")} > Bank Statements  </Button>
+            <Button className={`text-xs px-1.5 py-1.5 h-fit hover:bg-blue-500 ${documentType === "process-ids" ? "bg-blue-500" : ""}`} onClick={() => setDocumentType("process-ids")} > ID's  </Button>
+            <Button className={`text-xs px-1.5 py-1.5 h-fit hover:bg-blue-500 ${documentType === "process-passports" ? "bg-blue-500" : ""}`} onClick={() => setDocumentType("process-passports")} > passports  </Button>
           </div>
           <div className="w-[600px] h-[450px] 2xl:w-[800px] 2xl:h-[700px]  mb-4 relative ">
             <Cropper

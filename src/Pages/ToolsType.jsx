@@ -11,7 +11,8 @@ import { format } from 'date-fns';
 import { saveAs } from 'file-saver';
 import { Button } from '@/components/ui/button';
 import JSZip from 'jszip';
-import { ArrowUpLeftFromSquare } from 'lucide-react';
+import { ArrowUpLeftFromSquare, Files, Sparkles } from 'lucide-react';
+import { FaFileLines } from 'react-icons/fa6';
 
 
 
@@ -23,9 +24,8 @@ const ToolsTypes = () => {
   const [error, setError] = useState(null);
   const [convertedFiles, setConvertedFiles] = useState([]); 
   const params = useParams() // pdf-to-image  or  excel to pdf ....
-  // the use params its parametre that we nned to pass to api function to complete the url in post request 
+  // the use params its parametre that we need to pass to api function to complete the url in post request 
 
-  console.log(params.type)
 
   const title = `Convert Your ${params.type.split('-')            
   .map(word => word.charAt(0).toUpperCase() + word.slice(1)) 
@@ -91,7 +91,19 @@ const handleUpload = async () => {
           <ArrowUpLeftFromSquare size={20} />
           <p>Back To Tools</p>
         </Link>
-        <TitlePage title={title} description={"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa vitae, aliquid accusantium maiores dolorum eveniet totam a tenetur blanditiis fugiat nihil"}/>
+        <div className='w-fit mx-auto flex flex-col items-center mb-8'>
+          <TitlePage title={title} />
+          <div className='-mt-8'>
+              <Button 
+                  className="mt-4 px-6 shadow-xl  bg-gray-800 font-medium  text-white rounded-md"
+                  onClick={handleUpload}
+                  disabled={uploading}
+              >
+                  {uploading ? 'Converting...' : <div className='flex items-center gap-3'>Convert Now <Sparkles size={18}/></div>}
+              </Button>
+            </div>
+            {error && <p className="text-red-500 mt-2">{error}</p>}
+        </div>
         <div className='font-Rubik p-4 border shadow-lg bg-gray-100 rounded-xl'>
         
         <div
@@ -102,7 +114,7 @@ const handleUpload = async () => {
          >
           <input {...getInputProps()} />
           <p className="text-lg">{`Drag and drop files and use our ${title.slice(12)} converter.`}</p>
-          <button className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-md">Select files</button>
+          <Button className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-md flex items-center mx-auto gap-2">Select files <Files size={17} /></Button>
          </div>
 
          {files.length > 0 &&  (
@@ -112,7 +124,11 @@ const handleUpload = async () => {
                     <li key={index} className="flex items-center justify-between mb-4 rounded-lg p-4 mt-4 bg-white gap-4 shadow-xl">
                         <div className='flex items-center  bg-white gap-4 '>
                             <div className='w-[130px] h-[85px] bg-[#eaecf1] rounded-lg flex justify-center items-center'>
-                                <img src={file.preview} alt="preview" className="w-full h-full rounded-lg" />
+                                {
+                                  file.type.slice(0,5) === "image" ?
+                                  <img src={file.preview} alt="preview" className="w-full h-full rounded-lg object-contain" /> :
+                                <FaFileLines className='text-gray-500 text-3xl' />}
+
                             </div>
                             <div className="flex-1 text-[#8194aa] text-sm">
                                 <p className='font-medium text-gray-600'>{file.name}</p>
@@ -141,7 +157,7 @@ const handleUpload = async () => {
                     </li>
                 ))}
             </ul>
-            <div className=''>
+            {/* <div className=''>
               <Button 
                   className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-md"
                   onClick={handleUpload}
@@ -150,7 +166,7 @@ const handleUpload = async () => {
                   {uploading ? 'Uploading...' : 'Extract'}
               </Button>
             </div>
-            {error && <p className="text-red-500 mt-2">{error}</p>}
+            {error && <p className="text-red-500 mt-2">{error}</p>} */}
         </div>
          )}
         </div>         

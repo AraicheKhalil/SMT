@@ -9,8 +9,8 @@ const SmartDocSide = ({ previews, selectedImageIndex, setSelectedImageIndex, ope
 
   return (
     <div
-      className={`absolute border-r-2 border-gray-300 shadow-lg bg-gray-200  py-2  h-full w-[220px] max-w-[220px] ${
-        !open ? "-translate-x-48" : ""
+      className={`absolute border-r-2 border-gray-300 shadow-lg bg-gray-200  py-2  h-full w-[180px] max-w-[220px] ${
+        !open ? "-translate-x-40" : ""
       } `}
     >
       <div className="flex item justify-between gap-2">
