@@ -80,8 +80,8 @@ const SmartDoc = () => {
         previews={previews}
         selectedImageIndex={selectedImageIndex}
         setSelectedImageIndex={setSelectedImageIndex}
-        open={open}
-        setOpen={setOpen}
+        openSIDE={open}
+        setOpenSIDE={setOpen}
       />
       <MainSmartDoc
         onDrop={onDrop}

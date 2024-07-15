@@ -1,16 +1,18 @@
 
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Button } from './ui/button';
 import { BiLeftArrowAlt } from 'react-icons/bi';
 import { IoReload } from 'react-icons/io5';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import SideBarContext from '@/hooks/context/SideBarContext';
 
-const SmartDocSide = ({ previews, selectedImageIndex, setSelectedImageIndex, open, setOpen }) => {
+const SmartDocSide = ({ previews, selectedImageIndex, setSelectedImageIndex, openSIDE , setOpenSIDE }) => {
+  const { open, setOpen } = useContext(SideBarContext);
 
   return (
     <div
       className={`absolute border-r-2 border-gray-300 shadow-lg bg-gray-200  py-2  h-full w-[180px] max-w-[220px] ${
-        !open ? "-translate-x-40" : ""
+        !openSIDE ? "-translate-x-40" : ""
       } `}
     >
       <div className="flex item justify-between gap-2">
@@ -24,9 +26,12 @@ const SmartDocSide = ({ previews, selectedImageIndex, setSelectedImageIndex, ope
         </Button>
         <Button
           className={`-mr-5 bg-gray-900 p-1 transition-all $ ${
-            open ? "rotate-180" : "rotate-0"
+            openSIDE ? "rotate-180" : "rotate-0"
           }`}
-          onClick={() => setOpen((val) => !val)}
+          onClick={() => {
+            setOpen(false)
+            setOpenSIDE((val) => !val)
+          }}
         >
           {" "}
           <ChevronRight />{" "}
