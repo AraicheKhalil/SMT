@@ -20,9 +20,11 @@ module.exports = {
       fontFamily : {
         "Poppins" : ["Poppins, sans-serif"],
         "Rubik" : ["Rubik, sans-serif"],
-        // "Exo" : ["Exo 2, sans-serif"],
+        "DM-Sans" : ["DM Sans, sans-serif"],
+        "Exo-2" : ["Exo 2, sans-serif"]
       },
       colors: {
+
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

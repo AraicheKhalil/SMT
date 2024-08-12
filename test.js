@@ -1,4 +1,683 @@
 
+// // import React, { useState, useEffect, useRef } from 'react';
+// // import { useDropzone } from 'react-dropzone';
+// // import { v4 as uuidv4 } from 'uuid';
+// // import * as pdfjsLib from 'pdfjs-dist/build/pdf';
+// // import 'pdfjs-dist/build/pdf.worker.entry';
+
+// // pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
+
+// // const SmartDoc = () => {
+// //   const [files, setFiles] = useState([]);
+// //   const [activeFile, setActiveFile] = useState(null);
+// //   const canvasRef = useRef(null);
+
+// //   const onDrop = (acceptedFiles) => {
+// //     const newFiles = acceptedFiles.map(file => {
+// //       const fileWithId = {
+// //         id: uuidv4(),
+// //         file: file,
+// //         previewUrl: ''
+// //       };
+
+// //       if (file.type === 'application/pdf') {
+// //         const previewCanvas = document.createElement('canvas');
+// //         const previewContext = previewCanvas.getContext('2d');
+        
+// //         const fileReader = new FileReader();
+// //         fileReader.onload = function () {
+// //           const typedArray = new Uint8Array(this.result);
+// //           pdfjsLib.getDocument(typedArray).promise.then((pdf) => {
+// //             pdf.getPage(1).then((page) => {
+// //               const viewport = page.getViewport({ scale: 0.5 });
+// //               previewCanvas.height = viewport.height;
+// //               previewCanvas.width = viewport.width;
+              
+// //               const renderContext = {
+// //                 canvasContext: previewContext,
+// //                 viewport: viewport,
+// //               };
+// //               page.render(renderContext).promise.then(() => {
+// //                 fileWithId.previewUrl = previewCanvas.toDataURL();
+// //                 setFiles(prevFiles => [...prevFiles, fileWithId]);
+// //               });
+// //             });
+// //           });
+// //         };
+// //         fileReader.readAsArrayBuffer(file);
+// //       } else {
+// //         fileWithId.previewUrl = URL.createObjectURL(file);
+// //         setFiles(prevFiles => [...prevFiles, fileWithId]);
+// //       }
+
+// //       return fileWithId;
+// //     });
+
+// //     if (files.length === 0) {
+// //       setActiveFile(newFiles[0]);
+// //     } else {
+// //       setActiveFile(files[0]);
+// //     }
+// //   };
+
+// //   useEffect(() => {
+// //     if (activeFile && activeFile.file.type === 'application/pdf') {
+// //       const fileReader = new FileReader();
+// //       fileReader.onload = function () {
+// //         const typedArray = new Uint8Array(this.result);
+// //         pdfjsLib.getDocument(typedArray).promise.then((pdf) => {
+// //           pdf.getPage(1).then((page) => {
+// //             const viewport = page.getViewport({ scale: 1.5 });
+// //             const canvas = canvasRef.current;
+// //             const context = canvas.getContext('2d');
+// //             canvas.height = viewport.height;
+// //             canvas.width = viewport.width;
+
+// //             const renderContext = {
+// //               canvasContext: context,
+// //               viewport: viewport,
+// //             };
+// //             page.render(renderContext);
+// //           });
+// //         });
+// //       };
+// //       fileReader.readAsArrayBuffer(activeFile.file);
+// //     }
+// //   }, [activeFile]);
+
+// //   const deleteFile = (id) => {
+// //     setFiles(prevFiles => prevFiles.filter(file => file.id !== id));
+// //     if (activeFile && activeFile.id === id) {
+// //       setActiveFile(null);
+// //     }
+// //   };
+
+// //   const { getRootProps, getInputProps } = useDropzone({ onDrop });
+
+// //   return (
+// //     <div className="smart-doc" style={{ display: 'flex', height: '100vh' }}>
+// //       <div className="smart-doc-side" style={{ width: '200px', backgroundColor: '#f0f0f0', overflowY: 'auto', padding: '10px' }}>
+// //         {files.map((fileWrapper) => (
+// //           <div key={fileWrapper.id} onClick={() => setActiveFile(fileWrapper)}>
+// //             <img src={fileWrapper.previewUrl} alt="Preview" style={{ width: '100%' }} />
+// //             <button onClick={(e) => { e.stopPropagation(); deleteFile(fileWrapper.id); }}>Delete</button>
+// //           </div>
+// //         ))}
+// //       </div>
+// //       <div className="main-smart-doc" style={{ flexGrow: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+// //         {!activeFile ? (
+// //           <div {...getRootProps({ className: 'dropzone' })} style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '2px dashed #cccccc', backgroundColor: '#fafafa' }}>
+// //             <input {...getInputProps()} />
+// //             <p>Drag 'n' drop some files here, or click to select files</p>
+// //           </div>
+// //         ) : (
+// //           <div className="file-preview max-w-[500px] overflow-hidden" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+// //             {activeFile.file?.type.startsWith('image/') ? (
+// //               <img src={activeFile.previewUrl} alt="Preview" style={{ maxWidth: '100%', maxHeight: '100%' }} />
+// //             ) : (
+// //               <canvas ref={canvasRef}></canvas>
+// //             )}
+// //           </div>
+// //         )}
+// //       </div>
+// //       <div className="doc-result" style={{ width: '200px', backgroundColor: '#f0f0f0', overflowY: 'auto', padding: '10px' }}>
+// //         <h2>Active File</h2>
+// //         {activeFile ? (
+// //           <div>
+// //             <p>{activeFile.file.name}</p>
+// //             <button onClick={() => deleteFile(activeFile.id)}>Delete File</button>
+// //           </div>
+// //         ) : (
+// //           <p>No file selected</p>
+// //         )}
+// //       </div>
+// //     </div>
+// //   );
+// // };
+
+// // export default SmartDoc;
+
+
+
+
+
+
+
+// // import React, { useState, useEffect, useRef } from 'react';
+// // import { useDropzone } from 'react-dropzone';
+// // import { v4 as uuidv4 } from 'uuid';
+// // import * as pdfjsLib from 'pdfjs-dist/build/pdf';
+// // import 'pdfjs-dist/build/pdf.worker.entry';
+
+// // pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
+
+// // const SmartDoc = () => {
+// //   const [files, setFiles] = useState([]);
+// //   const [activeFile, setActiveFile] = useState(null);
+// //   const [zoom, setZoom] = useState(1);
+// //   const [rotation, setRotation] = useState(0);
+// //   const canvasRef = useRef(null);
+
+// //   const onDrop = (acceptedFiles) => {
+// //     const newFiles = acceptedFiles.map(file => {
+// //       const fileWithId = {
+// //         id: uuidv4(),
+// //         file: file,
+// //         previewUrl: ''
+// //       };
+
+// //       if (file.type === 'application/pdf') {
+// //         const previewCanvas = document.createElement('canvas');
+// //         const previewContext = previewCanvas.getContext('2d');
+        
+// //         const fileReader = new FileReader();
+// //         fileReader.onload = function () {
+// //           const typedArray = new Uint8Array(this.result);
+// //           pdfjsLib.getDocument(typedArray).promise.then((pdf) => {
+// //             pdf.getPage(1).then((page) => {
+// //               const viewport = page.getViewport({ scale: 0.5 });
+// //               previewCanvas.height = viewport.height;
+// //               previewCanvas.width = viewport.width;
+              
+// //               const renderContext = {
+// //                 canvasContext: previewContext,
+// //                 viewport: viewport,
+// //               };
+// //               page.render(renderContext).promise.then(() => {
+// //                 fileWithId.previewUrl = previewCanvas.toDataURL();
+// //                 setFiles(prevFiles => [...prevFiles, fileWithId]);
+// //               });
+// //             });
+// //           });
+// //         };
+// //         fileReader.readAsArrayBuffer(file);
+// //       } else {
+// //         fileWithId.previewUrl = URL.createObjectURL(file);
+// //         setFiles(prevFiles => [...prevFiles, fileWithId]);
+// //       }
+
+// //       return fileWithId;
+// //     });
+
+// //     if (files.length === 0) {
+// //       setActiveFile(newFiles[0]);
+// //     } else {
+// //       setActiveFile(files[0]);
+// //     }
+// //   };
+
+// //   useEffect(() => {
+// //     if (activeFile && activeFile.file.type === 'application/pdf') {
+// //       const fileReader = new FileReader();
+// //       fileReader.onload = function () {
+// //         const typedArray = new Uint8Array(this.result);
+// //         pdfjsLib.getDocument(typedArray).promise.then((pdf) => {
+// //           pdf.getPage(1).then((page) => {
+// //             const viewport = page.getViewport({ scale: zoom });
+// //             const canvas = canvasRef.current;
+// //             const context = canvas.getContext('2d');
+// //             canvas.height = viewport.height;
+// //             canvas.width = viewport.width;
+
+// //             const renderContext = {
+// //               canvasContext: context,
+// //               viewport: viewport,
+// //             };
+// //             page.render(renderContext);
+// //           });
+// //         });
+// //       };
+// //       fileReader.readAsArrayBuffer(activeFile.file);
+// //     }
+// //   }, [activeFile, zoom, rotation]);
+
+// //   const deleteFile = (id) => {
+// //     setFiles(prevFiles => prevFiles.filter(file => file.id !== id));
+// //     if (activeFile && activeFile.id === id) {
+// //       setActiveFile(null);
+// //     }
+// //   };
+
+// //   const handleZoomChange = (e) => {
+// //     setZoom(parseFloat(e.target.value));
+// //   };
+
+// //   const rotateDocument = () => {
+// //     setRotation(prevRotation => prevRotation + 90);
+// //   };
+
+// //   const { getRootProps, getInputProps } = useDropzone({ onDrop });
+
+// //   return (
+// //     <div className="smart-doc" style={{ display: 'flex', height: '100vh' }}>
+// //       <div className="smart-doc-side" style={{ width: '200px', backgroundColor: '#f0f0f0', overflowY: 'auto', padding: '10px' }}>
+// //         {files.map((fileWrapper) => (
+// //           <div key={fileWrapper.id} onClick={() => setActiveFile(fileWrapper)}>
+// //             <img src={fileWrapper.previewUrl} alt="Preview" style={{ width: '100%' }} />
+// //             <button onClick={(e) => { e.stopPropagation(); deleteFile(fileWrapper.id); }}>Delete</button>
+// //           </div>
+// //         ))}
+// //       </div>
+// //       <div className="main-smart-doc" style={{ flexGrow: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+// //         {!activeFile ? (
+// //           <div {...getRootProps({ className: 'dropzone' })} style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '2px dashed #cccccc', backgroundColor: '#fafafa' }}>
+// //             <input {...getInputProps()} />
+// //             <p>Drag 'n' drop some files here, or click to select files</p>
+// //           </div>
+// //         ) : (
+// //           <>
+// //             <div className="toolbar" style={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: '#333', color: '#fff', padding: '10px' }}>
+// //               <button onClick={() => setZoom(zoom + 0.1)} style={{ margin: '0 5px' }}>Zoom In</button>
+// //               <button onClick={() => setZoom(zoom - 0.1)} style={{ margin: '0 5px' }}>Zoom Out</button>
+// //               <input type="range" min="0.5" max="3" step="0.1" value={zoom} onChange={handleZoomChange} style={{ margin: '0 5px' }} />
+// //               <button onClick={rotateDocument} style={{ margin: '0 5px' }}>Rotate</button>
+// //             </div>
+// //             <div className="file-preview max-w-[500px] overflow-hidden" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', transform: `rotate(${rotation}deg)` }}>
+// //               {activeFile.file?.type.startsWith('image/') ? (
+// //                 <img src={activeFile.previewUrl} alt="Preview" style={{ maxWidth: '100%', maxHeight: '100%' }} />
+// //               ) : (
+// //                 <canvas ref={canvasRef}></canvas>
+// //               )}
+// //             </div>
+// //           </>
+// //         )}
+// //       </div>
+// //       <div className="doc-result" style={{ width: '200px', backgroundColor: '#f0f0f0', overflowY: 'auto', padding: '10px' }}>
+// //         <h2>Active File</h2>
+// //         {activeFile ? (
+// //           <div>
+// //             <p>{activeFile.file.name}</p>
+// //             <button onClick={() => deleteFile(activeFile.id)}>Delete File</button>
+// //           </div>
+// //         ) : (
+// //           <p>No file selected</p>
+// //         )}
+// //       </div>
+// //     </div>
+// //   );
+// // };
+
+// // export default SmartDoc;
+
+
+// // import React, { useState, useEffect, useRef } from 'react';
+// // import { useDropzone } from 'react-dropzone';
+// // import { v4 as uuidv4 } from 'uuid';
+// // import * as pdfjsLib from 'pdfjs-dist/build/pdf';
+// // import 'pdfjs-dist/build/pdf.worker.entry';
+
+// // pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
+
+// // const SmartDoc = () => {
+// //   const [files, setFiles] = useState([]);
+// //   const [activeFile, setActiveFile] = useState(null);
+// //   const [zoom, setZoom] = useState(1);
+// //   const [rotation, setRotation] = useState(0);
+// //   const canvasRef = useRef(null);
+
+// //   const onDrop = (acceptedFiles) => {
+// //     const newFiles = acceptedFiles.map(file => {
+// //       const fileWithId = {
+// //         id: uuidv4(),
+// //         file: file,
+// //         previewUrl: ''
+// //       };
+
+// //       if (file.type === 'application/pdf') {
+// //         const previewCanvas = document.createElement('canvas');
+// //         const previewContext = previewCanvas.getContext('2d');
+        
+// //         const fileReader = new FileReader();
+// //         fileReader.onload = function () {
+// //           const typedArray = new Uint8Array(this.result);
+// //           pdfjsLib.getDocument(typedArray).promise.then((pdf) => {
+// //             pdf.getPage(1).then((page) => {
+// //               const viewport = page.getViewport({ scale: 0.5 });
+// //               previewCanvas.height = viewport.height;
+// //               previewCanvas.width = viewport.width;
+              
+// //               const renderContext = {
+// //                 canvasContext: previewContext,
+// //                 viewport: viewport,
+// //               };
+// //               page.render(renderContext).promise.then(() => {
+// //                 fileWithId.previewUrl = previewCanvas.toDataURL();
+// //                 setFiles(prevFiles => [...prevFiles, fileWithId]);
+// //               });
+// //             });
+// //           });
+// //         };
+// //         fileReader.readAsArrayBuffer(file);
+// //       } else {
+// //         fileWithId.previewUrl = URL.createObjectURL(file);
+// //         setFiles(prevFiles => [...prevFiles, fileWithId]);
+// //       }
+
+// //       return fileWithId;
+// //     });
+
+// //     if (files.length === 0) {
+// //       setActiveFile(newFiles[0]);
+// //     } else {
+// //       setActiveFile(files[0]);
+// //     }
+// //   };
+
+// //   useEffect(() => {
+// //     if (activeFile && activeFile.file.type === 'application/pdf') {
+// //       const fileReader = new FileReader();
+// //       fileReader.onload = function () {
+// //         const typedArray = new Uint8Array(this.result);
+// //         pdfjsLib.getDocument(typedArray).promise.then((pdf) => {
+// //           pdf.getPage(1).then((page) => {
+// //             const viewport = page.getViewport({ scale: zoom });
+// //             const canvas = canvasRef.current;
+// //             const context = canvas.getContext('2d');
+// //             canvas.height = viewport.height;
+// //             canvas.width = viewport.width;
+
+// //             const renderContext = {
+// //               canvasContext: context,
+// //               viewport: viewport,
+// //             };
+// //             page.render(renderContext);
+// //           });
+// //         });
+// //       };
+// //       fileReader.readAsArrayBuffer(activeFile.file);
+// //     }
+// //   }, [activeFile, zoom, rotation]);
+
+// //   const deleteFile = (id) => {
+// //     setFiles(prevFiles => prevFiles.filter(file => file.id !== id));
+// //     if (activeFile && activeFile.id === id) {
+// //       setActiveFile(null);
+// //     }
+// //   };
+
+// //   const handleZoomChange = (e) => {
+// //     setZoom(parseFloat(e.target.value));
+// //   };
+
+// //   const rotateDocument = () => {
+// //     setRotation(prevRotation => prevRotation + 90);
+// //   };
+
+// //   const { getRootProps, getInputProps } = useDropzone({ onDrop });
+
+// //   return (
+// //     <div className="smart-doc" style={{ display: 'flex', height: '100vh' }}>
+// //       <div className="smart-doc-side" style={{ width: '200px', backgroundColor: '#f0f0f0', overflowY: 'auto', padding: '10px' }}>
+// //         {files.map((fileWrapper) => (
+// //           <div key={fileWrapper.id} onClick={() => setActiveFile(fileWrapper)}>
+// //             <img src={fileWrapper.previewUrl} alt="Preview" style={{ width: '100%' }} />
+// //             <button onClick={(e) => { e.stopPropagation(); deleteFile(fileWrapper.id); }}>Delete</button>
+// //           </div>
+// //         ))}
+// //       </div>
+// //       <div className="main-smart-doc" style={{ flexGrow: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+// //         {!activeFile ? (
+// //           <div {...getRootProps({ className: 'dropzone' })} style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '2px dashed #cccccc', backgroundColor: '#fafafa' }}>
+// //             <input {...getInputProps()} />
+// //             <p>Drag 'n' drop some files here, or click to select files</p>
+// //           </div>
+// //         ) : (
+// //           <>
+// //             <div className="toolbar" style={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: '#333', color: '#fff', padding: '10px' }}>
+// //               <button onClick={() => setZoom(zoom + 0.1)} style={{ margin: '0 5px' }}>Zoom In</button>
+// //               <button onClick={() => setZoom(zoom - 0.1)} style={{ margin: '0 5px' }}>Zoom Out</button>
+// //               <input type="range" min="0.5" max="3" step="0.1" value={zoom} onChange={handleZoomChange} style={{ margin: '0 5px' }} />
+// //               <button onClick={rotateDocument} style={{ margin: '0 5px' }}>Rotate</button>
+// //             </div>
+// //             <div className="file-preview-container" style={{ overflow: 'hidden', width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+// //               <div className="file-preview" style={{ transform: `scale(${zoom}) rotate(${rotation}deg)`, transformOrigin: 'center' }}>
+// //                 {activeFile.file?.type.startsWith('image/') ? (
+// //                   <img src={activeFile.previewUrl} alt="Preview" style={{ width: '100%', height: '100%' }} />
+// //                 ) : (
+// //                   <canvas ref={canvasRef}></canvas>
+// //                 )}
+// //               </div>
+// //             </div>
+// //           </>
+// //         )}
+// //       </div>
+// //       <div className="doc-result" style={{ width: '200px', backgroundColor: '#f0f0f0', overflowY: 'auto', padding: '10px' }}>
+// //         <h2>Active File</h2>
+// //         {activeFile ? (
+// //           <div>
+// //             <p>{activeFile.file.name}</p>
+// //             <button onClick={() => deleteFile(activeFile.id)}>Delete File</button>
+// //           </div>
+// //         ) : (
+// //           <p>No file selected</p>
+// //         )}
+// //       </div>
+// //     </div>
+// //   );
+// // };
+
+// // export default SmartDoc;
+
+
+
+// import React, { useState, useEffect, useRef } from 'react';
+// import { useDropzone } from 'react-dropzone';
+// import { v4 as uuidv4 } from 'uuid';
+// import * as pdfjsLib from 'pdfjs-dist/build/pdf';
+// import 'pdfjs-dist/build/pdf.worker.entry';
+// import { uploadFilesTest } from '@/api/DocumentResquest';
+
+// pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
+
+// const SmartDoc = () => {
+//   const [files, setFiles] = useState([]);
+//   const [activeFile, setActiveFile] = useState(null);
+//   const [zoom, setZoom] = useState(1);
+//   const [rotation, setRotation] = useState(0);
+//   const [response, setResponse] = useState(null);
+//   const canvasRef = useRef(null);
+
+//   const onDrop = (acceptedFiles) => {
+//     const newFiles = acceptedFiles.map(file => {
+//       const fileWithId = {
+//         id: uuidv4(),
+//         file: file,
+//         previewUrl: ''
+//       };
+
+//       if (file.type === 'application/pdf') {
+//         const previewCanvas = document.createElement('canvas');
+//         const previewContext = previewCanvas.getContext('2d');
+        
+//         const fileReader = new FileReader();
+//         fileReader.onload = function () {
+//           const typedArray = new Uint8Array(this.result);
+//           pdfjsLib.getDocument(typedArray).promise.then((pdf) => {
+//             pdf.getPage(1).then((page) => {
+//               const viewport = page.getViewport({ scale: 0.5 });
+//               previewCanvas.height = viewport.height;
+//               previewCanvas.width = viewport.width;
+              
+//               const renderContext = {
+//                 canvasContext: previewContext,
+//                 viewport: viewport,
+//               };
+//               page.render(renderContext).promise.then(() => {
+//                 fileWithId.previewUrl = previewCanvas.toDataURL();
+//                 setFiles(prevFiles => [...prevFiles, fileWithId]);
+//               });
+//             });
+//           });
+//         };
+//         fileReader.readAsArrayBuffer(file);
+//       } else {
+//         fileWithId.previewUrl = URL.createObjectURL(file);
+//         setFiles(prevFiles => [...prevFiles, fileWithId]);
+//       }
+
+//       return fileWithId;
+//     });
+
+//     if (files.length === 0) {
+//       setActiveFile(newFiles[0]);
+//     } else {
+//       setActiveFile(files[0]);
+//     }
+//   };
+
+//   useEffect(() => {
+//     if (activeFile && activeFile.file.type === 'application/pdf') {
+//       const fileReader = new FileReader();
+//       fileReader.onload = function () {
+//         const typedArray = new Uint8Array(this.result);
+//         pdfjsLib.getDocument(typedArray).promise.then((pdf) => {
+//           pdf.getPage(1).then((page) => {
+//             const viewport = page.getViewport({ scale: zoom });
+//             const canvas = canvasRef.current;
+//             const context = canvas.getContext('2d');
+//             canvas.height = viewport.height;
+//             canvas.width = viewport.width;
+
+//             const renderContext = {
+//               canvasContext: context,
+//               viewport: viewport,
+//             };
+//             page.render(renderContext);
+//           });
+//         });
+//       };
+//       fileReader.readAsArrayBuffer(activeFile.file);
+//     }
+//   }, [activeFile, zoom, rotation]);
+
+//   const deleteFile = (id) => {
+//     setFiles(prevFiles => prevFiles.filter(file => file.id !== id));
+//     if (activeFile && activeFile.id === id) {
+//       setActiveFile(null);
+//     }
+//   };
+
+//   const handleZoomChange = (e) => {
+//     setZoom(parseFloat(e.target.value));
+//   };
+
+//   const rotateDocument = () => {
+//     setRotation(prevRotation => prevRotation + 90);
+//   };
+
+//   const extractDocument = async () => {
+//     if (activeFile) {
+//       try {
+//         const responseData = await uploadFilesTest([activeFile.file]);
+//         setResponse(responseData);
+//       } catch (error) {
+//         console.error('Error extracting document:', error);
+//       }
+//     }
+//   };
+
+//   const { getRootProps, getInputProps } = useDropzone({ onDrop });
+
+//   return (
+//     <div className="smart-doc" style={{ display: 'flex', height: '100vh' }}>
+//       <div className="smart-doc-side" style={{ width: '200px', backgroundColor: '#f0f0f0', overflowY: 'auto', padding: '10px' }}>
+//         {files.map((fileWrapper) => (
+//           <div key={fileWrapper.id} onClick={() => setActiveFile(fileWrapper)}>
+//             <img src={fileWrapper.previewUrl} alt="Preview" style={{ width: '100%' }} />
+//             <button onClick={(e) => { e.stopPropagation(); deleteFile(fileWrapper.id); }}>Delete</button>
+//           </div>
+//         ))}
+//       </div>
+//       <div className="main-smart-doc" style={{ flexGrow: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+//         {!activeFile ? (
+//           <div {...getRootProps({ className: 'dropzone' })} style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '2px dashed #cccccc', backgroundColor: '#fafafa' }}>
+//             <input {...getInputProps()} />
+//             <p>Drag 'n' drop some files here, or click to select files</p>
+//           </div>
+//         ) : (
+//           <>
+//             <div className="toolbar" style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#333', color: '#fff', padding: '10px' }}>
+//               <button onClick={extractDocument} style={{ margin: '0 5px' }}>Extract</button>
+//               <div>
+//                 <button onClick={() => setZoom(zoom + 0.1)} style={{ margin: '0 5px' }}>Zoom In</button>
+//                 <button onClick={() => setZoom(zoom - 0.1)} style={{ margin: '0 5px' }}>Zoom Out</button>
+//                 <input type="range" min="0.5" max="3" step="0.1" value={zoom} onChange={handleZoomChange} style={{ margin: '0 5px' }} />
+//                 <button onClick={rotateDocument} style={{ margin: '0 5px' }}>Rotate</button>
+//               </div>
+//             </div>
+//             <div className="file-preview-container" style={{ overflow: 'hidden', width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+//               <div className="file-preview" style={{ transform: `scale(${zoom}) rotate(${rotation}deg)`, transformOrigin: 'center' }}>
+//                 {activeFile.file?.type.startsWith('image/') ? (
+//                   <img src={activeFile.previewUrl} alt="Preview" style={{ width: '100%', height: '100%' }} />
+//                 ) : (
+//                   <canvas ref={canvasRef}></canvas>
+//                 )}
+//               </div>
+//             </div>
+//           </>
+//         )}
+//       </div>
+//       <div className="doc-result" style={{ width: '200px', backgroundColor: '#f0f0f0', overflowY: 'auto', padding: '10px' }}>
+//         <h2>Active File</h2>
+//         {activeFile ? (
+//           <div>
+//             <p>{activeFile.file.name}</p>
+//             <button onClick={() => deleteFile(activeFile.id)}>Delete File</button>
+//           </div>
+//         ) : (
+//           <p>No file selected</p>
+//         )}
+//         {response && (
+//           <div>
+//             <h3>Extraction Result</h3>
+//             <pre>{JSON.stringify(response, null, 2)}</pre>
+//           </div>
+//         )}
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default SmartDoc;
+
+
+
+
+// import SmartDoc from '@/test/SmtDoc'
+// import React from 'react'
+
+// function SignOut() {
+//   return (
+//     <div >
+//       <SmartDoc />
+//     </div>
+//   )
+// }
+
+// export default SignOut
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // new api
 

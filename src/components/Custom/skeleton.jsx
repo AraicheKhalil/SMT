@@ -12,3 +12,16 @@ export default function SkeletonResponse() {
     </div>
   )
 }
+
+
+export function SkeletonResponseLD() {
+  return (
+    <div className="flex flex-col space-y-4">
+        <Skeleton className="h-28 w-full  bg-gray-400" />
+        <Skeleton className="h-4 w-full  bg-gray-400" />
+        <Skeleton className="h-4 w-[300px] bg-gray-400" />
+        <Skeleton className="h-4 w-[200px] bg-gray-400" />
+        <Skeleton className="h-4 w-[100px] bg-gray-400" />
+    </div>
+  )
+}

@@ -16,7 +16,7 @@ import { formatResponse } from "../../Utils/ResponseFormatter";
 import ExtractedResponse from "../ExtractTabs/extractedResponse";
 import { scanDocument } from "@/Redux/Actions";
 
-const PlayGround = ({setdata,setFiletoSmartDoc}) => {
+const PlayGround = ({setdata}) => {
   // const [state, dispatch] = useReducer(reducer, initialState);
 
   const [selectedFile, setSelectedFiles] = useState(null);
@@ -37,9 +37,9 @@ const PlayGround = ({setdata,setFiletoSmartDoc}) => {
   console.log(fileUpload)
   console.log(responseData)
 
-  if (selectedFile){
-    setFiletoSmartDoc(selectedFile)
-  }
+  // if (selectedFile){
+  //   setFiletoSmartDoc(selectedFile)
+  // }
 
   if (responseData){
     setdata(responseData)

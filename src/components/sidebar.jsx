@@ -34,7 +34,7 @@ export default function Sidebar() {
       >
         <ChevronsLeft 
           size={28}
-          className={`hidden bg-yellow-600 lg:block absolute cursor-pointer -right-3 top-9 p-0.5 border-dark-purple
+          className={` bg-yellow-600 lg:block absolute cursor-pointer -right-3 top-9 p-0.5 border-dark-purple
       border-2 rounded-full ${!open && "rotate-180"}`}
           onClick={() => setOpen(!open)}
         />

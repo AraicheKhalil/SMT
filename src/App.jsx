@@ -13,10 +13,14 @@ import CustomView from './Pages/CustomView';
 import AOS from "aos";
 import "aos/dist/aos.css";
 import LandingPage from './Pages/LandingPage';
-import Login from './Pages/Login';
-import Signup from './Pages/Signup';
 import Tools from './Pages/Tools';
 import ToolsTypes from './Pages/ToolsType';
+import SignOut from './Pages/SignOut';
+import Login from './auth/login';
+import Register from './auth/register';
+import DemoForm from './Pages/DemoForm';
+import Playground from './components/LandingPage/Playground/PlayGround';
+
 
 
 export default function App() {
@@ -29,8 +33,10 @@ export default function App() {
   const router = createBrowserRouter(createRoutesFromElements(
     <Route path='/' >
       <Route index element={<LandingPage />} />
-      <Route path='auth/login' element={<Login />} />
-      <Route path='auth/signup' element={<Signup />} />
+      <Route path='/login' element={<Login />} />
+      <Route path='/register' element={<Register />} />
+      <Route path='/demo-form' element={<DemoForm />} />
+      <Route path='/play' element={<Playground />} />
       
       <Route path='dashboard' element={<DashLayout />} >
         <Route index element={<Dashboard />} />
@@ -43,6 +49,7 @@ export default function App() {
         <Route path='chat-doc' element={<ChatDocs/>} />
         <Route path='settings' element={<Settings/>} />
         <Route path='custom-view' element={<CustomView/>} />
+        <Route path='sign-out' element={<SignOut/>} />
       </Route>
     </Route>
   ))

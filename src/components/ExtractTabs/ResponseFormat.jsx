@@ -117,6 +117,7 @@
 import React, { useState } from "react";
 import { formatDocument } from "../../Utils/ResponseFormatter";
 import { Check } from "lucide-react";
+import { Button } from "../ui/button";
 
 const ResponseFormat = ({ data }) => {
   const [formattedData, setFormatedData] = useState(formatDocument(data));
@@ -191,12 +192,12 @@ const ResponseFormat = ({ data }) => {
     <>
       {editableData ? (
         <div className="">
-          <button
+          <Button
             onClick={handleDownloadJSON}
-            className="text-xs bg-green-400 text-white font-bold rounded-sm h-fit w-fit py-2 px-3 mb-3  "
+            className="text-xs px-3 py-2.5 h-fit "
           >
             Download JSON
-          </button>
+          </Button>
           {Object.entries(editableData).map(([key, value]) => (
             <div key={key} className="flex gap-2 flex-nowrap text-sm font-Rubik my-3 justify-between mr-1">
               <div className='min-w-[150px]'>

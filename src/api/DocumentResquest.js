@@ -1,8 +1,72 @@
-// // http://dsfsmd-container.eastus.azurecontainer.io:8000/process-document/'
-// // https://dsfsmd.fly.dev/process-document/
-
-
 import axios from 'axios';
+
+export const uploadFilesTest = async (files,documentType) => {
+  const url = `http://51.222.45.235/${documentType}/`;
+  console.log(url)
+  const formData = new FormData();
+
+  files.forEach(file => {
+    
+    formData.append('files', file.file);
+  });
+
+  try {
+    
+    const response = await axios.post(url, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+
+    const responseData = response.data; // Assume this is an array like ["data1", "data2", ...]
+
+    const updatedFiles = files.map((file, index) => ({
+      id: file.id,
+      file: responseData[index] || '', // Update the file property with response data
+      previewUrl: file.previewUrl, 
+    }));
+
+    console.log(updatedFiles);
+
+
+    return updatedFiles;
+
+  } catch (error) {
+    console.error('Error uploading files:', error);
+    throw error;
+  }
+};
+
+
+// export const uploadFilesTest = async (files) => {
+//   console.log(files)
+//   let url = `https://dsfsmd.fly.dev/process-document/`
+//   const formData = new FormData();
+//   files.forEach(file => {
+//     formData.append('files', file.file);
+//   });
+
+//   try {
+//     const response = await axios.post(url, formData, {
+//       headers: {
+//         'Content-Type': 'multipart/form-data'
+//       }
+//     });
+
+//     console.log(response.data)
+
+//     return [{
+//       data: response.data, 
+//       id: files.map((file) => file.id) 
+//     }]
+
+//   } catch (error) {
+//     console.error('Error uploading files:', error);
+//     throw error;
+//   }
+// };
+
+
 
 export const uploadFiles = async (files,documentType) => {
   // console.log(documentType)
@@ -109,7 +173,7 @@ export const ConvertFiles = async (files, conversionType) => {
 
 
 export const ToolsResponse = async (files, type) => {
-  const url = `https://dsfsmd.fly.dev/convert/${type}/`;
+  const url = `http://51.222.45.235/convert/${type}/`;
   const promises = files.map(async file => {
     const formData = new FormData();
     formData.append(type === 'image-to-pdf' ? 'files' : 'file', file);  // Use the correct field name expected by the backend
@@ -144,7 +208,31 @@ export const ToolsResponse = async (files, type) => {
 
 
 
+export const PlayGroundResponse = async (files) => {
+  const url = `http://51.222.45.235/process-document/`;
+  console.log(url)
+  const formData = new FormData();
 
+  files.forEach(file => {
+    formData.append('files', file);
+  });
+
+  try {
+    
+    const response = await axios.post(url, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+
+
+    return response.data;
+
+  } catch (error) {
+    console.error('Error uploading files:', error);
+    throw error;
+  }
+};
 
 
 

@@ -47,7 +47,7 @@ export default  function Dashboard() {
   return (
     <>
       <div className='dashboard px-4 py-6 md:p-7'>
-        <h1 className='m-0 font-bold text-3xl font-Rubik'>Welcome Back, {"Johne"} 👋</h1>
+        <h1 className='m-0 font-bold text-3xl font-Rubik'>Welcome Back, {"John"} 👋</h1>
 
         <div className='flex gap-5 pt-6 flex-wrap md:flex-nowrap'>
           {UserDataST.map((box,index) => (

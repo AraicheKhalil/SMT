@@ -1,31 +1,37 @@
-import React from "react";
-import Banner from "@/components/Banner/Banner";
-import Navbar from "@/components/Nav/Navbar";
-import PlayGround from "@/components/PlayGround/PlayGround";
-import WhyUs from "@/components/WhyUs/WhyUs";
-import Packages from "@/components/Packages/Packages";
-import Testimonial from "@/components/Testimonial/Testimonial";
-import Footer from "@/components/Footer/Footer";
-import Usage from "@/components/usage/index"
+
+
+import Navbar from "@/components/LandingPage/Navbar/Navbar";
+import Landing from "@/components/LandingPage/Landing/Landing";
+import Pricing from "@/components/LandingPage/Pricing/Pricing";
+import WhyUs from "@/components/LandingPage/WhyUs/WhyUs";
+import Footer from "@/components/LandingPage/Footer/Footer";
+import Testimonials from "@/components/LandingPage/Testemonials/Testimonials";
+import OurOutcomes from "@/components/LandingPage/OurOutcomes/OurOutcomes";
+import Playground from "@/components/LandingPage/Playground/PlayGround";
+import OurSolutions from "@/components/LandingPage/OurSolutions/OurSolutions";
 import './home.css'
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import "./home.css"
-// import UseCase from "../../Components/UseCase/UseCase";
+import HowToUse from "@/components/LandingPage/HowToUse/HowToUse";
+import Performance from "@/components/LandingPage/Performance/Performance";
 
 const LandingPage = () => {
+
   return (
-    <>
+    <div className="font-DM-Sans bg-[#fff] !text-[#28282B] overflow-hidden">
+      
       <Navbar />
-      <Banner />
-      <PlayGround />
-      <Usage />
-      <WhyUs />
-      <Packages />
-      <Testimonial />
+      <Landing />
+      <Playground />
+      {/* <HowToUse /> */}
+      <OurSolutions />
+      <Performance />
+      <OurOutcomes />
+      <Testimonials />
+      {/* <WhyUs /> */}
+      {/* <Pricing /> */}
       <Footer />
-    </>
-  );
-};
+
+    </div>
+  )
+}
 
 export default LandingPage;
