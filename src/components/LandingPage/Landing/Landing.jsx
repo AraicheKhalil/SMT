@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 
 export default function Landing() {
   return (
-    <div className="Landing relative pt-8 ">
+    <div className="Landing relative pt-20 ">
       <div className='container'>
         <SectionTitle
           badge={"✨ Your Workspace, Perfected"}

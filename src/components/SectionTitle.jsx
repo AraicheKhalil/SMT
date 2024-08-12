@@ -4,7 +4,7 @@ import React from 'react'
 
 export default function SectionTitle({badge,title,titleSection,description,descriptionHome}) {
   return (
-    <div className='flex flex-col justify-center items-center px-4 pt-32'>
+    <div className='flex flex-col justify-center items-center px-4 pt-20'>
         <div className='gradient-border px-4 font-medium'>
             {badge}
         </div>

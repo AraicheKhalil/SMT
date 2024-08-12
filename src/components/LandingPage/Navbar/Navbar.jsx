@@ -9,8 +9,8 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
 
   return (
-    <nav className='font-medium fixed bg-white top-0 left-0 right-0 z-50  '>
-      <div className='container mx-auto px-8 lg:px-12 h-[81px] text-[#28282B] flex items-center justify-between border-b border-[#28282B]'>
+    <nav className='font-medium fixed bg-[#28282B] top-0 left-0 right-0 z-50  '>
+      <div className='container mx-auto px-8 lg:px-12 h-[81px] text-[white] flex items-center justify-between border-b border-[#28282B]'>
         {/* Logo */}
         <Link to="/" className='flex items-center gap-2 basis-[20%] cursor-pointer'>
           <img className='w-10 lg:w-12' src='./Logo.png' alt='Logo' />
@@ -27,7 +27,7 @@ export default function Navbar() {
         </div>
 
         {/* Navigation Links */}
-        <div className={`lg:basis-[65%] lg:flex lg:items-center lg:justify-between w-full lg:w-auto lg:static absolute left-0 top-[81px] lg:top-0 bg-[#fff] lg:bg-transparent transition-transform transform ${open ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0`}>
+        <div className={`lg:basis-[65%] lg:flex lg:items-center lg:justify-between w-full lg:w-auto lg:static absolute left-0 top-[81px] lg:top-0 bg-[#28282B] lg:bg-transparent transition-transform transform ${open ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0`}>
           <div>
             {/* <ul className='flex flex-col lg:flex-row gap-5 items-center p-8 lg:p-0 lg:py-0'>
               {navItem.map(item => (
@@ -39,8 +39,8 @@ export default function Navbar() {
           </div>
 
           {/* Authentication Buttons */}
-          <div className='flex flex-col lg:flex-row gap-1 items-center lg:items-center p-8 lg:p-0'>
-          <button className='w-full lg:w-auto text-center py-2 px-4 bg-[#28282B] text-[#FFFECA] rounded'>
+          <div className='flex  flex-col lg:flex-row gap-1 items-center lg:items-center p-8 lg:p-0'>
+          <button className='w-full lg:w-auto text-center py-2 px-4 bg-[white] text-[#28282B] rounded'>
               <Link to='demo-form'>Contact Us</Link>
             </button>
             {/* <button className='w-full lg:w-auto text-center py-2 px-4 border border-transparent hover:border-white rounded'>

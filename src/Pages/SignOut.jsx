@@ -110,10 +110,10 @@ const SmartDoc = () => {
         // setExtractionResults(response)
 
 
-        // const parseData = response.map(item => ({
-        //   ...item,
-        //   file: formatResponse([item.file])
-        // }));
+        const parseData = response.map(item => ({
+          ...item,
+          file: formatResponse([item.file])
+        }));
         setExtractionResults(response)
         console.log(parseData.file)
         

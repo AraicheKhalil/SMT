@@ -124,6 +124,7 @@ import ResponseFormat from "@/components/ExtractTabs/ResponseFormat";
 import DataTable from '@/components/DataTable';
 import { CloudUpload } from "lucide-react";
 import { SkeletonResponseLD } from "@/components/Custom/skeleton";
+import { formatResponse } from "@/Utils/ResponseFormatter";
 
 
 pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
@@ -134,6 +135,9 @@ export default function PlayGround() {
   const [copied, setCopied] = useState(false);
   const [Response,setResponse] = useState("");
   const [loading,setLoading] = useState(false);
+
+  console.log(Response)
+  // console.log("response is :",Response?.map(item => formatResponse(item)))
 
 
 
@@ -175,8 +179,9 @@ export default function PlayGround() {
     try {
       setLoading(true);
       const response = await PlayGroundResponse([file]);
-      setResponse(response[0])
-      console.log('API Response:', response);
+      const parseData = response.map(item => formatResponse([item]));
+      setResponse(parseData)
+      console.log('API Response:', response?.map(item => formatResponse([item])));
     } catch (error) {
       console.error('Error extracting files:', error);
     }finally {
@@ -247,7 +252,7 @@ const jsonToTableData = (json) => {
   };
   
   return (
-    <div>
+    <div className="">
       <div className='container'>
         <SectionTitle
           badge={"Quick PlayGround"}

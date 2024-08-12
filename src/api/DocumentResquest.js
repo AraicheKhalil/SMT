@@ -209,7 +209,7 @@ export const ToolsResponse = async (files, type) => {
 
 
 export const PlayGroundResponse = async (files) => {
-  const url = `http://51.222.45.235/process-document/`;
+  const url = `https://dsfsmd.fly.dev/process-document/`;
   console.log(url)
   const formData = new FormData();
 
@@ -233,17 +233,3 @@ export const PlayGroundResponse = async (files) => {
     throw error;
   }
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
