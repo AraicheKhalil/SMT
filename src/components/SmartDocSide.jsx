@@ -66,7 +66,7 @@ import { ChevronsLeft } from "lucide-react";
 import { useState } from "react";
 
 const SmartDocSide = ({files , setActiveFile }) => {
-  const [open,setOpen] = useState(true);
+  const [open,setOpen] = useState(false);
     return (
       <div
         className={`smart-doc-side h-screen border-r-2 border-gray-300 shadow-lg bg-gray-200   py-2  relative transition ${!open ? "max-w-6 w-6 min-w-6 " : "w-[180px]  max-w-[180px] min-w-[180px]" } `}
