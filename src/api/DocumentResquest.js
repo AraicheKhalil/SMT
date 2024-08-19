@@ -209,7 +209,7 @@ export const ToolsResponse = async (files, type) => {
 
 
 export const PlayGroundResponse = async (files) => {
-  const url = `https://dsfsmd.fly.dev/process-document/`;
+  const url = `https://www.dsfsmartdoc.com/process-document/`;
   console.log(url)
   const formData = new FormData();
 

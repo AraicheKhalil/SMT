@@ -179,8 +179,8 @@ export default function PlayGround() {
     try {
       setLoading(true);
       const response = await PlayGroundResponse([file]);
-      const parseData = response.map(item => formatResponse([item]));
-      setResponse(parseData);
+      // const parseData = response.map(item => formatResponse([item]));
+      setResponse(response);
       console.log('API Response:', response?.map(item => formatResponse([item])));
     } catch (error) {
       console.error('Error extracting files:', error);
