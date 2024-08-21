@@ -804,10 +804,10 @@ export default function PlayGround() {
                 <Button onClick={handleJsonDownload} className="ml-2 text-xs px-3 py-2.5 h-fit bg-[#28282B]">
                   Download JSON
                 </Button>
-                <div className=" mt-3">
+                <div className=" mt-3 h-full">
                   {
                     !loading ? (
-                      <pre className=" p-4 rounded overflow-auto shadow-md bg-white">
+                      <pre className=" p-4 rounded overflow-auto shadow-md bg-white h-[320px] min-h-[300px]">
                       {JSON.stringify(Response, null, 2)}
                     </pre>
                     ) : (

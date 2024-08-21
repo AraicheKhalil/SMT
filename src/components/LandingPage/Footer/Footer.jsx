@@ -14,39 +14,25 @@ export default function Footer() {
             </div>
             
 
-            <div className="gap-8 flex flex-wrap justify-between   md:flex-nowrap mt-16">
+            <div className="gap-12 flex flex-wrap    md:flex-nowrap mt-16">
                 <ul className="w-full md:w-fit flex flex-col gap-2 ">
                     <h3 className="font-bold  text-[18px] mb-2">CONTACT US</h3>
                     <li className='hover:text-gray-600 cursor-pointer'> 200 Columbia Street San Diego, CA 92101
                     </li>
-                    <li className='hover:text-gray-600 cursor-pointer'> yassine.andaloussi@dsfanalytics.com
+                    <li className='hover:text-gray-600 cursor-pointer'> 
+                        contact@dsf-smartdoc.com
                     </li>
-                    <li className='hover:text-gray-600 cursor-pointer'> +1 (224) 433-3904
-                    </li>
+                    
                 </ul>
                 <ul className="w-full md:w-fit flex flex-col gap-2">
                     <h3 className="font-bold  text-[18px] mb-2"> QUICK LINKS</h3>
-                    <li className='hover:text-gray-600 cursor-pointer'>Terms & Conditions</li>
-                    <li className='hover:text-gray-600 cursor-pointer'>About Smart DOC</li>
-                    <li className='hover:text-gray-600 cursor-pointer'>Frequently asked questions</li>
-                    <li className='hover:text-gray-600 cursor-pointer'>Frequently asked questions</li>
+                    <li className='hover:text-gray-600 cursor-pointer'>Terms of Service</li>
+                    <li className='hover:text-gray-600 cursor-pointer'>Privacy Policy</li>
+                    <li className='hover:text-gray-600 cursor-pointer'>Frequently Asked Questions</li>
 
                 </ul>
-                <ul className="w-full md:w-fit flex flex-col gap-2">
-                    <h3 className="font-bold  text-[18px] mb-2">FQA</h3>
-                    <li className='hover:text-gray-600 cursor-pointer'>Account</li>
-                    <li className='hover:text-gray-600 cursor-pointer'>Manage Deliveries</li>
-                    <li className='hover:text-gray-600 cursor-pointer'>Orders</li>
-                    <li className='hover:text-gray-600 cursor-pointer'>Payments</li>
-
-                </ul>
-                <ul className="w-full md:w-fit flex flex-col gap-2">
-                    <h3 className="font-bold  text-[18px] mb-2">Support</h3>
-                    <li className='hover:text-gray-600 cursor-pointer'>Contact Us</li>
-                    <li className='hover:text-gray-600 cursor-pointer'>Online Chat</li>
-                    <li className='hover:text-gray-600 cursor-pointer'>Whatssap</li>
-                    <li className='hover:text-gray-600 cursor-pointer'>Email</li>
-                </ul>
+                
+               
             </div>
         </div>
         <div className="text-sm sm:text-base h-[60px] justify-center items-center flex border-t border-gray-700 ">
