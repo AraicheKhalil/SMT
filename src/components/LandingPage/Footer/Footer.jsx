@@ -50,7 +50,7 @@ export default function Footer() {
             </div>
         </div>
         <div className="text-sm sm:text-base h-[60px] justify-center items-center flex border-t border-gray-700 ">
-         COPYRIGHT © 2023 Smart Doc, All rights Reserved
+            Copyright @2024 by DSF Analytics. All rights reserved
         </div>
     </div>
   )
