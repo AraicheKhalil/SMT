@@ -150,7 +150,7 @@ function App() {
             ))}
           </MarqueeGroup>
         </Marquee>
-        <Marquee reverse className="mt-5">
+        {/* <Marquee reverse className="mt-5">
           <MarqueeGroup>
           {testimonials2.map((testimonial, index) => (
               <TestimonialCard key={index}>
@@ -181,7 +181,7 @@ function App() {
               </TestimonialCard>
             ))}
           </MarqueeGroup>
-        </Marquee>
+        </Marquee> */}
       </MarqueeWrapper>
     </AppContainer>
     

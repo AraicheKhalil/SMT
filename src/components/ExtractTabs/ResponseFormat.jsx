@@ -124,6 +124,8 @@ const ResponseFormat = ({ data }) => {
   const [editableData, setEditableData] = useState(parseDocumentData(formattedData));
   const [editMode, setEditMode] = useState(null);
   const [newValue, setNewValue] = useState('');
+  const [buttonText, setButtonText] = useState("Copy Text");
+
 
   function parseDocumentData(dataString) {
     const result = {};
@@ -166,6 +168,27 @@ const ResponseFormat = ({ data }) => {
     return result;
   }
 
+  const handleCopy = () => {
+    // Convert object to text format
+
+    const textToCopy = Object.entries(editableData)
+      .map(([key, value]) => `${key}: ${value}`)
+      .join('\n');
+
+    // Copy text to clipboard
+    navigator.clipboard.writeText(textToCopy).then(() => {
+      // Change button text to "Copied!"
+      setButtonText("Copied!");
+      
+      // Revert button text back to "Copy Text" after 2 seconds
+      setTimeout(() => {
+        setButtonText("Copy Text");
+      }, 2000);
+    }).catch((err) => {
+      console.error('Failed to copy: ', err);
+    });
+  };
+
   const handleValueClick = (key) => {
     setEditMode(key);
     setNewValue(editableData[key]);
@@ -193,10 +216,10 @@ const ResponseFormat = ({ data }) => {
       {editableData ? (
         <div className="">
           <Button
-            onClick={handleDownloadJSON}
+            onClick={handleCopy}
             className="text-xs px-3 py-2.5 h-fit "
           >
-            Download JSON
+            {buttonText}
           </Button>
           {Object.entries(editableData).map(([key, value]) => (
             <div key={key} className="flex gap-2 flex-nowrap text-sm font-Rubik my-3 justify-between mr-1">

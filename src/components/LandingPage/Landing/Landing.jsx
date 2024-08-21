@@ -7,28 +7,37 @@ import { Link } from 'react-router-dom';
 
 export default function Landing() {
   return (
-    <div className="Landing relative pt-20 ">
-      <div className='container'>
-        <SectionTitle
-          badge={"✨ Your Workspace, Perfected"}
-          title={<span>From Pixels to Insights <br /> Redefine Document Intelligence!</span>}
-          descriptionHome={"Translate documents into seamless data streams, unlocking actionable insights with precision and speed."}
-        />
-        <div className='w-fit mx-auto'>
-          <Link to={"demo-form"} className='cursor-pointer'>
-            <button className='-mt-6 px-5 py-3 bg-[#28282B] text-[#FFFECA] '>
-              Book a Demo
-            </button>
-          </Link>
+    <div className=" text-black py-16 pt-36 font-Poppins">
+      <div className="container  mx-auto flex flex-col md:flex-row items-center justify-between px-16">
+        <div className="md:w-1/2 text-center md:text-left">
+          <span className="  text-sm font-semibold text-black  rounded-full mb-4 gradient-border px-4 md:mx-0 mx-auto ">
+            Your workspace, perfected
+          </span>
+          <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-4">
+            From Pixels to Insights: Redefining Document Intelligence
+          </h1>
+          <p className="text-lg md:text-xl mb-8">
+            Automate data extraction and convert documents into structured data for fast, actionable insights.
+          </p>
+          <button className="bg-black text-[#fffbfb] font-semibold py-3 px-6 rounded-full inline-flex items-center hover:bg-gray-800">
+            Book a Demo
+            <svg
+              className="w-4 h-4 ml-2 mb-1"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fillRule="evenodd"
+                d="M12.293 9.293a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L14 12.414V17a1 1 0 11-2 0v-4.586l-2.293 2.293a1 1 0 01-1.414-1.414l4-4z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </button>
         </div>
-
-        {/* <div className='workspace relative py-14 px-20'>
-          <div className="Ellipse-230"></div>
-          <div className="Dashboard p-3 rounded-[20px]">
-            <img src="./SmarDoc.png" alt="" className='rounded-[20px] p-6 bg-gray-200 ' />
-          </div>
-        </div> */}
-
+        <div className="md:w-1/2 mt-8 md:mt-0 flex justify-center">
+          <img src="./Hero Section.png" alt="Document Intelligence" className="w-full h-auto " />
+        </div>
       </div>
     </div>
   );

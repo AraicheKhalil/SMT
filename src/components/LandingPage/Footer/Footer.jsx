@@ -12,11 +12,9 @@ export default function Footer() {
                 <img className='w-10 lg:w-12' src="./Logo.png" alt="" />
                 <span className='font-semibold text-xl lg:text-2xl font-Poppins min-w-[130px] '>Smart Doc</span>
             </div>
-            <p className="max-w-[600px] mt-6 mb-16  ">
-            We ara a lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat
-            </p>
+            
 
-            <div className="gap-8 flex flex-wrap justify-between  mt-8 md:flex-nowrap ">
+            <div className="gap-8 flex flex-wrap justify-between   md:flex-nowrap mt-16">
                 <ul className="w-full md:w-fit flex flex-col gap-2 ">
                     <h3 className="font-bold  text-[18px] mb-2">CONTACT US</h3>
                     <li className='hover:text-gray-600 cursor-pointer'> 200 Columbia Street San Diego, CA 92101

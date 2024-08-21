@@ -62,14 +62,61 @@
 
 
 
-import { ChevronsLeft } from "lucide-react";
-import { useState } from "react";
+// import { ChevronsLeft } from "lucide-react";
+// import { useState } from "react";
 
-const SmartDocSide = ({files , setActiveFile }) => {
+// const SmartDocSide = ({files , setActiveFile }) => {
+//   const [open,setOpen] = useState(false);
+//     return (
+//       <div
+//         className={`smart-doc-side h-screen border-r-2 border-gray-300 shadow-lg bg-gray-200   py-2  relative transition ${!open ? "max-w-6 w-6 min-w-6 " : "w-[180px]  max-w-[180px] min-w-[180px]" } `}
+//       >
+//         <button
+//           className={`absolute -right-6 top-8 p-1 ${!open && "rotate-180"} transition duration-200`}
+//           onClick={() => setOpen(!open)}
+//         >
+//           <ChevronsLeft
+//             size={30}
+//             className={` bg-blue-600 cursor-pointer -right-3 top-0 p-0.5 border-dark-purple
+//             border-2 rounded-full`}
+//           />
+//         </button>
+//         <div className={`overflow-y-scroll h-full p-2 pr-0 transition duration-200 ${!open && "hidden "}`}>
+//           {files.map((fileWrapper) => (
+//             <div
+//               key={fileWrapper.id}
+//               onClick={() => setActiveFile(fileWrapper)}
+//               className="p-1 cursor-pointer relative"
+//             >
+//               <img
+//                 src={fileWrapper.previewUrl}
+//                 alt="Preview"
+//                 className="object-contain  rounded-xl h-[120px] w-full border-[3px] bg-gray-300 p-1.5  "
+//               />
+//             </div>
+//           ))}
+//         </div>
+//       </div>
+//     );
+//   }
+
+// export default SmartDocSide;
+
+
+import { ChevronsLeft, CircleX, Trash2 } from "lucide-react";
+import { useState } from "react";
+import { Button } from "./ui/button";
+
+const SmartDocSide = ({files , setActiveFile, extractDocument , deleteFile }) => {
   const [open,setOpen] = useState(false);
+
+  // files = files.filter(file => {
+  //   file.file
+  // })
+
     return (
       <div
-        className={`smart-doc-side h-screen border-r-2 border-gray-300 shadow-lg bg-gray-200   py-2  relative transition ${!open ? "max-w-6 w-6 min-w-6 " : "w-[180px]  max-w-[180px] min-w-[180px]" } `}
+        className={`smart-doc-side min-h-screen border-r-2 border-gray-300 shadow-lg bg-gray-200   py-2  relative transition ${!open ? "max-w-6 w-6 min-w-6 " : "w-[180px]  max-w-[180px] min-w-[180px]" } `}
       >
         <button
           className={`absolute -right-6 top-8 p-1 ${!open && "rotate-180"} transition duration-200`}
@@ -81,6 +128,15 @@ const SmartDocSide = ({files , setActiveFile }) => {
             border-2 rounded-full`}
           />
         </button>
+        {
+          open && (
+            <div className="w-full flex justify-center pt-2">
+              <Button onClick={() => extractDocument()} className="bg-gray-900 ">
+                Extract All 
+              </Button >
+            </div>
+          )
+        }
         <div className={`overflow-y-scroll h-full p-2 pr-0 transition duration-200 ${!open && "hidden "}`}>
           {files.map((fileWrapper) => (
             <div
@@ -88,6 +144,14 @@ const SmartDocSide = ({files , setActiveFile }) => {
               onClick={() => setActiveFile(fileWrapper)}
               className="p-1 cursor-pointer relative"
             >
+              <div className='absolute bottom-2 left-3 z-40'>
+                <button 
+                  onClick={() => deleteFile(fileWrapper.id)}
+                  className=' '
+                >
+                 <Trash2 size={18} className="text-red-500" /> 
+                </button>
+              </div>
               <img
                 src={fileWrapper.previewUrl}
                 alt="Preview"
