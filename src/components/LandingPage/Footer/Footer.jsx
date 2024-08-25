@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom'
 export default function Footer() {
   return (
     <div className="mt-20">
-        <div className="container px-10 lg:px-32 py-20">
+        <div className="container px-10 lg:px-32 py-20 bg-[#28282B] text-white">
             <div className='flex items-center gap-2 w-fit '>
                 <img className='w-10 lg:w-12' src="./Logo.png" alt="" />
                 <span className='font-semibold text-xl lg:text-2xl font-Poppins min-w-[130px] '>Smart Doc</span>
@@ -44,7 +44,7 @@ export default function Footer() {
                
             </div>
         </div>
-        <div className="text-sm sm:text-base h-[60px] justify-center items-center flex border-t border-gray-700 ">
+        <div className="text-sm sm:text-base h-[60px] justify-center items-center flex border-t border-gray-500 bg-[#28282B] text-white ">
             Copyright @2024 by DSF Analytics. All rights reserved
         </div>
     </div>
