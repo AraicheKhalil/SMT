@@ -409,6 +409,8 @@ const MainSmartDoc = ({ onDrop , activeFile , setActiveFile , setDocumentType  ,
           previewUrl : cropper.getCroppedCanvas().toDataURL()
         }
       ))
+
+      
       setIsCropping(false);
     }
   };

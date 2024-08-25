@@ -353,6 +353,13 @@ const SmartDoc = () => {
     }
   }, [activeFile]);
 
+  const deleteFile = (id) => {
+    setFiles(prevFiles => prevFiles.filter(file => file.id !== id));
+    // if (activeFile && activeFile.id === id) {
+    //   setActiveFile(null);
+    // }
+  };
+
   const extractDocument = async () => {
       try {
         setLoading(true)
@@ -360,11 +367,11 @@ const SmartDoc = () => {
         // setExtractionResults(response)
 
 
-        const parseData = response.map(item => ({
-          ...item,
-          file: formatResponse([item.file])
-        }));
-        setExtractionResults(parseData)
+        // const parseData = response.map(item => ({
+        //   ...item,
+        //   file: formatResponse([item.file])
+        // }));
+        setExtractionResults(response)
         console.log(parseData.file)
         
       } catch (error) {
@@ -374,26 +381,20 @@ const SmartDoc = () => {
       }
   };
 
-  const deleteFile = (id) => {
-    setFiles(prevFiles => prevFiles.filter(file => file.id !== id));
-    // if (activeFile && activeFile.id === id) {
-    //   setActiveFile(null);
-    // }
-  };
 
   const extractDocumentOnes = async () => {
     try {
       setLoading(true)
-      let Actfile = [activeFile];
-      const response = await uploadFilesTest(Actfile,documentType); // [ "data1" , "data2" , "da..],
+      // let Actfile = [activeFile];
+      const response = await uploadFilesTest([activeFile],documentType); // [ "data1" , "data2" , "da..],
       // setExtractionResults(response)
 
 
-      const parseData = response.map(item => ({
-        ...item,
-        file: formatResponse([item.file])
-      }));
-      setExtractionResults(parseData)
+      // const parseData = response.map(item => ({
+      //   ...item,
+      //   file: formatResponse([item.file])
+      // }));
+      setExtractionResults(response)
       console.log(parseData.file)
       
     } catch (error) {

@@ -529,6 +529,7 @@ import DataTable from '@/components/DataTable';
 import { CloudUpload, Minus, MinusCircle, Plus, PlusCircle } from "lucide-react";
 import { SkeletonResponseLD } from "@/components/Custom/skeleton";
 import { formatResponse } from "@/Utils/ResponseFormatter";
+import { TransformComponent, TransformWrapper, useControls } from "react-zoom-pan-pinch";
 
 
 pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
@@ -585,8 +586,9 @@ export default function PlayGround() {
   const [copied, setCopied] = useState(false);
   const [Response,setResponse] = useState("");
   const [loading,setLoading] = useState(false);
-  const [zoomLevel, setZoomLevel] = useState(1);
-
+  // const [zoomLevel, setZoomLevel] = useState(1);
+  const [error, setError] = useState('');
+  const maxSize = 1 * 1024 * 1024; 
 
   console.log(Response)
   // console.log("response is :",Response?.map(item => formatResponse(item)))
@@ -595,13 +597,25 @@ export default function PlayGround() {
 
   const onDrop = (acceptedFiles) => {
     const selectedFile = acceptedFiles[0];
+
+    if (selectedFile.size > maxSize) {
+      setFile(null);
+      setPreview(null);
+      setError("Error: You cannot upload files larger than 1MB.")
+      return;
+    }
+  
     setFile(selectedFile);
+    setError(null)
 
     if (selectedFile.type === 'application/pdf') {
       renderPdfAsImage(selectedFile);
     } else if (selectedFile.type.startsWith('image/')) {
       setPreview(URL.createObjectURL(selectedFile));
     }
+
+
+
   };
 
   const renderPdfAsImage = async (pdfFile) => {
@@ -632,6 +646,7 @@ export default function PlayGround() {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     maxFiles: 1, // Accept only one file
+
   });
 
 
@@ -658,13 +673,13 @@ export default function PlayGround() {
 
   const { headers, rows } = jsonToTableData(Response);
 
-  const handleZoomIn = () => {
-    setZoomLevel((prevZoom) => Math.min(prevZoom + 0.2, 3));
-  };
+  // const handleZoomIn = () => {
+  //   setZoomLevel((prevZoom) => Math.min(prevZoom + 0.2, 3));
+  // };
 
-  const handleZoomOut = () => {
-    setZoomLevel((prevZoom) => Math.max(prevZoom - 0.2, 1));
-  };
+  // const handleZoomOut = () => {
+  //   setZoomLevel((prevZoom) => Math.max(prevZoom - 0.2, 1));
+  // };
 
   const handleExtract = async () => {
     try {
@@ -679,6 +694,45 @@ export default function PlayGround() {
       setLoading(false);
     }
   };
+
+  // const { zoomIn, zoomOut, resetTransform } = useControls();
+
+  const Controls = () => {
+  const { zoomIn, zoomOut, resetTransform } = useControls();
+
+  return (
+    <div className="flex flex-nowrap gap-2 mt-4 w-full">
+      <div className="flex gap-2 w-fit">
+        <button
+          // onClick={handleZoomIn}
+          onClick={() => zoomIn()}
+          className='bg-[#28282B] text-[#FFFECA] p-2 rounded'
+        >
+          <PlusCircle />
+        </button>
+        <button
+          // onClick={handleZoomOut}
+          onClick={() => zoomOut()}
+          className='bg-[#28282B] text-[#FFFECA] p-2 rounded'
+        >
+          <MinusCircle />
+        </button>
+      </div>
+      <button
+        onClick={handleExtract}
+        className='bg-[#28282B] text-[#FFFECA] p-2 rounded w-full'
+      >
+        {loading ? "Extract ..." : "Extract"}
+      </button>
+      <button
+        onClick={() => setFile(null)}
+        className='bg-[#28282B] text-[#FFFECA] p-2 rounded w-full'
+      >
+        Reset
+      </button>
+    </div>
+  );
+};
   
   return (
     <div className="">
@@ -734,29 +788,36 @@ export default function PlayGround() {
                 {preview && (
                   <div className="flex flex-col items-center">
                     <div
-                      className="flex justify-center w-full overflow-hidden"
-                      style={{ height: '370px', position: 'relative' }}
+                      className="flex justify-between flex-col w-full overflow-hidden h-full"
+                      style={{ minHeight : '410px', height: '100%', position: 'relative' }}
                     >
-                      <img
-                        src={preview}
-                        alt="File preview"
-                        className="max-h-[370px] transition-transform duration-300"
-                        style={{
-                          transform: `scale(${zoomLevel})`,
-                          cursor: zoomLevel > 1 ? 'grab' : 'auto'
-                        }}
-                      />
+                    <TransformWrapper>
+                      <TransformComponent>
+                        <img
+                          src={preview}
+                          alt="File preview"
+                          className="max-h-[370px] transition-transform duration-300"
+                          style={{
+                            cursor: 'grab' 
+                          }}
+                        />
+                      
+                      </TransformComponent>
+                      <Controls />
+                    </TransformWrapper>
                     </div>
-                    <div className="flex flex-nowrap gap-2 mt-4 w-full">
+                    {/* <div className="flex flex-nowrap gap-2 mt-4 w-full">
                       <div className="flex gap-2 w-fit">
                         <button
-                          onClick={handleZoomIn}
+                          // onClick={handleZoomIn}
+                          onClick={() => zoomIn()}
                           className='bg-[#28282B] text-[#FFFECA] p-2 rounded'
                         >
                           <PlusCircle />
                         </button>
                         <button
-                          onClick={handleZoomOut}
+                          // onClick={handleZoomOut}
+                          onClick={() => zoomOut()}
                           className='bg-[#28282B] text-[#FFFECA] p-2 rounded'
                         >
                           <MinusCircle />
@@ -774,13 +835,14 @@ export default function PlayGround() {
                       >
                         Reset
                       </button>
-                    </div>
+                    </div> */}
                   </div>
                 )}
               </div> 
               )
             }
-
+            <div className="text-red-500 font-Rubik mx-auto my-4 w-fit ">{error} </div>
+          
           </div>
           
           {/* Response Section */}

@@ -665,7 +665,7 @@ const DocResult = ({ activeFile, extractionResults ,loading }) => {
         </TabsList>
 
         <TabsContent value="JSON" className="  ">
-          <div className="text-sm px-2 w-full bg-white  h-screen pb-24 overflow-auto ">              
+          <div className="text-sm px-2 w-full bg-white   pb-24 overflow-auto ">              
           {loading ? (
             <SkeletonResponse />
           ) : (
@@ -674,9 +674,9 @@ const DocResult = ({ activeFile, extractionResults ,loading }) => {
                 text={JSON.stringify(Response, null, 2)}
                 onCopy={handleCopy}
               >
-                <Button className="">{copied ? "Copied!" : "Copy JSON"}</Button>
+                <Button className="text-xs px-3 py-2.5 h-fit">{copied ? "Copied!" : "Copy JSON"}</Button>
               </CopyToClipboard>
-              <Button onClick={handleJsonDownload} className="ml-2">
+              <Button onClick={handleJsonDownload} className="ml-2 text-xs px-3 py-2.5 h-fit">
                 Download JSON
               </Button>
               <div className=" mt-3">
@@ -690,7 +690,7 @@ const DocResult = ({ activeFile, extractionResults ,loading }) => {
         </TabsContent>
 
         <TabsContent value="FINAL RESPONSE" className=" ">
-          <div className="text-sm px-2 w-full bg-white  h-screen pb-24 overflow-auto ">
+          <div className="text-sm px-2 w-full bg-white   pb-24 overflow-auto ">
             {loading ? (
               <SkeletonResponse />
             ) : (
@@ -703,7 +703,7 @@ const DocResult = ({ activeFile, extractionResults ,loading }) => {
 
         <TabsContent value="EXCEL">
           <div>
-            <Button onClick={handleExport} className="mb-2 ml-2">Download Excel</Button>
+            <Button className="text-xs px-3 py-2.5 h-fit mb-2 ml-2" onClick={handleExport} >Download Excel</Button>
             <DataTable headers={headers} rows={rows} />
           </div>
         </TabsContent>

@@ -22,7 +22,7 @@ export default function Performance() {
             </div>
             <div className="flex justify-center items-center  p-8 rounded-lg border-2 border-gray-700 bg-[#28282B]">
                 <div className="text-center">
-                    <h2 className="text-4xl font-bold text-[#FFFECA]">99%</h2>
+                    <h2 className="text-4xl font-bold text-[#FFFECA]">93% - 100%</h2>
                     <p className="text-lg text-[#FFFECA] ">Data extraction accuracy</p>
                 </div>
             </div>

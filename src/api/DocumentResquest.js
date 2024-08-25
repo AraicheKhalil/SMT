@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const uploadFilesTest = async (files,documentType) => {
-  const url = `https://dsfsmd.fly.dev/${documentType}/`;
+  const url = `https://www.dsfsmartdoc.com/${documentType}/`;
   console.log(url)
   const formData = new FormData();
 

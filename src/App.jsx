@@ -20,6 +20,9 @@ import Login from './auth/login';
 import Register from './auth/register';
 import DemoForm from './Pages/DemoForm';
 import Playground from './components/LandingPage/Playground/PlayGround';
+import PrivacyPolicy from './components/LandingPage/PrivacyPolicy';
+import TermsOfService from './components/LandingPage/TermsOfServices';
+import FAQ from './components/LandingPage/FAQ';
 
 
 
@@ -36,7 +39,9 @@ export default function App() {
       <Route path='/login' element={<Login />} />
       <Route path='/register' element={<Register />} />
       <Route path='/demo-form' element={<DemoForm />} />
-      <Route path='/play' element={<Playground />} />
+      <Route path='/privacy-policy' element={<PrivacyPolicy />} />
+      <Route path='/terms-of-service' element={<TermsOfService />} />
+      <Route path='/frequently-asked-questions' element={<FAQ />} />
       
       <Route path='dashboard' element={<DashLayout />} >
         <Route index element={<Dashboard />} />
