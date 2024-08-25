@@ -1,5 +1,6 @@
 import React from 'react';
 import Navbar from './Navbar/Navbar';
+import Footer from './Footer/Footer';
 
 const PrivacyPolicy = () => {
   return (
@@ -82,6 +83,7 @@ Any disputes arising from this policy will be resolved in San Diego, California.
             </div>
         </div>
         </div>
+        <Footer />
     </>
   );
 };
