@@ -588,7 +588,7 @@ export default function PlayGround() {
   const [loading,setLoading] = useState(false);
   // const [zoomLevel, setZoomLevel] = useState(1);
   const [error, setError] = useState('');
-  const maxSize = 1 * 1024 * 1024; 
+  const maxSize = 3 * 1024 * 1024; 
 
   console.log(Response)
   // console.log("response is :",Response?.map(item => formatResponse(item)))
@@ -601,7 +601,7 @@ export default function PlayGround() {
     if (selectedFile.size > maxSize) {
       setFile(null);
       setPreview(null);
-      setError("Error: You cannot upload files larger than 1MB.")
+      setError("Error: You cannot upload files larger than 3MB.")
       return;
     }
   
@@ -791,7 +791,7 @@ export default function PlayGround() {
                       className="w-full flex justify-between items-center overflow-auto flex-col "
                       style={{ minHeight : '410px', height: '100%', position: 'relative' }}
                     >
-                    <TransformWrapper>
+                    <TransformWrapper >
                       <TransformComponent >
                         <img
                           src={preview}
