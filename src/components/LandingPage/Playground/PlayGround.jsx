@@ -786,17 +786,17 @@ export default function PlayGround() {
                   </div>
                 )} */}
                 {preview && (
-                  <div className="flex flex-col items-center">
+                  <div className="flex flex-col items-center w-full">
                     <div
-                      className="flex justify-between flex-col w-full overflow-hidden h-full"
+                      className="w-full flex justify-between items-center overflow-auto flex-col "
                       style={{ minHeight : '410px', height: '100%', position: 'relative' }}
                     >
                     <TransformWrapper>
-                      <TransformComponent>
+                      <TransformComponent >
                         <img
                           src={preview}
                           alt="File preview"
-                          className="max-h-[370px] transition-transform duration-300"
+                          className="max-h-[370px] h-full w-full  object-cover  relative overflow-hidden"
                           style={{
                             cursor: 'grab' 
                           }}
