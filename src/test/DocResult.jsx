@@ -97,6 +97,24 @@ const DocResult = ({ activeFile, extractionResults ,loading }) => {
     URL.revokeObjectURL(url); // Clean up the URL object
   };
 
+
+  const handleExportUserData = async () => {
+    
+    const response = await fetch('http://localhost:3000/api/v1/smt/activities/exported-data', {
+      method: 'POST',
+      body: JSON.stringify(Response),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        // Handle the response data
+      })
+      .catch((error) => {
+        // Handle any errors
+      });
+
+    console.log(response)
+  }
+
   return (
     <div className=" flex flex-col w-full bg-white h-full shadow-lg p-2 pb-0 max-h-screen ">
       <h3 className="  text-lg font-semibold font-Rubik  ml-2 mb-2 ">
@@ -169,7 +187,7 @@ const DocResult = ({ activeFile, extractionResults ,loading }) => {
         </Button>
         <Button
           className="bg-blue-500 flex items-center gap-2 text-xs shadow-xl"
-          onClick={handleExport}
+          onClick={handleExportUserData}
         >
           <BiExport size={15} /> Export
         </Button>

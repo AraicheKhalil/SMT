@@ -385,7 +385,23 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { TransformComponent, TransformWrapper, useControls } from "react-zoom-pan-pinch";
 
+const Controls = () => {
+  const { zoomIn, zoomOut, resetTransform } = useControls();
+
+  return (
+    <div className='flex gap-3 item items-center mx-auto w-fit bg-gray-900 p-2 rounded-sm'>
+      <button onClick={() => zoomOut()} >
+        <Minus size={18} className='text-white border rounded-full p-0.5' />
+      </button>
+    
+      <button onClick={() => zoomIn()}>
+        <Plus size={18} className='text-white border rounded-full p-0.5' />
+      </button>
+    </div>
+  );
+};
 
 
 const MainSmartDoc = ({ onDrop , activeFile , setActiveFile , setDocumentType  , extractDocumentOnes , setFiles  }) => {
@@ -432,70 +448,90 @@ const MainSmartDoc = ({ onDrop , activeFile , setActiveFile , setDocumentType  ,
 
   return (
     <div className={`basis-full bg-zinc-100 p-1.5`}>
-      <div className='text-white bg-gray-800 rounded-md  shadow-gray-300 shadow-xl p-2  flex justify-between items-center flex-wrap gap-3'>
-        <div className='flex gap-3'>
-          <Button onClick={extractDocumentOnes} className=" bg-indigo-600 hover:bg-indigo-800">
-            Extract Doc
-          </Button>
-          <Button 
-            onClick={() => {
-              setFiles([]);
-              setActiveFile(null)
-            }} 
-            className=" bg-zinc-800 border border-gray-500 rounded-md text-red-500 ">
-            Reset
-          </Button>
-          <Select
-              onValueChange={(value) => {
-                  setDocumentType(value)
-              }}
-            >
-              <SelectTrigger className="w-[200px] hover:bg-primary border  text-white border-gray-500 bg-zinc-800">
-                <SelectValue placeholder="Select Processing type" />
-              </SelectTrigger>
-              <SelectContent className="">
-                <SelectGroup>
-                  <SelectItem value="process-document">General Processor </SelectItem>
-                  <SelectItem value="process-receipts">Receipts Processor </SelectItem>
-                  <SelectItem value="process-invoices">Invoice Processor</SelectItem>
-                  <SelectItem value="process-bank-statements">Bank Statements Processor </SelectItem>
-                </SelectGroup>
-              </SelectContent>
-            </Select>
-        </div>
-        <div className='flex gap-3  bg-zinc-800 border border-gray-500 rounded-md '>
-          <div className="gap-3 flex items-center  py-2.5 px-4">
-            <button onClick={() => cropperRef.current.cropper.zoom(-0.1)}>
-              <Minus size={18} className='text-white border rounded-full p-0.5' />
-            </button>
-          
-            <button onClick={() => cropperRef.current.cropper.zoom(0.1)}>
-              <Plus size={18} className='text-white border rounded-full p-0.5' />
-            </button>
-            <div className='text-white w-6 text-sm'>
-              {`${Math.round(zoom * 100)}%`}
+      {/* <TransformWrapper > */}
+        <div className='text-white bg-gray-800 rounded-md  shadow-gray-300 shadow-xl p-2  flex justify-between items-center flex-wrap gap-3'>
+          <div className='flex gap-3'>
+            <Button onClick={extractDocumentOnes} className=" bg-indigo-600 hover:bg-indigo-800">
+              Extract Doc
+            </Button>
+            <Button 
+              onClick={() => {
+                setFiles([]);
+                setActiveFile(null)
+              }} 
+              className=" bg-zinc-800 border border-gray-500 rounded-md text-red-500 ">
+              Reset
+            </Button>
+            <Select
+                onValueChange={(value) => {
+                    setDocumentType(value)
+                }}
+              >
+                <SelectTrigger className="w-[200px] hover:bg-primary border  text-white border-gray-500 bg-zinc-800">
+                  <SelectValue placeholder="Select Processing type" />
+                </SelectTrigger>
+                <SelectContent className="">
+                  <SelectGroup>
+                    <SelectItem value="process-document">General Processor </SelectItem>
+                    <SelectItem value="process-receipts">Receipts Processor </SelectItem>
+                    <SelectItem value="process-invoices">Invoice Processor</SelectItem>
+                    <SelectItem value="process-bank-statements">Bank Statements Processor </SelectItem>
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+          </div>
+          <div className='flex gap-3  bg-zinc-800 border border-gray-500 rounded-md '>
+            <div className="gap-3 flex items-center  py-2.5 px-4">
+              {
+                isCropping ? (
+                  <div className='flex gap-3 item items-center'>
+                    <button onClick={() => cropperRef.current.cropper.zoom(-0.1)}>
+                      <Minus size={18} className='text-white border rounded-full p-0.5' />
+                    </button>
+                  
+                    <button onClick={() => cropperRef.current.cropper.zoom(0.1)}>
+                      <Plus size={18} className='text-white border rounded-full p-0.5' />
+                    </button>
+                  </div>
+                ) : (
+                  <div className='flex gap-3 item items-center'>
+                    <button onClick={() => zoomOut()} >
+                      <Minus size={18} className='text-white border rounded-full p-0.5' />
+                    </button>
+                  
+                    <button onClick={() => zoomIn()}>
+                      <Plus size={18} className='text-white border rounded-full p-0.5' />
+                    </button>
+                  </div>
+                  // <Controls />
+                )
+              }
+              <div className='text-white w-6 text-sm'>
+                {`${Math.round(zoom * 100)}%`}
+              </div>
+              <button className="text-white" onClick={rotateRight}>
+                <RotateCw size={18} />
+              </button>
+              <button className="text-white" onClick={() => setIsCropping(true)}>
+                <Crop size={18} />
+              </button>
+              {
+                isCropping && (
+                  <div className='flex gap-3'>
+                    <button className="text-white" onClick={handleCrop}>
+                      <Save size={18} />
+                    </button>
+                    <button className="text-white" onClick={() => setIsCropping(false)}>
+                      <X size={18} />
+                    </button>
+                  </div>
+                )
+              }
             </div>
-            <button className="text-white" onClick={rotateRight}>
-              <RotateCw size={18} />
-            </button>
-            <button className="text-white" onClick={() => setIsCropping(true)}>
-              <Crop size={18} />
-            </button>
-            {
-              isCropping && (
-                <div className='flex gap-3'>
-                  <button className="text-white" onClick={handleCrop}>
-                    <Save size={18} />
-                  </button>
-                  <button className="text-white" onClick={() => setIsCropping(false)}>
-                    <X size={18} />
-                  </button>
-                </div>
-              )
-            }
           </div>
         </div>
-      </div>
+
+      {/* </TransformWrapper> */}
       {activeFile !== null ? (
         <div className="flex w-full h-full flex-col mt-4 items-center">
 
@@ -520,7 +556,13 @@ const MainSmartDoc = ({ onDrop , activeFile , setActiveFile , setDocumentType  ,
             </div>
           ) : (
             <div className="w-[full] min-h-[500px] max-h-[90vh]   mb-4 relative">
-              <img src={activeFile.previewUrl} alt="Uploaded" style={{ height: '100%', width: '100%', objectFit: 'contain' , borderRadius : "12px" }} />
+              <TransformWrapper >
+                <Controls />
+                <TransformComponent >
+                  <img src={activeFile.previewUrl} alt="Uploaded" style={{ height: '100%', width: '100%', objectFit: 'contain' , borderRadius : "12px" }} />
+                </TransformComponent>
+
+              </TransformWrapper>
               
             </div>
           )}

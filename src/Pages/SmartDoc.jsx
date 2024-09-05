@@ -286,29 +286,45 @@ const SmartDoc = () => {
     const newFiles = acceptedFiles.map(file => {
       const fileId = uuidv4(); // Generate a unique ID for the file
       if (file.type === 'application/pdf') {
-        const previewCanvas = document.createElement('canvas');
-        const previewContext = previewCanvas.getContext('2d');
+        // const previewCanvas = document.createElement('canvas');
+        // const previewContext = previewCanvas.getContext('2d');
 
         const fileReader = new FileReader();
-        fileReader.onload = function () {
+        fileReader.onload = async function () {
           const typedArray = new Uint8Array(this.result);
-          pdfjsLib.getDocument(typedArray).promise.then((pdf) => {
-            pdf.getPage(1).then((page) => {
-              const viewport = page.getViewport({ scale: 0.5 });
-              previewCanvas.height = viewport.height;
-              previewCanvas.width = viewport.width;
-
-              const renderContext = {
-                canvasContext: previewContext,
-                viewport: viewport,
-              };
-              page.render(renderContext).promise.then(() => {
-                const previewUrl = previewCanvas.toDataURL();
-                setFiles(prevFiles => [...prevFiles, { id: fileId, file, previewUrl }]);
-              });
-            });
-          });
+          const pdf = await pdfjsLib.getDocument(typedArray).promise;
+          const page = await pdf.getPage(1);
+          const scale = 1.5;
+          const viewport = page.getViewport({ scale });
+          const canvas = document.createElement('canvas');
+          const context = canvas.getContext('2d');
+          canvas.height = viewport.height;
+          canvas.width = viewport.width;
+    
+          await page.render({ canvasContext: context, viewport }).promise;
+    
+          const previewUrl = canvas.toDataURL();
+          setFiles(prevFiles => [...prevFiles, { id: fileId, file, previewUrl }]);
         };
+        // fileReader.onload = async function () {
+        //   const typedArray = new Uint8Array(this.result);
+        //   pdfjsLib.getDocument(typedArray).promise.then((pdf) => {
+        //     pdf.getPage(1).then(async (page) => {
+        //       const viewport = page.getViewport({ scale: 0.5 });
+        //       previewCanvas.height = viewport.height;
+        //       previewCanvas.width = viewport.width;
+
+        //       const renderContext = {
+        //         canvasContext: previewContext,
+        //         viewport: viewport,
+        //       };
+        //       await page.render(renderContext).promise.then(() => {
+        //         const previewUrl = previewCanvas.toDataURL();
+        //         setFiles(prevFiles => [...prevFiles, { id: fileId, file, previewUrl }]);
+        //       });
+        //     });
+        //   });
+        // };
         fileReader.readAsArrayBuffer(file);
       } else {
         const previewUrl = URL.createObjectURL(file);

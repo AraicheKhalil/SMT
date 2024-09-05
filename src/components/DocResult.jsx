@@ -563,7 +563,7 @@ import * as XLSX from 'xlsx';
 import SkeletonResponse from '@/components/Custom/skeleton';
 import DataTable from '@/components/DataTable';
 import ResponseFormat from '@/components/ExtractTabs/ResponseFormat';
-
+import './SmartDoc.css'
 
 // Utility functions to convert JSON to table data
 const flattenObject = (obj, parent = '', res = {}) => {
@@ -647,7 +647,7 @@ const DocResult = ({ activeFile, extractionResults ,loading }) => {
   };
 
   return (
-    <div className=" flex flex-col w-full bg-white h-full shadow-lg p-2 pb-0 max-h-screen ">
+    <div className=" flex flex-col w-full bg-white h-full shadow-lg p-2 pb-0  ">
       <h3 className="  text-lg font-semibold font-Rubik  ml-2 mb-2 ">
         Document Response
       </h3>
@@ -665,7 +665,7 @@ const DocResult = ({ activeFile, extractionResults ,loading }) => {
         </TabsList>
 
         <TabsContent value="JSON" className="  ">
-          <div className="text-sm px-2 w-full bg-white   pb-24 overflow-auto ">              
+          <div className=" text-sm px-2 w-full bg-white h- div-tab ">              
           {loading ? (
             <SkeletonResponse />
           ) : (
@@ -679,8 +679,8 @@ const DocResult = ({ activeFile, extractionResults ,loading }) => {
               <Button onClick={handleJsonDownload} className="ml-2 text-xs px-3 py-2.5 h-fit">
                 Download JSON
               </Button>
-              <div className=" mt-3">
-                <pre className="bg-gray-100 p-4 rounded overflow-auto">
+              <div className=" mt-3 ">
+                <pre className="bg-gray-100 p-4 rounded overflow-auto div-tab ">
                   {JSON.stringify(Response, null, 2)}
                 </pre>
               </div>
@@ -690,7 +690,7 @@ const DocResult = ({ activeFile, extractionResults ,loading }) => {
         </TabsContent>
 
         <TabsContent value="FINAL RESPONSE" className=" ">
-          <div className="text-sm px-2 w-full bg-white   pb-24 overflow-auto ">
+          <div className=" text-sm px-2 w-full bg-white  div-tab overflow-auto ">
             {loading ? (
               <SkeletonResponse />
             ) : (
@@ -709,7 +709,7 @@ const DocResult = ({ activeFile, extractionResults ,loading }) => {
         </TabsContent>
       </Tabs>
 
-      <div className="p-2.5 w-full flex text-xs items-center  border-t border-gray-200 bg-gray-50 shadow-inner  justify-evenly ">
+      <div className=" p-2.5 w-full flex text-xs items-center  border-t border-gray-200 bg-gray-50 shadow-inner  justify-evenly ">
         <Button className="bg-green-700 flex items-center gap-2 text-xs shadow-xl">
           <Check size={15} /> Approve
         </Button>
