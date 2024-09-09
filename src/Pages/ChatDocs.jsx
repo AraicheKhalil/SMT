@@ -74,7 +74,7 @@ export default function ChatDocs() {
       });
 
       try {
-        const response = await axios.post('http://localhost:8000/upload/', formData, {
+        const response = await axios.post('https://www.dsfsmartdoc.com/upload/', formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
           },
@@ -112,7 +112,7 @@ export default function ChatDocs() {
     try {
       await incrementChatQueries(); // Increment the chat queries count
 
-      const response = await axios.get(`http://localhost:8000/hybrid-chat/?query=${inputValue}`);
+      const response = await axios.get(`https://www.dsfsmartdoc.com/hybrid-chat/?query=${inputValue}`);
       if (response.status === 200) {
         setMessages(prevMessages => [
           ...prevMessages,

@@ -172,8 +172,15 @@ export const ConvertFiles = async (files, conversionType) => {
 
 
 
-export const ToolsResponse = async (files, type) => {
-  const url = `http://51.222.45.235/convert/${type}/`;
+export const ToolsResponse = async (files, type, queries) => {
+  let url;
+  if (queries.pages){
+    url = `https://www.dsfsmartdoc.com/convert/${type}/?pages=${queries.pages}`;
+  } else if(queries.rangeStart && queries.rangeEnd){
+    url = `https://www.dsfsmartdoc.com/convert/${type}/?range_start=${queries.rangeStart}&range_end=${queries.rangeEnd}`;
+  } else {
+    url = `https://www.dsfsmartdoc.com/convert/${type}/`;
+  }
   const promises = files.map(async file => {
     const formData = new FormData();
     formData.append(type === 'image-to-pdf' ? 'files' : 'file', file);  // Use the correct field name expected by the backend
@@ -201,6 +208,38 @@ export const ToolsResponse = async (files, type) => {
     throw error;
   }
 };
+
+
+
+// export const AdvencedToolsResponse = async (files, type) => {
+//   const url = `https://www.dsfsmartdoc.com/convert/${type}/`;
+//   const promises = files.map(async file => {
+//     const formData = new FormData();
+//     formData.append(type === 'image-to-pdf' ? 'files' : 'file', file);  // Use the correct field name expected by the backend
+    
+//     let filename = 'downloaded_file';
+//     let response = await axios.post(url, formData, {
+//       headers: {
+//         'Content-Type': 'multipart/form-data'
+//       },
+//       responseType: 'blob' ,  // This is important to handle binary data
+//     })
+
+
+//     return {
+//       filename: filename,
+//       blob: response.data
+//     };
+//   });
+
+//   try {
+//     const results = await Promise.all(promises);
+//     return results;  // Return an array of objects containing filenames and blobs
+//   } catch (error) {
+//     console.error('Error uploading files:', error);
+//     throw error;
+//   }
+// };
 
 
 
