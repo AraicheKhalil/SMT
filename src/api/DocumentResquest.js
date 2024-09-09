@@ -179,7 +179,7 @@ export const ToolsResponse = async (files, type, queries) => {
   } else if(queries.rangeStart && queries.rangeEnd){
     url = `https://www.dsfsmartdoc.com/convert/${type}/?range_start=${queries.rangeStart}&range_end=${queries.rangeEnd}`;
   } else {
-    url = `https://www.dsfsmartdoc.com/convert/${type}/`;
+    url = `https://www.dsfsmartdoc.com/${type !== "enhance-file" ? "convert/" : ""}${type}/`;
   }
   const promises = files.map(async file => {
     const formData = new FormData();
