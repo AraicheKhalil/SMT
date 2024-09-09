@@ -6,9 +6,9 @@
 }
 
 .dot {
-    width: 8px;
-    height: 8px;
-    margin: 0 4px;
+    width: 5px;
+    height: 5px;
+    margin: 0 2.5px;
     background-color: #aaa;
     border-radius: 50%;
     animation: typing 1s infinite;

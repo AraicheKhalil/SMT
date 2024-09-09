@@ -80,13 +80,6 @@
     max-width: 28rem;
 }
 
-.p-4 {
-    padding: 1rem;
-}
-
-.p-2 {
-    padding: 0.5rem;
-}
 
 .rounded-lg {
     border-radius: 0.5rem;
@@ -108,10 +101,3 @@
     font-size: 1.25rem;
 }
 
-.mt-2 {
-    margin-top: 0.5rem;
-}
-
-.space-x-2>*+* {
-    margin-left: 0.5rem;
-}

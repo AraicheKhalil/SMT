@@ -15,19 +15,24 @@ import TypingIndicator from '@/Utils/TypingIndicator'; // Ensure this is correct
 // import ProgressBar from '@/Utils/ProgressBar'; // Ensure this is correctly imported
 import TypingEffect from '@/Utils/TypingEffect'; // Ensure this is correctly imported
 import { incrementChatQueries } from '@/auth/firebaseFunctions'
+import { SendIcon } from 'lucide-react';
+import { Textarea } from '@/components/ui/textarea';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 // Set the workerSrc for PDF.js
 GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
 
 const customScrollBar = `
-  .custom-scrollbar::-webkit-scrollbar {
-    width: 0;
-    background: transparent;
-  }
+  // .custom-scrollbar::-webkit-scrollbar {
+  //   width: 0;
+  //   background: transparent;
+  // }
 
-  .custom-input-bar {
-    position: relative;
-    padding-bottom: 100px;
-  }
+  // .custom-input-bar {
+  //   position: relative;
+  //   padding-bottom: 100px;
+  // }
 `;
 export default function ChatDocs() {
   const [pdfFiles, setPdfFiles] = useState([]);
@@ -40,22 +45,22 @@ export default function ChatDocs() {
   const [showPopup, setShowPopup] = useState(false);
   const chatEndRef = useRef(null);
 
-  useEffect(() => {
-    const style = document.createElement('style');
-    style.textContent = customScrollBar;
-    document.head.append(style);
-    return () => {
-      document.head.removeChild(style);
-    };
-  }, []);
+  // useEffect(() => {
+  //   const style = document.createElement('style');
+  //   style.textContent = customScrollBar;
+  //   document.head.append(style);
+  //   return () => {
+  //     document.head.removeChild(style);
+  //   };
+  // }, []);
 
-  const scrollToBottom = () => {
-    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  };
+  // const scrollToBottom = () => {
+  //   chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  // };
 
-  useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
+  // useEffect(() => {
+  //   scrollToBottom();
+  // }, [messages]);
 
   useEffect(() => {
     if (showPopup) {
@@ -193,7 +198,7 @@ export default function ChatDocs() {
       {/* Right Panel for Chat */}
       <div className={`flex flex-col ${pdfFiles.length > 0 ? 'w-2/3' : 'w-full h-full'}`}>
         {/* Chat Content */}
-        <div className="flex-1 p-14 space-y-4 overflow-y-auto custom-scrollbar">
+        <div className="flex-1 p-4 space-y-4 overflow-y-auto custom-scrollbar">
           {pdfFiles.length === 0 ? (
             <div
               {...getRootProps()}
@@ -210,7 +215,7 @@ export default function ChatDocs() {
             <>
               {messages.map((msg, index) => (
                 <div key={index} className={`flex ${msg.user === 'me' ? 'justify-end' : 'justify-start'}`}>
-                  <div className={`p-4 rounded-lg shadow-md max-w-xs ${msg.user === 'me' ? 'bg-gray-100 text-blue-800' : 'bg-white text-gray-800'}`}>
+                  {/* <div className={`p-4 rounded-lg shadow-md max-w-xs ${msg.user === 'me' ? 'bg-gray-100 text-blue-800' : 'bg-white text-gray-800'}`}>
                     <p className="text-lg">
                       {msg.isTyping ? <TypingEffect text={msg.fullText || ''} /> : msg.text}
                     </p>
@@ -223,6 +228,27 @@ export default function ChatDocs() {
                         <FaStar />
                       </div>
                     )}
+                  </div> */}
+                  <div className={`flex items-start gap-4 ${msg.user === 'me' && "flex-row-reverse"}`}>
+                    <Avatar className="w-8 h-8 border">
+                      <AvatarImage src={"https://github.com/shadcn.png"} alt="You" />
+                      <AvatarFallback>YO</AvatarFallback>
+                    </Avatar>
+                    <div className="grid gap-1 bg-card p-3 rounded-lg max-w-[70%] shadow-md">
+                      <div className="font-medium">{msg.user === 'me' ? "you" : "Smart Chat"}</div>
+                      <div className="prose text-muted-foreground">
+                        <p>{msg.isTyping ? <TypingEffect text={msg.fullText || ''} /> : msg.text}</p>
+                        {msg.user === 'bot' && !msg.isTyping && (
+                      <div className="flex space-x-2 mt-2 text-gray-500">
+                        <FaVolumeUp />
+                        <FaSyncAlt />
+                        <FaThumbsUp />
+                        <FaThumbsDown />
+                        <FaStar />
+                      </div>
+                    )}
+                      </div>
+                    </div>
                   </div>
                 </div>
               ))}
@@ -240,7 +266,7 @@ export default function ChatDocs() {
 
         {/* Input Field */}
         {/* <div className="border-t border-gray-300 p-2 bg-white text-gray-800 shadow-sm fixed bottom-0 w-full custom-input-bar"> */}
-        <div className="flex items-center space-x-2 bg-gray-200 p-2 rounded-full">
+        {/* <div className="flex items-center space-x-2 bg-gray-200 p-2 rounded-full">
           <FaPaperclip className="text-gray-600" />
           <input
             type="text"
@@ -251,8 +277,23 @@ export default function ChatDocs() {
             onKeyPress={handleKeyPress}
           />
           <FaPaperPlane className="text-gray-600 cursor-pointer" onClick={handleSendMessage} />
+        </div> */}
+        <div className='flex flex-col mx-3 gap-3'>
+          <div className="bg-card p-2 rounded-lg shadow-md flex items-center gap-2 ">
+            <Input
+              placeholder="Chat away with your document..."
+              className="flex-1 rounded-lg border-none focus:ring-0 focus:ring-offset-0 focus:outline-none resize-none"
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
+              onKeyPress={handleKeyPress}
+            />
+            <Button onClick={handleKeyPress} type="submit" className="shrink-0">
+              <SendIcon className="w-5 h-5" />
+              <span className="sr-only">Send</span>
+            </Button>
+          </div>
+          <p className="text-sm text-gray-500 mb-2">DSF-ChatDoc can make mistakes. Please check our FAQ and Terms and Services.</p>
         </div>
-        <p className="text-sm text-gray-500 mt-5">DSF-ChatDoc can make mistakes. Please check our FAQ and Terms and Services.</p>
         {/* </div> */}
       </div>
 
