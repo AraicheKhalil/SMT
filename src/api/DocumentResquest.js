@@ -38,35 +38,6 @@ export const uploadFilesTest = async (files,documentType) => {
 };
 
 
-// export const uploadFilesTest = async (files) => {
-//   console.log(files)
-//   let url = `https://dsfsmd.fly.dev/process-document/`
-//   const formData = new FormData();
-//   files.forEach(file => {
-//     formData.append('files', file.file);
-//   });
-
-//   try {
-//     const response = await axios.post(url, formData, {
-//       headers: {
-//         'Content-Type': 'multipart/form-data'
-//       }
-//     });
-
-//     console.log(response.data)
-
-//     return [{
-//       data: response.data, 
-//       id: files.map((file) => file.id) 
-//     }]
-
-//   } catch (error) {
-//     console.error('Error uploading files:', error);
-//     throw error;
-//   }
-// };
-
-
 
 export const uploadFiles = async (files,documentType) => {
   // console.log(documentType)
@@ -94,36 +65,6 @@ export const uploadFiles = async (files,documentType) => {
 };
 
 
-
-
-
-// export const ConvertFiles = async (files,converterType) => {
-//   // let url = `http://dsfsmd-container.eastus.azurecontainer.io:8000/convert/${converterType}/`;
-
-//   console.log(files)
-
-//   const promises = files.map(file => {
-//     const formData = new FormData();
-//     formData.append('file', file);  // Use the correct field name expected by the backend
-    
-//     return axios.post('https://dsfsmd.fly.dev/convert/pdf-to-image/', formData, {
-//       headers: {
-//         'Content-Type': 'multipart/form-data'
-//       },
-//       // responseType: 'blob' ,  // This is important to handle binary data
-//     })
-
-//     // return response.data;
-//   });
-
-//   try {
-//     const results = await Promise.all(promises);
-//     return results;  // Return an array of objects containing filenames and blobs
-//   } catch (error) {
-//     console.error('Error uploading files:', error);
-//     throw error;
-//   }
-// };
 
 
 const endpoints = {
@@ -168,8 +109,35 @@ export const ConvertFiles = async (files, conversionType) => {
   }
 };
 
+export const MergeFiles = async (files,type) => {
+  const formData = new FormData();
 
+  files.map((file) => {
+    formData.append('files', file);
+  });
 
+  try {
+    // Send a request to the API based on the selected file type
+    const response = await axios.post(`https://www.dsfsmartdoc.com/convert/${type}/`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+      responseType: 'blob', // Get the response as a blob (binary data)
+    });
+
+    console.log(response)
+
+    // // Create a URL for the response blob
+    // const url = window.URL.createObjectURL(new Blob([response.data]));
+    // setMergedFileUrl(url); // Save the URL to state
+
+    return response.data;
+  } catch (error) {
+    console.error('Error merging files:', error.response?.data || error.message);
+  }
+
+  setLoading(false); // Stop loading when response is received
+};
 
 
 export const ToolsResponse = async (files, type, queries) => {
@@ -183,7 +151,7 @@ export const ToolsResponse = async (files, type, queries) => {
   }
   const promises = files.map(async file => {
     const formData = new FormData();
-    formData.append(type === 'image-to-pdf' ? 'files' : 'file', file);  // Use the correct field name expected by the backend
+    formData.append(type === "image-to-pdf" ? 'files' : 'file', file);  // Use the correct field name expected by the backend
     
     let filename = 'downloaded_file';
     let response = await axios.post(url, formData, {
@@ -208,42 +176,6 @@ export const ToolsResponse = async (files, type, queries) => {
     throw error;
   }
 };
-
-
-
-// export const AdvencedToolsResponse = async (files, type) => {
-//   const url = `https://www.dsfsmartdoc.com/convert/${type}/`;
-//   const promises = files.map(async file => {
-//     const formData = new FormData();
-//     formData.append(type === 'image-to-pdf' ? 'files' : 'file', file);  // Use the correct field name expected by the backend
-    
-//     let filename = 'downloaded_file';
-//     let response = await axios.post(url, formData, {
-//       headers: {
-//         'Content-Type': 'multipart/form-data'
-//       },
-//       responseType: 'blob' ,  // This is important to handle binary data
-//     })
-
-
-//     return {
-//       filename: filename,
-//       blob: response.data
-//     };
-//   });
-
-//   try {
-//     const results = await Promise.all(promises);
-//     return results;  // Return an array of objects containing filenames and blobs
-//   } catch (error) {
-//     console.error('Error uploading files:', error);
-//     throw error;
-//   }
-// };
-
-
-
-
 
 
 

@@ -290,7 +290,7 @@
 import React, { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import TitlePage from '@/components/Custom/TitlePage';
-import { ToolsResponse } from '@/api/DocumentResquest';
+import { MergeFiles, ToolsResponse } from '@/api/DocumentResquest';
 import { useDropzone } from 'react-dropzone';
 import { format } from 'date-fns';
 import { saveAs } from 'file-saver';
@@ -311,6 +311,7 @@ const ToolsTypes = () => {
   const [error, setError] = useState(null);
   const [convertedFiles, setConvertedFiles] = useState([]); 
   const [jsonData, setJsonData] = useState('');
+  const [mergedPdfs, setMergedPdfs] = useState(null); // Store the merged PDF URL
   const [mergedPdfUrl, setMergedPdfUrl] = useState(null); // Store the merged PDF URL
   const [queries , setQueries] = useState({
     pages : "",
@@ -356,16 +357,26 @@ const ToolsTypes = () => {
     setFiles(files.filter((f) => f !== file));
   };
 
+  console.log(mergedPdfUrl) 
+
 const handleUpload = async () => {
   setUploading(true);
   setError(null);
   setConvertedFiles(null);  // Reset converted file before uploading
   try {
+    if (params.type === "merge-pdfs") {
+      const result = await MergeFiles(files,params.type); // work 
+      console.log(result) // work
+      const url = window.URL.createObjectURL(new Blob([result]));
+      setMergedPdfUrl(url)
+      
+    } else {
       console.log(files)
       const result = await ToolsResponse(files,params.type,queries); // work 
       console.log(result) // work
       setConvertedFiles(result);  // Store the converted file blob
       console.log(convertedFiles) // work 
+    }
   } catch (error) {
       setError('Failed to upload files. Please try again.');
   } finally {
@@ -595,6 +606,17 @@ const handleUpload = async () => {
                       </>
                     )
                   }
+                  {mergedPdfUrl && (
+                    <div className="mt-4">
+                      <a
+                        href={mergedPdfUrl}
+                        download={params.type === 'merge-pdfs' ? 'merged.pdf' : 'merged.pptx'}
+                        className="bg-green-500 text-white py-2 px-4 rounded inline-block"
+                      >
+                        Download Merged {params.type === 'merge-pdfs' ? 'PDF' : 'PPT'}
+                      </a>
+                    </div>
+                  )}
                   <ul>
                       {files.map((file, index) => (
                           <li key={index} className="flex items-center justify-between mb-4 rounded-lg p-4 mt-4 bg-white gap-4 shadow-xl">

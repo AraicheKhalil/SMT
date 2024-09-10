@@ -426,7 +426,7 @@ const MergeFiles = () => {
     const formData = new FormData();
 
     // Append all selected files to FormData
-    files.forEach((file) => {
+    files.map((file) => {
       formData.append('files', file);
     });
 
@@ -440,6 +440,8 @@ const MergeFiles = () => {
         },
         responseType: 'blob', // Get the response as a blob (binary data)
       });
+
+      console.log(response)
 
       // Create a URL for the response blob
       const url = window.URL.createObjectURL(new Blob([response.data]));
