@@ -139,7 +139,7 @@ const ToolsTypes = () => {
             <TabsContent value="Text" className="relative">
                 {
                     text && (
-                        <button onClick={() => setText("")} className='right-2 top-[70px] text-gray-500 absolute hover:bg-gray-200 rounded-full p-1'>
+                        <button onClick={() => setText("")} className={`right-2 ${isValidtranslate ? "top-28" : "top-[70px]"} text-gray-500 absolute hover:bg-gray-200 rounded-full p-1`}>
                             <X />
                         </button>
                     )
