@@ -45,6 +45,11 @@ export default function ChatDocs() {
   const [showPopup, setShowPopup] = useState(false);
   const chatEndRef = useRef(null);
 
+
+  console.log(pdfFiles);
+  console.log(selectedPdf);
+  console.log(uploadProgress)
+
   // useEffect(() => {
   //   const style = document.createElement('style');
   //   style.textContent = customScrollBar;
@@ -61,6 +66,8 @@ export default function ChatDocs() {
   // useEffect(() => {
   //   scrollToBottom();
   // }, [messages]);
+
+  console.log(messages)
 
   useEffect(() => {
     if (showPopup) {
@@ -156,6 +163,19 @@ export default function ChatDocs() {
       handleSendMessage();
     }
   };
+
+  const ClearChat = async () => {
+    setMessages([])
+    const response = await fetch("https://www.dsfsmartdoc.com/clear/",{
+      method : "POST",
+      headers : {
+        'Content-Type': 'application/json',
+      }
+    });
+
+    const dataResponse = await response.json()
+    console.log(dataResponse)
+  }
   return (
     <div className="flex h-screen bg-gray-100 text-gray-800">
       {/* Left Panel for PDF Viewer */}
@@ -196,9 +216,12 @@ export default function ChatDocs() {
       )}
 
       {/* Right Panel for Chat */}
-      <div className={`flex flex-col ${pdfFiles.length > 0 ? 'w-2/3' : 'w-full h-full'}`}>
+      <div className={`flex flex-col ${pdfFiles.length > 0 ? 'w-2/3' : 'w-full h-full'} relative`}>
         {/* Chat Content */}
         <div className="flex-1 p-4 space-y-4 overflow-y-auto custom-scrollbar">
+        {selectedPdf && (
+          <Button onClick={() => ClearChat()} className="w-fit fixed z-10 opacity-70 hover:opacity-100">New Chat</Button>
+        )}
           {pdfFiles.length === 0 ? (
             <div
               {...getRootProps()}
@@ -208,7 +231,7 @@ export default function ChatDocs() {
               {isDragActive ? (
                 <p>Drop the files here...</p>
               ) : (
-                <p>Drag 'n' drop some files here, or click to select files</p>
+                <p>{(uploadProgress != 0 ) ? "It takes some time, just wait please ...." : "Drag and drop some files here, or click to select files"} </p>
               )}
             </div>
           ) : (

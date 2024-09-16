@@ -178,6 +178,60 @@ export const ToolsResponse = async (files, type, queries) => {
 };
 
 
+export const GenIAResponse = async ({ file, text, source_lang  , target_lang , tone , summaryLength },type) => {
+  try {
+    // Create form data
+    const formData = new FormData();
+
+    // Append either the file or text depending on which is provided
+    if (file) {
+      formData.append('file', file);
+    } else if (text) {
+      formData.append('text', text);
+    }
+
+    // Append summary length (this field is required)
+    formData.append('summary_length', summaryLength);
+
+    // Append summary length (this field is required)
+    formData.append('source_lang', source_lang);
+
+    // Append summary length (this field is required)
+    formData.append('target_lang', target_lang);
+
+    // Append summary length (this field is required)
+    formData.append('tone', tone);
+
+
+    // Make the POST request to the API
+    const response = await axios.post(
+      `https://www.dsfsmartdoc.com/${type}/`,
+      formData,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          'accept': 'application/json',
+        },
+      }
+    );
+
+    console.log(target_lang,source_lang,summaryLength,tone);
+    console.log(response.data);
+    // Return the response data
+    if ( type == "summarize-document-gemini" ){
+      return response.data.summary_text;
+    } else if (type == "translate-document-gemini") {
+      return response.data.translated_text;
+    } else if (type == "dsf-proofread"){
+      return response.data;
+    }
+    
+  } catch (error) {
+    console.error('Error summarizing document:', error);
+    throw error;
+  }
+};
+
 
 export const PlayGroundResponse = async (files) => {
   const url = `https://www.dsfsmartdoc.com/process-document/`;

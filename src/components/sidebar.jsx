@@ -1,4 +1,4 @@
-import { ChevronsLeft, Combine, FileBarChart2, LayoutDashboardIcon, ListTodo, MessagesSquare, NotebookTabs, PieChart, Power, Settings, Telescope } from 'lucide-react'
+import { BrainCircuit, ChevronsLeft, Combine, FileBarChart2, LayoutDashboardIcon, ListTodo, MessagesSquare, NotebookTabs, PieChart, Power, Settings, Telescope } from 'lucide-react'
 import React, { useContext, useEffect, useState } from 'react'
 import SideBarContext from '@/hooks/context/SideBarContext';
 import { NavLink, useLocation } from 'react-router-dom';
@@ -18,6 +18,7 @@ export default function Sidebar() {
     { route: "smart-doc", title: "Smart Doc ", src: <FileBarChart2 />, gap: true },
     { route: "tasks", title: "Tasks ", src: <Combine /> },
     { route: "tools", title: "Tools ", src: <Telescope /> },
+    { route: "gen_ai", title: "Gen Ai ", src: <BrainCircuit  /> },
     { route: "chat-doc", title: "Chat Doc", src: <MessagesSquare /> },
     { route: "settings", title: "Settings", src: <Settings />, gap: true },
     { route: "sign-out", title: "Sign Out ", src: <Power />, },
