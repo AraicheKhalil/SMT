@@ -218,7 +218,7 @@ export const GenIAResponse = async ({ file, text, source_lang  , target_lang , t
     console.log(target_lang,source_lang,summaryLength,tone);
     console.log(response.data);
     // Return the response data
-    if ( type == "summarize-document-gemini" ){
+    if ( type == "dsf-summarize-document" ){
       return response.data.summary_text;
     } else if (type == "translate-document-gemini") {
       return response.data.translated_text;

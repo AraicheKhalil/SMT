@@ -12,6 +12,8 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/components/ui/tabs"
+import { format } from 'date-fns';
+import { FaFileLines } from 'react-icons/fa6';
 
 
 
@@ -22,7 +24,7 @@ const ToolsTypes = () => {
     const [mergedPdfs, setMergedPdfs] = useState(null); // Store the merged PDF URL
     const [mergedPdfUrl, setMergedPdfUrl] = useState(null); // Store the merged PDF URL
     
-    const [file, setFile] = useState([]);
+    const [file, setFile] = useState(null);
     const [text, setText] = useState(""); 
     const [summaryLength, setSummaryLength] = useState(""); 
     const [uploading, setUploading] = useState(false);
@@ -110,7 +112,7 @@ const ToolsTypes = () => {
     return cleanedText;
   };
   
-  const ValideSummearize = ["summarize-document-gemini"];
+  const ValideSummearize = ["dsf-summarize-document"];
   const IsValideSummearize = ValideSummearize.includes(type);
 
   const validtranslate = ["translate-document-gemini"];
@@ -118,6 +120,8 @@ const ToolsTypes = () => {
 
   const ValideProofread = ["dsf-proofread"];
   const isValideProofread = ValideProofread.includes(type);
+
+  console.log([file]?.length)
 
 
   return (
@@ -150,15 +154,15 @@ const ToolsTypes = () => {
                     {
                         isValidtranslate && (
                             <div className='w-full'>
-                                <Input placeholder="Original Langue : English ...." value={source_lang} onChange={(e) => setSource_lang(e.target.value)} required className="mb-2"/>
-                                <Input placeholder="Target Langue : Spanish, turkish, ...." value={target_lang} onChange={(e) => setTarget_lang(e.target.value)} required className="mb-2 "/>
+                                <Input placeholder="Original Langue : English ...." value={source_lang} onChange={(e) => setSource_lang(e.target.value)} required className="mb-2 shadow"/>
+                                <Input placeholder="Target Langue : Spanish, turkish, ...." value={target_lang} onChange={(e) => setTarget_lang(e.target.value)} required className="mb-2  shadow"/>
                             </div>
                         )
                     }
                     {
                       isValideProofread && (
                         <div className='w-full'>
-                          <Input placeholder="tone : neutral ...." value={tone} onChange={(e) => setTone(e.target.value)} required className="mb-2 "/>
+                          <Input placeholder="tone : neutral ...." value={tone} onChange={(e) => setTone(e.target.value)} required className="mb-2 shadow "/>
                         </div>
                       )
                     }
@@ -183,15 +187,15 @@ const ToolsTypes = () => {
                     {
                         isValidtranslate && (
                             <div className='w-full'>
-                                <Input placeholder="Original Langue : English ...." value={source_lang} onChange={(e) => setSource_lang(e.target.value)} required className="mb-2"/>
-                                <Input placeholder="Target Langue : Spanish, turkish, ...." value={target_lang} onChange={(e) => setTarget_lang(e.target.value)} required className="mb-2 "/>
+                                <Input placeholder="Original Langue : English ...." value={source_lang} onChange={(e) => setSource_lang(e.target.value)} required className="mb-2 shadow"/>
+                                <Input placeholder="Target Langue : Spanish, turkish, ...." value={target_lang} onChange={(e) => setTarget_lang(e.target.value)} required className="mb-2 shadow "/>
                             </div>
                         )
                     }
                     {
                       isValideProofread && (
                         <div className='w-full'>
-                          <Input placeholder="tone : neutral ...." value={tone} onChange={(e) => setTone(e.target.value)} required className="mb-2 "/>
+                          <Input placeholder="tone : neutral ...." value={tone} onChange={(e) => setTone(e.target.value)} required className="mb-2 shadow"/>
                         </div>
                       )
                     }
@@ -199,15 +203,41 @@ const ToolsTypes = () => {
                 </div>
                  <div 
                     {...getRootProps()}
-                    className={`bg-[#F5F5F5] border border-gray-300 min-h-[350px] p-6 rounded-lg text-center flex items-center justify-center `}
+                    className={`bg-[#F5F5F5] border border-gray-300 min-h-[350px]  rounded-lg ${!file && "p-6 text-center flex items-center justify-center"} `}
                   >
                     <input {...getInputProps() } className='' />
                     {isDragActive ? (
                       <p>Drop the file here...</p>
                     ) : (
-                      <div className='w-1/2'>
-                        <img src="https://ssl.gstatic.com/translate/drag_and_drop.png" alt='image' />
-                        <h3 className='mt-4 font-medium text-xl text-zinc-700'>Drag and drop</h3>
+                      <div className=''>
+                        {
+                          file  ?
+                            <div className='bg-gray-200 p-4 rounded-md  mt-2 mx-2 flex items-center gap-5  '>
+                              <div className=' rounded-lg flex justify-center items-center p-2'>
+                                  <FaFileLines className='text-gray-500 text-3xl' />
+                              </div>
+                              <div className="flex-1 text-[#8194aa] text-xs">
+                                      <p className='font-medium text-gray-600'>{file.name}</p>
+                                      <div className='flex flex-col'>
+                                          <p>Size: {(file.size / 1024).toFixed(2)} KB</p>
+                                          <p>Modified Time: {format(file.lastModified, 'Pp')}</p>
+                                      </div>
+                                      <button
+                                          onClick={() => setFile(null)}
+                                          className="text-red-500  mt-1 hover:underline"
+                                      >
+                                          Delete
+                                      </button>
+                                  </div>
+                            </div>
+                           : (
+                            <div className='w-1/2 mx-auto'>
+                              <img src="https://ssl.gstatic.com/translate/drag_and_drop.png" alt='image' />
+                              <h3 className='mt-4 font-medium text-xl text-zinc-700'>Drag and drop</h3>
+                            </div>
+                          )
+                          
+                        }
                       </div>
                     )}
                   </div>

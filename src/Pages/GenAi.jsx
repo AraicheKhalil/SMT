@@ -5,7 +5,7 @@ import { MdInsertDriveFile, MdImage, MdWeb, MdFileDownload, MdPictureAsPdf, MdTa
 
 const conversionOptionsFromPDF = [
   { id: 1, title: 'Fluent Files', description: 'Translate your documents and text seamlessly with enhanced AI Translation systems ', link: 'translate-document-gemini', icon: MdInsertDriveFile, color: 'text-green-500' },
-  { id: 2, title: 'Briefly ', description: 'Maximize efficiency with our AI-driven summarization tool. Transform lengthy documents into intelligent, short, readable summaries in seconds', link: 'summarize-document-gemini', icon: MdImage, color: 'text-blue-500' },
+  { id: 2, title: 'Briefly ', description: 'Maximize efficiency with our AI-driven summarization tool. Transform lengthy documents into intelligent, short, readable summaries in seconds', link: 'dsf-summarize-document', icon: MdImage, color: 'text-blue-500' },
   { id: 3, title: 'Smart Edit', description: 'Boost your document readability with sophisticated AI proofreading tool. Ensure your content excels in grammar, style, clarity, and flow.', link: 'dsf-proofread', icon: MdWeb, color: 'text-pink-500' },
 
 ];
