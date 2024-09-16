@@ -223,7 +223,7 @@ export const GenIAResponse = async ({ file, text, source_lang  , target_lang , t
     } else if (type == "translate-document-gemini") {
       return response.data.translated_text;
     } else if (type == "dsf-proofread"){
-      return response.data;
+      return response.data.revised_text;
     }
     
   } catch (error) {

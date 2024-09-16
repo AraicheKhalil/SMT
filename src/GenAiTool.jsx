@@ -33,6 +33,7 @@ const ToolsTypes = () => {
     const [target_lang, setTarget_lang] = useState('');
     const [source_lang,setSource_lang] = useState("");
     const [tone,setTone] = useState("");
+    const [copied , setCopied] = useState(null)
     const [queries , setQueries] = useState({
         politeness : false,
         clarity : false,
@@ -121,7 +122,24 @@ const ToolsTypes = () => {
   const ValideProofread = ["dsf-proofread"];
   const isValideProofread = ValideProofread.includes(type);
 
-  console.log([file]?.length)
+  // const handleCopy = () => {
+  //   setCopied(true);
+  //   setTimeout(() => setCopied(false), 2000);
+  // };
+
+  const handleCopy = () => {
+
+    // Copy text to clipboard
+    navigator.clipboard.writeText(formatSummaryResponse(JSON.stringify(response))).then(() => {
+      // Change button text to "Copied!"
+      setCopied(true);
+      
+      // Revert button text back to "Copy Text" after 2 seconds
+      setTimeout(() => setCopied(false), 2000);
+    }).catch((err) => {
+      console.error('Failed to copy: ', err);
+    });
+  };
 
 
   return (
@@ -244,7 +262,10 @@ const ToolsTypes = () => {
             </TabsContent>
         </Tabs>
             <div className='border border-gray-200 w-1/2 rounded-lg p-6 bg-[#F5F5F5] leading-7 shadow-md'>
-            <h1 className='font-semibold font-Rubik text-xl mb-5'>Summarizing Text</h1>
+            <div className='w-full flex justify-between items-center mb-5'>
+              <h1 className='font-semibold font-Rubik text-xl '>Summarizing Text</h1>
+              {<Button onClick={() => handleCopy()} className='bg-primary h-fit py-2 px-3 text-xs'>{copied ? "Copied!" : "Copy "}</Button>}
+            </div>
                 {response ? formatSummaryResponse(JSON.stringify(response)) : "" }
             </div>
         </div>
