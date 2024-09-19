@@ -25,3 +25,23 @@ export function SkeletonResponseLD() {
     </div>
   )
 }
+
+export function SkeletonResponseGenAi() {
+  return (
+    <div className="flex flex-col ">
+        <div className='flex flex-col space-y-4'>
+          <Skeleton className="h-20 w-full  bg-gray-300" />
+          <Skeleton className="h-4 w-full  bg-gray-300" />
+          <Skeleton className="h-4 w-full bg-gray-300" />
+        </div>
+        
+        <div  className='flex flex-col space-y-4'>
+          <Skeleton className="h-20 w-full  bg-gray-300 mt-8" />
+          <Skeleton className="h-4 w-full  bg-gray-300" />
+          <Skeleton className="h-4 w-[80%] bg-gray-300" />
+          <Skeleton className="h-4 w-[60%] bg-gray-300" />
+
+        </div>
+    </div>
+  )
+}

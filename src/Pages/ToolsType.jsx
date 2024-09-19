@@ -491,8 +491,8 @@ const handleUpload = async () => {
   return (
     <>
       <div className='px-4 py-6 md:p-7'>
-        <Link to={'/dashboard/tools'} className='flex gap-3 items-center bg-gray-100 w-fit px-3 py-2 rounded-md font-medium mb-4 border shadow-lg '>
-          <ArrowUpLeftFromSquare size={20} />
+        <Link to={'/dashboard/tools'} className='flex gap-2 text-xs items-center bg-gray-100 w-fit px-3 py-2 rounded-md font-medium mb-4 border shadow-lg '>
+          <ArrowUpLeftFromSquare size={12} />
           <p>Back To Tools</p>
         </Link>
         {

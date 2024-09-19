@@ -14,37 +14,49 @@ import {
 } from "@/components/ui/tabs"
 import { format } from 'date-fns';
 import { FaFileLines } from 'react-icons/fa6';
+import { SkeletonResponseGenAi } from './components/Custom/skeleton';
+import { Label } from './components/ui/label';
+import { Checkbox } from './components/ui/checkbox';
 
 
 
 const ToolsTypes = () => {
 
-    const [convertedFiles, setConvertedFiles] = useState([]); 
-    const [jsonData, setJsonData] = useState('');
-    const [mergedPdfs, setMergedPdfs] = useState(null); // Store the merged PDF URL
-    const [mergedPdfUrl, setMergedPdfUrl] = useState(null); // Store the merged PDF URL
-    
-    const [file, setFile] = useState(null);
-    const [text, setText] = useState(""); 
-    const [summaryLength, setSummaryLength] = useState(""); 
-    const [uploading, setUploading] = useState(false);
-    const [response, setResponse] = useState(false);
-    const [error, setError] = useState(null);
-    const [target_lang, setTarget_lang] = useState('');
-    const [source_lang,setSource_lang] = useState("");
-    const [tone,setTone] = useState("");
-    const [copied , setCopied] = useState(null)
-    const [queries , setQueries] = useState({
-        politeness : false,
-        clarity : false,
-        brevity : false,
-        professionalism : false
-    });
-    const textAreaRef = useRef(null);
-    const params = useParams(); 
-    let type = params.type;
+  const [jsonData, setJsonData] = useState('');
+  const [mergedPdfs, setMergedPdfs] = useState(null); // Store the merged PDF URL
+  const [mergedPdfUrl, setMergedPdfUrl] = useState(null); // Store the merged PDF URL
+  
+  const [file, setFile] = useState(null);
+  const [text, setText] = useState(""); 
+  const [summaryLength, setSummaryLength] = useState(""); 
+  const [uploading, setUploading] = useState(false);
+  const [response, setResponse] = useState(false);
+  const [error, setError] = useState(null);
+  const [target_lang, setTarget_lang] = useState('');
+  const [source_lang,setSource_lang] = useState("");
+  const [tone,setTone] = useState("");
+  const [copied , setCopied] = useState(null);
+  const [isChecked,setisChecked] = useState(false);
+  const [queries , setQueries] = useState({
+    politeness : false,
+    clarity : false,
+    brevity : false,
+    professionalism : false
+  });
+  const textAreaRef = useRef(null);
+  const params = useParams(); 
+  let type = params.type;
 
-    const onDrop = (acceptedFiles) => {
+  const ValideSummearize = ["dsf-summarize-document"];
+  const IsValideSummearize = ValideSummearize.includes(type);
+
+  const validtranslate = ["translate-document-gemini"];
+  const isValidtranslate = validtranslate.includes(type);
+
+  const ValideProofread = ["dsf-proofread"];
+  const isValideProofread = ValideProofread.includes(type);
+  
+  const onDrop = (acceptedFiles) => {
         setFile(acceptedFiles[0]);
       };
 
@@ -103,24 +115,17 @@ const ToolsTypes = () => {
   const formatSummaryResponse = (response) => {
   
     // Remove Markdown headers like '## Summary (Short)'
-    const cleanedText = response
+    let cleanedText = JSON.stringify(response)
     .replace(/^#+[^\n]*\n+/, '')             // Remove headers that start with any number of '#'
-      .replace(/^##[^\n]*\n+/, '\n')             // Remove Markdown headers like '## Node.js Introduction (Short Summary)'
+    .replace(/^##[^\n]*\n+/, '\n')             // Remove Markdown headers like '## Node.j
     .replace(/\\n\\n/g, '\n')                   //  Replace '/n' with ' . '
     .replace(/\*/, '')  
-      .trim();                                 // Trim leading and trailing spaces/newlines
+    .trim();                                 // Trim leading and trailing spaces/newlines
   
-    return cleanedText;
+      setResponse(cleanedText)
   };
   
-  const ValideSummearize = ["dsf-summarize-document"];
-  const IsValideSummearize = ValideSummearize.includes(type);
 
-  const validtranslate = ["translate-document-gemini"];
-  const isValidtranslate = validtranslate.includes(type);
-
-  const ValideProofread = ["dsf-proofread"];
-  const isValideProofread = ValideProofread.includes(type);
 
   // const handleCopy = () => {
   //   setCopied(true);
@@ -130,7 +135,7 @@ const ToolsTypes = () => {
   const handleCopy = () => {
 
     // Copy text to clipboard
-    navigator.clipboard.writeText(formatSummaryResponse(JSON.stringify(response))).then(() => {
+    navigator.clipboard.writeText(response).then(() => {
       // Change button text to "Copied!"
       setCopied(true);
       
@@ -145,7 +150,11 @@ const ToolsTypes = () => {
   return (
     <>
       <div className='px-4 py-6 md:p-7'>
-
+        <Link to={'/dashboard/gen_ai'} className='flex gap-2 items-center bg-gray-100 w-fit px-3 py-2 rounded-md font-medium mb-4 border shadow-lg text-xs '>
+          <ArrowUpLeftFromSquare size={12} />
+          <p>Back To GenAi</p>
+        </Link>
+        <h1 className='font-poppins text-2xl font-bold mb-4'>{isValidtranslate ? "Translate Your Document" : isValideProofread ? "Enhance Your Document" : "Summarize Your Document"}</h1>
         <div className='flex w-full gap-6'>
         <Tabs defaultValue="Text" className="w-1/2 ">
             <TabsList className="grid w-full grid-cols-2 shadow-md">
@@ -165,26 +174,40 @@ const ToolsTypes = () => {
                 <div className='flex gap-2'>
                     {
                         IsValideSummearize && (
-                            <Input placeholder="Summary Length : Short, long, ...." value={summaryLength} onChange={(e) => setSummaryLength(e.target.value)} required className="mb-2 shadow"/>
+                          <div className='w-full'>
+                            <Input placeholder="Summary Length : Short, long, ...." value={summaryLength} onChange={(e) => setSummaryLength(e.target.value)} required className="mb-2 bg-muted shadow"/>
+                          </div>
                         )
 
                     }
                     {
                         isValidtranslate && (
                             <div className='w-full'>
-                                <Input placeholder="Original Langue : English ...." value={source_lang} onChange={(e) => setSource_lang(e.target.value)} required className="mb-2 shadow"/>
-                                <Input placeholder="Target Langue : Spanish, turkish, ...." value={target_lang} onChange={(e) => setTarget_lang(e.target.value)} required className="mb-2  shadow"/>
+                                <Input placeholder="Original Langue : English ...." value={source_lang} onChange={(e) => setSource_lang(e.target.value)} required className="mb-2 shadow bg-muted" disabled={isChecked} />
+                                <Input placeholder="Target Langue : Spanish, turkish, ...." value={target_lang} onChange={(e) => setTarget_lang(e.target.value)} required className="mb-2  shadow bg-muted"/>
+                                <div className="flex items-center space-x-2 mb-2 mt-0">
+                                  <Checkbox checked={isChecked} onClick={() => setisChecked(prev => !prev)}  className=" w-[12px] h-[12px] text-gray-500 border-gray-500" id="terms" />
+                                  <Label className="text-gray-500 text-xs" htmlFor="terms">Use Auto Detect language</Label>
+                                </div>
                             </div>
                         )
                     }
                     {
                       isValideProofread && (
                         <div className='w-full'>
-                          <Input placeholder="tone : neutral ...." value={tone} onChange={(e) => setTone(e.target.value)} required className="mb-2 shadow "/>
+                          <Input placeholder="tone : neutral ...." value={tone} onChange={(e) => setTone(e.target.value)} required className="mb-2 shadow  bg-muted" disabled={isChecked}/>
+                          <div className="flex items-center space-x-2 mb-2 mt-0">
+                              <Checkbox checked={isChecked} onClick={() => setisChecked(prev => !prev)}  className=" w-[12px] h-[12px] text-gray-500 border-gray-500" id="terms" />
+                              <Label className="text-gray-500 text-xs" htmlFor="terms">Use Auto Detect tone</Label>
+                            </div>
                         </div>
                       )
                     }
-                    <Button className="bg-green-500 hover:bg-green-700 shadow" onClick={handleTextInput} >{uploading ? "Summarizing..." : "Get Summarize"}</Button>
+                    <Button className="bg-gray-900 hover:bg-gray-700 shadow" onClick={handleTextInput} >
+                      {uploading ? (isValidtranslate ? "Translating..." : isValideProofread ? "Enhancing..." :"Summarizing...") : (
+                        (isValidtranslate ? "Translate" : isValideProofread ? "Enhance" :"Summarize")
+                      )}
+                    </Button>
                 </div>
                 <textarea
                     ref={textAreaRef}
@@ -198,26 +221,38 @@ const ToolsTypes = () => {
                 <div className='flex gap-2'>
                     {
                         IsValideSummearize && (
-                            <Input placeholder="Summary Length : Short, long, ...." value={summaryLength} onChange={(e) => setSummaryLength(e.target.value)} required className="mb-2 shadow"/>
+                            <Input placeholder="Summary Length : Short, long, ...." value={summaryLength} onChange={(e) => setSummaryLength(e.target.value)} required className="mb-2 shadow bg-muted"/>
                         )
 
                     }
                     {
                         isValidtranslate && (
-                            <div className='w-full'>
-                                <Input placeholder="Original Langue : English ...." value={source_lang} onChange={(e) => setSource_lang(e.target.value)} required className="mb-2 shadow"/>
-                                <Input placeholder="Target Langue : Spanish, turkish, ...." value={target_lang} onChange={(e) => setTarget_lang(e.target.value)} required className="mb-2 shadow "/>
+                            <div className='w-full mb-2'>
+                                <div>
+                                  <Input placeholder="Original Langue : English ...." value={source_lang} onChange={(e) => setSource_lang(e.target.value)} required className="mb-2 shadow bg-muted" disabled={isChecked}/>
+                                   <Input placeholder="Target Langue : Spanish, turkish, ...." value={target_lang} onChange={(e) => setTarget_lang(e.target.value)} required className="mb-2 shadow bg-muted "/>
+                                  <div className="flex items-center space-x-2 mb-1 mt-0">
+                                    <Checkbox checked={isChecked} onClick={(e) => setisChecked(prev => !prev)}  className=" w-[12px] h-[12px] text-gray-500 border-gray-500" id="terms" />
+                                    <Label className="text-gray-500 text-xs" htmlFor="terms">Use Auto Detect language</Label>
+                                  </div>
+                                </div>
                             </div>
                         )
                     }
                     {
                       isValideProofread && (
                         <div className='w-full'>
-                          <Input placeholder="tone : neutral ...." value={tone} onChange={(e) => setTone(e.target.value)} required className="mb-2 shadow"/>
+                          <Input placeholder="tone : neutral ...." value={tone} onChange={(e) => setTone(e.target.value)} required className="mb-2 shadow bg-muted" disabled={isChecked}/>
+                          <div className="flex items-center space-x-2 mb-2 mt-0">
+                              <Checkbox checked={isChecked} onClick={() => setisChecked(prev => !prev)}  className=" w-[12px] h-[12px] text-gray-500 border-gray-500" id="terms" />
+                              <Label className="text-gray-500 text-xs" htmlFor="terms">Use Auto Detect tone</Label>
+                            </div>
                         </div>
                       )
                     }
-                    <Button className="bg-green-500 hover:bg-green-700 " onClick={handleFileInput} >{uploading ? "Summarizing..." : "Get Summarize"}</Button>
+                    <Button className="bg-gray-900 hover:bg-gray-700 " onClick={handleFileInput} >{uploading ? (isValidtranslate ? "Translating..." : isValideProofread ? "Enhancing..." :"Summarizing...") : (
+                        (isValidtranslate ? "Translate" : isValideProofread ? "Enhance" :"Summarize")
+                      )}</Button>
                 </div>
                  <div 
                     {...getRootProps()}
@@ -263,10 +298,16 @@ const ToolsTypes = () => {
         </Tabs>
             <div className='border border-gray-200 w-1/2 rounded-lg p-6 bg-[#F5F5F5] leading-7 shadow-md'>
             <div className='w-full flex justify-between items-center mb-5'>
-              <h1 className='font-semibold font-Rubik text-xl '>Summarizing Text</h1>
-              {<Button onClick={() => handleCopy()} className='bg-primary h-fit py-2 px-3 text-xs'>{copied ? "Copied!" : "Copy "}</Button>}
+              <h1 className='font-semibold font-Rubik text-xl '>{isValidtranslate ? "Translating" : isValideProofread ? "Profreed" : "Summarizing"} Text</h1>
+              {<Button onClick={() => handleCopy()} className='bg-gray-900 h-fit py-2 px-3 text-xs'>{copied ? "Copied!" : "Copy "}</Button>}
             </div>
-                {response ? formatSummaryResponse(JSON.stringify(response)) : "" }
+
+             {
+              
+                <div> {uploading ? <SkeletonResponseGenAi /> : response || <p className='italic text-gray-400'>The Magic is Here . . . . . . . .</p>} </div>
+              
+             }
+                
             </div>
         </div>
 

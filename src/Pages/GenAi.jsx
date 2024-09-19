@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import TitlePage from '@/components/Custom/TitlePage';
 import { MdInsertDriveFile, MdImage, MdWeb, MdFileDownload, MdPictureAsPdf, MdTableChart, MdDescription, MdOutlinePictureAsPdf, MdOutlineMergeType, MdSlideshow, MdAutoFixHigh } from 'react-icons/md'; 
+import { Badge } from '@/components/ui/badge';
+import { Heart } from 'lucide-react';
 
 const conversionOptionsFromPDF = [
   { id: 1, title: 'Fluent Files', description: 'Translate your documents and text seamlessly with enhanced AI Translation systems ', link: 'translate-document-gemini', icon: MdInsertDriveFile, color: 'text-green-500' },
@@ -20,13 +22,16 @@ const GenAi = () => {
         <div className='font-Rubik p-4 border shadow-lg bg-gray-100 rounded-xl'>
           <div>
             {/* <h1 className='font-semibold text-xl mb-3'>Let's Go With Gemini </h1> */}
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-2 md:grid-cols-1 gap-6">
               {conversionOptionsFromPDF.map(option => (
                 <Link 
                   to={option.link} 
                   key={option.id} 
-                  className="p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200 flex items-start"
+                  className="p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200 flex items-start relative"
                 >
+                  <Badge className='absolute right-2 top-2 rounded-md bg-muted text-gray-600 py-1 hover:bg-muted z-20'>
+                    Favorite <Heart size={14} className='ml-1.5'/>
+                  </Badge>
                   <option.icon className={`text-2xl ${option.color} mr-3`} />
                   <div>
                     <h2 className="text-xl font-semibold mb-2">{option.title}</h2>
