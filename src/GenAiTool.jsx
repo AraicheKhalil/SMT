@@ -154,7 +154,7 @@ const ToolsTypes = () => {
           <ArrowUpLeftFromSquare size={12} />
           <p>Back To GenAi</p>
         </Link>
-        <h1 className='font-poppins text-2xl font-bold mb-4'>{isValidtranslate ? "Translate Your Document" : isValideProofread ? "Enhance Your Document" : "Summarize Your Document"}</h1>
+        <h1 className='font-poppins text-2xl font-bold mb-4'>{isValidtranslate ? "Translate Your Document" : isValideProofread ? "Refine and Enhance with Smart Edit's AI" : "Summarize Your Document"}</h1>
         <div className='flex w-full gap-6'>
         <Tabs defaultValue="Text" className="w-1/2 ">
             <TabsList className="grid w-full grid-cols-2 shadow-md">
@@ -298,13 +298,13 @@ const ToolsTypes = () => {
         </Tabs>
             <div className='border border-gray-200 w-1/2 rounded-lg p-6 bg-[#F5F5F5] leading-7 shadow-md'>
             <div className='w-full flex justify-between items-center mb-5'>
-              <h1 className='font-semibold font-Rubik text-xl '>{isValidtranslate ? "Translating" : isValideProofread ? "Profreed" : "Summarizing"} Text</h1>
+              <h1 className='font-semibold font-Rubik text-xl '>{isValidtranslate ? "Translated" : isValideProofread ? "Enhanced" : "Summarizing"} Text</h1>
               {<Button onClick={() => handleCopy()} className='bg-gray-900 h-fit py-2 px-3 text-xs'>{copied ? "Copied!" : "Copy "}</Button>}
             </div>
 
              {
               
-                <div> {uploading ? <SkeletonResponseGenAi /> : response || <p className='italic text-gray-400'>The Magic is Here . . . . . . . .</p>} </div>
+                <div> {uploading ? <SkeletonResponseGenAi /> : response || <p className='italic text-gray-400 text-xl font-extrabold'> . . .</p>} </div>
               
              }
                 
