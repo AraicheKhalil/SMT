@@ -138,7 +138,7 @@ const Tools = () => {
   return (
     <>
       <div className='px-4 py-6 md:p-7'>
-        <TitlePage title={'Convert Your Files'} description={"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa vitae, aliquid accusantium maiores dolorum eveniet totam a tenetur blanditiis fugiat nihil"}/>
+        <TitlePage title={'Convert Your Files'} />
         <div className='font-Rubik p-4 border shadow-lg bg-gray-100 rounded-xl'>
           <div>
             <h1 className='font-semibold text-xl mb-3'>Convert From PDF</h1>

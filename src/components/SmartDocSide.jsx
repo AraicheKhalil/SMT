@@ -116,10 +116,10 @@ const SmartDocSide = ({files , setActiveFile, extractDocument , deleteFile }) =>
 
     return (
       <div
-        className={`smart-doc-side min-h-screen border-r-2 border-gray-300 shadow-lg bg-gray-200   py-2  relative transition ${!open ? "max-w-6 w-6 min-w-6 " : "w-[180px]  max-w-[180px] min-w-[180px]" } `}
+        className={`smart-doc-side  min-h-screen max-h-screen border-r-2 border-gray-300 shadow-lg bg-gray-200   py-2  relative transition ${!open ? "max-w-6 w-6 min-w-6 " : "w-[180px]  max-w-[180px] min-w-[180px]" } `}
       >
         <button
-          className={`absolute -right-6 top-8 p-1 ${!open && "rotate-180"} transition duration-200`}
+          className={`absolute -right-6 top-8 p-1 ${!open && "rotate-180"} transition duration-200 z-30`}
           onClick={() => setOpen(!open)}
         >
           <ChevronsLeft
@@ -130,14 +130,14 @@ const SmartDocSide = ({files , setActiveFile, extractDocument , deleteFile }) =>
         </button>
         {
           open && (
-            <div className="w-full flex justify-center pt-2">
+            <div className="w-full flex justify-center py-2">
               <Button onClick={() => extractDocument()} className="bg-gray-900 ">
                 Extract All 
               </Button >
             </div>
           )
         }
-        <div className={`overflow-y-scroll h-full p-2 pr-0 transition duration-200 ${!open && "hidden "}`}>
+        <div className={` h-full p-2 pr-0 pt-0  transition duration-200 ${!open && "hidden "} overflow-y-scroll pb-12`}>
           {files.map((fileWrapper) => (
             <div
               key={fileWrapper.id}

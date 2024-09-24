@@ -391,9 +391,9 @@ const Controls = () => {
   const { zoomIn, zoomOut, resetTransform } = useControls();
 
   return (
-    <div className='flex gap-3 item items-center mx-auto w-fit bg-gray-900 p-2 rounded-sm'>
+    <div className='absolute z-20 left-2 top-2 flex gap-3 item items-center mx-auto w-fit bg-primary p-2 rounded-sm'>
       <button onClick={() => zoomOut()} >
-        <Minus size={18} className='text-white border rounded-full p-0.5' />
+        <Minus size={18} className='text-white border rounded-full p-0.5 ' />
       </button>
     
       <button onClick={() => zoomIn()}>
@@ -447,7 +447,7 @@ const MainSmartDoc = ({ onDrop , activeFile , setActiveFile , setDocumentType  ,
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
   return (
-    <div className={`basis-full bg-zinc-100 p-1.5`}>
+    <div className={`max-h-screen relative min-h-screen basis-full bg-zinc-100 p-1.5`}>
       {/* <TransformWrapper > */}
         <div className='text-white bg-gray-800 rounded-md  shadow-gray-300 shadow-xl p-2  flex justify-between items-center flex-wrap gap-3'>
           <div className='flex gap-3'>
@@ -533,7 +533,7 @@ const MainSmartDoc = ({ onDrop , activeFile , setActiveFile , setDocumentType  ,
 
       {/* </TransformWrapper> */}
       {activeFile !== null ? (
-        <div className="flex w-full h-full flex-col mt-4 items-center">
+        <div className="flex w-full h-full flex-col mt-2 items-center">
 
           {isCropping ? (
             <div className="flex flex-col items-center  h-full mx-auto 2xl:h-[700px] w-full mb-4 relative mt-2 ">
@@ -559,7 +559,7 @@ const MainSmartDoc = ({ onDrop , activeFile , setActiveFile , setDocumentType  ,
               <TransformWrapper >
                 <Controls />
                 <TransformComponent >
-                  <img src={activeFile.previewUrl} alt="Uploaded" style={{ height: '100%', width: '100%', objectFit: 'contain' , borderRadius : "12px" }} />
+                  <img className='rendered-image shadow object-cover' src={activeFile.previewUrl} alt="Uploaded"  />
                 </TransformComponent>
 
               </TransformWrapper>
