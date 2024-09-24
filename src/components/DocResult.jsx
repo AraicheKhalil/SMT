@@ -647,7 +647,7 @@ const DocResult = ({ activeFile, extractionResults ,loading }) => {
   };
 
   return (
-    <div className=" flex flex-col w-full bg-white h-full shadow-lg p-2 pb-0  ">
+    <div className=" flex flex-col w-full bg-white h-full shadow-lg p-2 pb-0 max-h-screen  ">
       <h3 className="  text-lg font-semibold font-Rubik  ml-2 mb-2 ">
         Document Response
       </h3>

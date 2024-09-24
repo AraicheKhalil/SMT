@@ -9,6 +9,10 @@
   border-radius: 8px;
 }
 
+/* .exel-table{
+  height: calc(100vh - 30%);
+} */
+
 ::-webkit-scrollbar {
     width: 10px; 
     height: 10px;

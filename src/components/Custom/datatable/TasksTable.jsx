@@ -229,22 +229,7 @@ const TasksTable = () => {
             <TableHead>edit</TableHead>
           </TableRow>
         </TableHeader>
-        {/* <thead>
-          <tr className="w-full border-b">
-            <th className="p-2">ID</th>
-            <th className="p-2 flex items-center">
-              Name
-              <button onClick={() => handleSort('name')} className="ml-2">
-                {sortConfig.key === 'name' && sortConfig.direction === 'ascending' ? (
-                  <ChevronUp />
-                ) : (
-                  <ChevronDown />
-                )}
-              </button>
-            </th>
-            <th className="p-2">Age</th>
-          </tr>
-        </thead> */}
+
         <TableBody>
           {renderTableRows()}
         </TableBody>
@@ -269,24 +254,6 @@ const TasksTable = () => {
           </PaginationItem>
         </PaginationContent>
       </Pagination>
-
-      {/* <div className="flex justify-center my-4">
-        <button
-          className="px-4 py-2 mx-1 bg-gray-200"
-          onClick={handlePreviousPage}
-          disabled={currentPage === 1}
-        >
-          Previous
-        </button>
-        {renderPageNumbers()}
-        <button
-          className="px-4 py-2 mx-1 bg-gray-200"
-          onClick={handleNextPage}
-          disabled={currentPage === totalPages}
-        >
-          Next
-        </button>
-      </div> */}
     </div>
   );
 };

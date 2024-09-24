@@ -9,8 +9,8 @@ const renderCellContent = (cell) => {
 
 const DataTable = ({ headers, rows }) => {
     return (
-        <div className="overflow-auto max-h-[500px]">
-            <table className="min-w-full  border border-black">
+        <div className="exel-table max-h-[400px] overflow-auto ">
+            <table className="   border border-black">
                 <thead>
                     <tr>
                         {headers.map(header => (
@@ -22,7 +22,7 @@ const DataTable = ({ headers, rows }) => {
                     {rows.map((row, rowIndex) => (
                         <tr key={rowIndex}>
                             {row.map((cell, cellIndex) => (
-                                <td key={cellIndex} className="px-4 py-2 border border-black">{renderCellContent(cell)}</td>
+                                <td key={cellIndex} className="px-4 py-2 border border-black ">{renderCellContent(cell)}</td>
                             ))}
                         </tr>
                     ))}
