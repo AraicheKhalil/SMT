@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ChevronUp, ChevronDown } from 'lucide-react';
+import { ChevronUp, ChevronDown, FolderOpen, File } from 'lucide-react';
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
@@ -74,11 +74,16 @@ const sampleData = [
 ];
 
 
+
+
+
+
 const TasksTable = () => {
   const [data, setData] = useState(sampleData);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(8);
   const [sortConfig, setSortConfig] = useState({ key: '', direction: '' });
+  const [filterDoc,setFilterDoc] = useState("all")
 
   useEffect(() => {
     // Load data from an API or other source if needed
@@ -92,9 +97,49 @@ const TasksTable = () => {
     }
     setSortConfig({ key, direction });
   };
+  
+  let sortableItems = [...data];
+  const handleFilterDoc = (key) => {
+    console.log(key)
+    setFilterDoc(key);
+    sortableItems.filter(item => {
+      return item.theOrigineType == filterDoc ? console.log(item) : ""
+    })
+  }
+  console.log(sortableItems)
+
+  const FilterBar = () => {
+    return (
+      <div className="flex items-center justify-end  py-2 ]">
+        <div className="inline-flex rounded-md shadow-sm" role="group">
+          <Button
+            variant="outline"
+            className="rounded-r-none border-r-0 px-3 bg-muted text-xs"
+          >
+            All
+          </Button>
+          <Button
+            variant="outline"
+            className="rounded-none border-x px-4 text-xs"
+            onClick={() => handleFilterDoc("folder")}
+          >
+            Folder <FolderOpen size={14} className='ml-1.5 ' />
+          </Button>
+          <Button
+            variant="outline"
+            className="rounded-l-none border-l-0 px-4 text-xs"
+            onClick={() => handleFilterDoc("file")}
+          >
+            File <File size={14} className='ml-1.5 ' />
+          </Button>
+        </div>
+      </div>
+    )
+  }
 
   const sortedData = React.useMemo(() => {
-    let sortableItems = [...data];
+    // let sortableItems = [...data];
+    console.log(sortableItems)
     if (sortConfig.key) {
       sortableItems.sort((a, b) => {
         if (a[sortConfig.key] < b[sortConfig.key]) {
@@ -202,6 +247,7 @@ const TasksTable = () => {
 
   return (
     <div className="mt-8 overflow-x-auto">
+      <FilterBar />
       <Table className="min-w-[1000px]">
         <TableHeader>
           <TableRow>
