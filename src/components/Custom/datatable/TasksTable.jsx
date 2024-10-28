@@ -28,6 +28,7 @@ import { Button } from '@/components/ui/button';
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from '@/components/ui/pagination';
 import { Checkbox } from '@/components/ui/checkbox';
 import { DotsHorizontalIcon } from '@radix-ui/react-icons';
+import { AiFillFile, AiFillFolder } from 'react-icons/ai';
 
 // Expanded sample data
 const sampleData = [
@@ -98,15 +99,18 @@ const TasksTable = () => {
     setSortConfig({ key, direction });
   };
   
-  let sortableItems = [...data];
-  const handleFilterDoc = (key) => {
+  let handleFilterDoc = (key) => {
+    setData(sampleData)
     console.log(key)
     setFilterDoc(key);
-    sortableItems.filter(item => {
-      return item.theOrigineType == filterDoc ? console.log(item) : ""
+    const ftd = data.filter(item => {
+      return item.theOrigineType == key 
     })
+
+    setData(ftd)
   }
-  console.log(sortableItems)
+
+  console.log(data)
 
   const FilterBar = () => {
     return (
@@ -138,7 +142,7 @@ const TasksTable = () => {
   }
 
   const sortedData = React.useMemo(() => {
-    // let sortableItems = [...data];
+    let sortableItems = [...data];
     console.log(sortableItems)
     if (sortConfig.key) {
       sortableItems.sort((a, b) => {
@@ -182,7 +186,7 @@ const TasksTable = () => {
           <Checkbox className="border-gray-400" />
         </TableCell>
         <TableCell className="font-medium text-blue-700">{item.DocumentName}</TableCell>
-        <TableCell>{item.DocType}</TableCell>
+        <TableCell className="flex items-center gap-1">{item.theOrigineType == "folder" ? <AiFillFolder className='text-blue-600 text-xl' /> : <AiFillFile className='text-yellow-400 text-xl' />}{item.DocType}</TableCell>
         <TableCell className="py-0" >
           <div className={`py-1 px-3 w-fit rounded-lg font-medium border-2 ${item.status === "pending" && "text-yellow-500 bg-yellow-100 border-yellow-500"} ${item.status === "approved" && "text-green-500 bg-green-100 border-green-500"} ${item.status === "revision" && "text-orange-500 bg-orange-100 border-orange-500"} ${item.status === "requisition" && "text-blue-500 bg-blue-100 border-blue-500"} ${item.status === "rejected" && "text-red-500 bg-red-100 border-red-500"}` }>
             {item.status}

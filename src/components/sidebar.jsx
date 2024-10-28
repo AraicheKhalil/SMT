@@ -3,12 +3,13 @@ import React, { useContext, useEffect, useState } from 'react'
 import SideBarContext from '@/hooks/context/SideBarContext';
 import { NavLink, useLocation } from 'react-router-dom';
 import { FaTools } from 'react-icons/fa';
+import { AppContext } from '../context/AppContext';
 
 
 
 export default function Sidebar() {
 
-  const { open, setOpen } = useContext(SideBarContext);
+  const {  open, setOpen , logout} = useContext(AppContext);
   const { pathname } = useLocation()
 
 
@@ -21,7 +22,7 @@ export default function Sidebar() {
     { route: "gen_ai", title: "Gen Ai ", src: <BrainCircuit  /> },
     { route: "chat-doc", title: "Chat Doc", src: <MessagesSquare /> },
     { route: "settings", title: "Settings", src: <Settings />, gap: true },
-    { route: "sign-out", title: "Sign Out ", src: <Power />, },
+    { route: "sign-out", title: "Sign Out ", src: <Power />, }
   ];
 
 
@@ -59,7 +60,11 @@ export default function Sidebar() {
               className={`flex rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-300 text-sm items-center gap-x-4 
                 ${Menu.gap ? "mt-9" : "mt-2"} ${pathname === `/dashboard/${Menu.route}` && "bg-gray-900 font-medium"} `}
             >
-              <NavLink to={`${Menu.route}`} className='flex items-center gap-x-4 w-full'>
+              <NavLink 
+                to={`${Menu.route}`} 
+                className='flex items-center gap-x-4 w-full'
+                onClick={() => Menu.route == "sign-out" && logout() }
+                >
                 <div>{Menu.src}</div>
                 <span
                   className={`${!open && "hidden"} origin-left duration-200`}

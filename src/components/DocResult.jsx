@@ -647,12 +647,12 @@ const DocResult = ({ activeFile, extractionResults ,loading }) => {
   };
 
   return (
-    <div className=" flex flex-col w-full bg-white h-full shadow-lg p-2 pb-0 max-h-screen  ">
+    <div className=" flex flex-col w-full bg-white h-full shadow-lg py-2 pb-0 max-h-screen  ">
       <h3 className="  text-lg font-semibold font-Rubik  ml-2 mb-2 ">
         Document Response
       </h3>
-      <Tabs defaultValue="JSON" className="max-h-full h-full ">
-        <TabsList className="gap-4 bg-none w-full justify-start">
+      <Tabs defaultValue="JSON" className="max-h-full h-full  ">
+        <TabsList className="gap-4 bg-none w-full justify-start mx-2">
           <TabsTrigger className="text-xs font-medium data-[state=active]:bg-primary data-[state=active]:text-white data-[state=active]:shadow-sm" value="JSON">
             JSON
           </TabsTrigger>

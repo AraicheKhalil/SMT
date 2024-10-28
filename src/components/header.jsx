@@ -1,8 +1,6 @@
 import React from 'react'
 import { Input } from './ui/input'
 import { AlignJustify, Search, SquareMenu, SquareMenuIcon } from 'lucide-react'
-import { Notifications } from './Custom/notifications'
-import { UserProfileDrop } from './Custom/UserProfileDrop'
 import {
   Sheet,
   SheetClose,
@@ -15,10 +13,12 @@ import {
 } from "@/components/ui/sheet"
 import { Button } from './ui/button'
 import PopupSidebar from './Custom/popupSidebar'
+import Notifications from './Custom/notifications'
+import UserProfileDrop from './Custom/UserProfileDrop'
 
 export default function Header() {
   return (
-    <header className='w-full shadow-lg h-20 flex justify-between items-center gap-3 px-3 md:px-5'>
+    <header className='w-full  shadow-lg h-16 flex justify-between items-center gap-3 px-3 md:px-5'>
       
       <div className='flex items-center gap-2 '>
         <div className='mega-menu h-fit lg:hidden block'>

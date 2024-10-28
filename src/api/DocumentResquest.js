@@ -1,3 +1,7 @@
+// import { AppContext } from '@/context/AppContext';
+// import { useContext } from 'react'
+// const {auth} = useContext(AppContext)
+// const {token} = auth;
 import axios from 'axios';
 
 export const uploadFilesTest = async (files,documentType) => {
@@ -231,6 +235,32 @@ export const GenIAResponse = async ({ file, text, source_lang  , target_lang , t
     throw error;
   }
 };
+
+
+const URL = "http://localhost:5000/api/v1"
+const Production = "https://dsf-saas.onrender.com/api/v1"
+export const TrackUserSubmissions = async (token,Tool,documentType) => {
+
+  const response = await fetch(`${Production}/activities/track`,{
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    },
+    body: JSON.stringify({
+      "toolCategory": Tool,
+      "toolType": documentType
+    }),
+  })
+  
+  if(!response.ok){
+    return false
+  }
+
+  const data = await response.json();
+  console.log("hhhhhhhhhhhhhhhhh", data.access)
+  return data.access
+}
 
 
 export const PlayGroundResponse = async (files) => {

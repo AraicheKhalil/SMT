@@ -1,9 +1,9 @@
-import React, { useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import TitlePage from '@/components/Custom/TitlePage';
-import { GenIAResponse,  } from '@/api/DocumentResquest';
+import { GenIAResponse, TrackUserSubmissions,  } from '@/api/DocumentResquest';
 import { useDropzone } from 'react-dropzone';
-import { ArrowUpLeftFromSquare, CloudSnow, Cog, Files, Sparkles, X } from 'lucide-react';
+import { AlertCircle, ArrowUpLeftFromSquare, CloudSnow, Cog, Files, Sparkles, X } from 'lucide-react';
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import {
@@ -17,6 +17,8 @@ import { FaFileLines } from 'react-icons/fa6';
 import { SkeletonResponseGenAi } from './components/Custom/skeleton';
 import { Label } from './components/ui/label';
 import { Checkbox } from './components/ui/checkbox';
+import { AppContext } from './context/AppContext';
+import { Alert, AlertDescription, AlertTitle } from './components/ui/alert';
 
 
 
@@ -44,8 +46,11 @@ const ToolsTypes = () => {
     professionalism : false
   });
   const textAreaRef = useRef(null);
+  const { auth , documentType , setDocumentType } = useContext(AppContext)
+  const {token} = auth;
   const params = useParams(); 
   let type = params.type;
+  const Tool = "GenAI";
 
   const ValideSummearize = ["dsf-summarize-document"];
   const IsValideSummearize = ValideSummearize.includes(type);
@@ -86,12 +91,17 @@ const ToolsTypes = () => {
   
   const handleTextInput = async () => {
     try {
-        setUploading(true);
-        const response = await GenIAResponse({ text, target_lang : target_lang,
-          source_lang : source_lang , tone : tone, summaryLength: summaryLength },type);
-        const data = await response;
-        setResponse(data);
-        setUploading(false);
+      const canSubmit = await TrackUserSubmissions(token,Tool,type);
+      if(!canSubmit){
+        setError("You have reached the pro limit of 10 submissions for GenAi. Please upgrade your membership")
+        return ;
+      }
+      setUploading(true);
+      const response = await GenIAResponse({ text, target_lang : target_lang,
+        source_lang : source_lang , tone : tone, summaryLength: summaryLength },type);
+      const data = await response;
+      setResponse(data);
+      setUploading(false);
     } catch (error) {
         setUploading(false);
         console.log("no text found")
@@ -100,6 +110,11 @@ const ToolsTypes = () => {
 
   const handleFileInput = async () => {
     try {
+        const canSubmit = await TrackUserSubmissions(token,Tool,type);
+        if(!canSubmit){
+          setError("You have reached the pro limit of 10 submissions for GenAi. Please upgrade your membership")
+          return ;
+        }
         setUploading(true);
         const response = await GenIAResponse({ file, target_lang : target_lang,
           source_lang : source_lang, tone : tone, summaryLength: summaryLength  },type);
@@ -146,10 +161,27 @@ const ToolsTypes = () => {
     });
   };
 
+  useEffect(() => {
+    if (error ) {
+      const timer = setTimeout(() => {
+        setError("")
+      }, 10000) // Clear messages after 5 seconds
+      return () => clearTimeout(timer)
+    }
+  }, [error])
 
   return (
     <>
-      <div className='px-4 py-6 md:p-7'>
+      <div className='px-4 py-6 md:p-7 relative'>
+      <div className="w-full max-w-md fixed top-4 z-50 px-4">
+      {error && (
+          <Alert variant="destructive" className="bg-orange-100 opacity-95 border-orange-400 text-orange-800 animate-in fade-in-50 slide-in-from-top-full duration-300">
+            <AlertCircle className="h-4 w-4" />
+            <AlertTitle>Upgrade membership</AlertTitle>
+            <AlertDescription>{error}</AlertDescription>
+          </Alert>
+        )}
+      </div>
         <Link to={'/dashboard/gen_ai'} className='flex gap-2 items-center bg-gray-100 w-fit px-3 py-2 rounded-md font-medium mb-4 border shadow-lg text-xs '>
           <ArrowUpLeftFromSquare size={12} />
           <p>Back To GenAi</p>

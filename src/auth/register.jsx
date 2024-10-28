@@ -1,149 +1,185 @@
-import React, { useState } from "react";
-import AuthForm from "./AuthForm";
-import InputWrapper from "../components/Wrappers/InputWrapper";
-import { SignupInputs } from "../Assets/Data/InputsData";
-import Input from "../components/Inputs/Input";
-import InputPassword from "../components/Inputs/InputPassword";
-import { Link, useNavigate } from "react-router-dom";
-import ButtonImg from "../components/Button/ButtonImg";
-import AuthOptionText from "../components/Typograpghy/AuthOptionText";
-import ButtonLarge from "@/components/Button/ButtonLarge";
-import googleLogo from "@/Assets/images/google.png";
-import microsoftLogo from "@/Assets/images/microsoft.png";
-import appleLogo from "@/Assets/images/apple.png";
-import { useFormik } from "formik";
-import { signupSchema } from "./Schema";
-import BtnLoading from "@/components/Button/BtnLoading";
-import { registerUser } from "./authFunctions";
-import Popup from "./Popup"; // Ensure you have a Popup component
-import { auth, createUserWithEmailAndPassword, sendEmailVerification, db, doc, setDoc } from './firebase';
-import { updateProfile } from "firebase/auth";
+'use client'
 
+import { useState, useEffect, useContext } from "react"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { AlertCircle, CheckCircle2 } from "lucide-react"
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { AppContext } from '@/context/AppContext'
+import { Link, useNavigate } from "react-router-dom"
+import { FcGoogle } from "react-icons/fc"
+import microsoft from "@/Assets/images/microsoft.png"
 
-const Register = () => {
-    const navigate = useNavigate();
-    const [loading, setLoading] = useState(false);
-    const [showPopup, setShowPopup] = useState(false);
-    const [popupMessage, setPopupMessage] = useState("");
-    const initialState = {
-        firstName: "",
-        lastName: "",
-        email: "",
-        password: "",
-        companyName: "",
-        companyAddress: "",
-        companyContactInfo: "",
-    };
+export default function Register() {
+  const [firstName, setFirstName] = useState("")
+  const [lastName, setLastName] = useState("")
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [error, setError] = useState("")
+  const [successMessage, setSuccessMessage] = useState("")
+  const [isLoading, setIsLoading] = useState(false)
+  const { login } = useContext(AppContext)
+  const navigate = useNavigate()
 
-    const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
-        useFormik({
-            initialValues: initialState,
-            validationSchema: signupSchema,
-            onSubmit: async (values) => {
-                setLoading(true);
-                try {
-                    const userCredential = await createUserWithEmailAndPassword(auth, values.email, values.password);
-                    const user = userCredential.user;
+  useEffect(() => {
+    if (error || successMessage) {
+      const timer = setTimeout(() => {
+        setError("")
+        setSuccessMessage("")
+      }, 5000)
+      return () => clearTimeout(timer)
+    }
+  }, [error, successMessage])
 
-                    // Update the user profile
-                    await updateProfile(user, {
-                        displayName: `${values.firstName} ${values.lastName}`,
-                    });
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setError("")
+    setSuccessMessage("")
+    setIsLoading(true)
 
-                    // Create user document in Firestore
-                    const userDoc = doc(db, 'users', user.uid);
-                    await setDoc(userDoc, {
-                        email: user.email,
-                        firstName: values.firstName,
-                        lastName: values.lastName,
-                        companyName: values.companyName,
-                        companyAddress: values.companyAddress,
-                        companyContactInfo: values.companyContactInfo,
-                        membershipType: 'Enterprise',
-                        ocrExtractions: 0,
-                        chatQueries: 0,
-                        uploads: 0,
-                        contributors: [],
-                        createdAt: new Date(),
-                        isVerified: false,
-                    });
+    try {
+      const response = await fetch('http://localhost:3000/api/v1/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ firstName, lastName, email, password }),
+      })
 
-                    // Send email verification
-                    await sendEmailVerification(user);
+      const data = await response.json()
 
-                    // Show the popup
-                    setPopupMessage("A verification email has been sent to your email address. Please verify your email to continue.");
-                    setShowPopup(true);
+      if (!response.ok) {
+        console.error('Registration failed:', response.status, data)
+        throw new Error(data?.message || `HTTP error! status: ${response.status}`)
+      }
 
-                } catch (error) {
-                    console.error('Error registering user:', error);
-                } finally {
-                    setLoading(false);
-                }
-            },
-        });
+      console.log('Registration successful:', data)
+      setSuccessMessage(data.message || 'Registration successful!')
+      login(data.token, data.user)
+      await new Promise((res) => setTimeout(res, 3000))
+      navigate("/dashboard")
+    } catch (err) {
+      console.error('Registration error:', err)
+      setError(err instanceof Error ? err.message : 'An unexpected error occurred. Please try again.')
+    } finally {
+      setIsLoading(false)
+    }
+  }
 
-    const handlePopupClose = () => {
-        setShowPopup(false);
-        navigate("/login");
-    };
-
-    return (
-        <>
-            <AuthForm onSubmit={handleSubmit} formHeader="Welcome To SmartDoc">
-                <InputWrapper customClasses={"!gap-3"}>
-                    {SignupInputs.map((inpt, index) => (
-                        inpt.type === "password" ? (
-                            <InputPassword
-                                key={index}
-                                value={values[inpt.name]}
-                                name={inpt.name}
-                                id={inpt.id}
-                                touch={touched[inpt.name]}
-                                error={errors[inpt.name]}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                placeholder={inpt.placeholder}
-                                disabled={false}
-                            />
-                        ) : (
-                            <Input
-                                key={index}
-                                value={values[inpt.name]}
-                                name={inpt.name}
-                                id={inpt.id}
-                                touch={touched[inpt.name]}
-                                error={errors[inpt.name]}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                placeholder={inpt.placeholder}
-                                disabled={false}
-                            />
-                        )
-                    ))}
-                </InputWrapper>
-                <InputWrapper customClasses={"!mt-3"}>
-                    {loading ? (
-                        <BtnLoading />
-                    ) : (
-                        <ButtonLarge type="submit" text="Sign Up" />
-                    )}
-                </InputWrapper>
-                <div className="flex justify-center items-center w-full text-center mt-[7px]">
-                    <h6 className="satoshi-500 text-[14px] md:text-[16px]">
-                        Already have an account?{" "}
-                    </h6>
-                    <Link to="/login" className="text-link text-[14px] md:text-[16px] satoshi-500 ml-1">
-                        SignIn
-                    </Link>
-                </div>
-            </AuthForm>
-
-            {showPopup && (
-                <Popup message={popupMessage} onClose={handlePopupClose} />
-            )}
-        </>
-    );
-};
-
-export default Register;
+  return (
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-primary-50 to-primary-100 p-4">
+      <div className="w-full max-w-md fixed top-4 z-50 px-4">
+        {error && (
+          <Alert variant="destructive" className="bg-red-100 border-red-400 text-red-800 animate-in fade-in-50 slide-in-from-top-full duration-300">
+            <AlertCircle className="h-4 w-4" />
+            <AlertTitle>Error</AlertTitle>
+            <AlertDescription>{error}</AlertDescription>
+          </Alert>
+        )}
+        {successMessage && (
+          <Alert variant="default" className="bg-green-100 border-green-400 text-green-800 animate-in fade-in-50 slide-in-from-top-full duration-300">
+            <CheckCircle2 className="h-4 w-4" />
+            <AlertTitle>Success</AlertTitle>
+            <AlertDescription>{successMessage}</AlertDescription>
+          </Alert>
+        )}
+      </div>
+      <div className="bg-muted rounded-lg shadow-xl">
+        <Card className="w-full max-w-md shadow-none">
+          <CardHeader className="space-y-1">
+            <CardTitle className="text-[17px] font-Poppins font-bold tracking-tight text-center">Create your account</CardTitle>
+            <CardDescription className="text-center text-[13px]">
+              Please fill in the details to create your account.
+            </CardDescription>
+          </CardHeader>
+          <div className="flex gap-3 items-center w-full px-6 mt-2">
+            <Button
+              type="button"
+              className="w-full bg-white text-gray-700 border border-gray-300 hover:bg-gray-100 h-fit text-[13px] py-[6px] px-[12px] shadow"
+            >
+              <FcGoogle className="mr-2 w-[1rem] h-[1rem]" /> Google
+            </Button>
+            <Button
+              type="button"
+              className="w-full bg-[#2F2F2F] hover:bg-[#1E1E1E] text-white h-fit py-[6px] px-[12px] !m-0 text-[13px]"
+            >
+              <img src={microsoft} alt="Microsoft logo" className="mr-2 w-[1rem] h-[1rem]" /> Microsoft
+            </Button>
+          </div>
+          <div className="flex items-center my-4 w-full px-5">
+            <div className="flex-grow border-t border-gray-300"></div>
+            <span className="mx-2 text-gray-500 text-[15px]">or</span>
+            <div className="flex-grow border-t border-gray-300"></div>
+          </div>
+          <form onSubmit={handleSubmit}>
+            <CardContent className="space-y-3">
+              <div className="space-y-1">
+                <Label htmlFor="firstName" className="text-[13px] font-Exo-2">First Name</Label>
+                <Input
+                  id="firstName"
+                  type="text"
+                  placeholder="John"
+                  required
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  className="transition duration-200 ease-in-out focus:ring-2 focus:ring-primary py-[0.375rem] px-[0.75rem] max-h-[2.25rem] text-[13px]"
+                />
+              </div>
+              <div className="space-y-1">
+                <Label htmlFor="lastName" className="text-[13px] font-Exo-2">Last Name</Label>
+                <Input
+                  id="lastName"
+                  type="text"
+                  placeholder="Doe"
+                  required
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                  className="transition duration-200 ease-in-out focus:ring-2 focus:ring-primary py-[0.375rem] px-[0.75rem] max-h-[2.25rem] text-[13px]"
+                />
+              </div>
+              <div className="space-y-1">
+                <Label htmlFor="email" className="text-[13px] font-Exo-2">Email address</Label>
+                <Input
+                  id="email"
+                  type="email"
+                  placeholder="john.doe@example.com"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="transition duration-200 ease-in-out focus:ring-2 focus:ring-primary py-[0.375rem] px-[0.75rem] max-h-[2.25rem] text-[13px]"
+                />
+              </div>
+              <div className="space-y-1">
+                <Label htmlFor="password" className="text-[13px] font-Exo-2">Password</Label>
+                <Input
+                  id="password"
+                  type="password"
+                  required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="........................"
+                  className="transition duration-200 ease-in-out focus:ring-2 focus:ring-primary py-[0.375rem] px-[0.75rem] max-h-[2.25rem] text-[13px] placeholder:text-3xl placeholder:font-bolder"
+                />
+              </div>
+            </CardContent>
+            <CardFooter className="flex flex-col w-full">
+              <Button
+                type="submit"
+                className="w-full transition duration-200 ease-in-out transform hover:scale-105 h-fit text-[13px] py-[6px] px-[12px] shadow bg-gradient-to-t from-purple-700 to-purple-600 hover:bg-purple-400"
+                disabled={isLoading}
+              >
+                {isLoading ? 'Registering...' : 'Create Account'}
+              </Button>
+            </CardFooter>
+          </form>
+        </Card>
+        <div className="flex justify-center gap-1.5 items-center py-4 text-[13px] text-muted-foreground">
+          <p>Already have an account?</p> 
+          <Link to="/signin" className="font-semibold text-purple-700">Sign in</Link>
+        </div>
+      </div>
+    </div>
+  )
+}

@@ -236,12 +236,12 @@
 
 // export default SmartDoc;
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import { useDropzone } from 'react-dropzone';
 import * as pdfjsLib from 'pdfjs-dist/build/pdf';
 import 'pdfjs-dist/build/pdf.worker.entry';
 import { v4 as uuidv4 } from 'uuid';
-import { uploadFilesTest } from '@/api/DocumentResquest'; // Import your extraction function
+import { TrackUserSubmissions, uploadFilesTest } from '@/api/DocumentResquest'; // Import your extraction function
 import { formatResponse } from '@/Utils/ResponseFormatter';
 import DocResult from '@/components/DocResult';
 import MainSmartDoc from '@/components/MainSmartDoc';
@@ -251,6 +251,9 @@ import {
   ResizablePanel,
   ResizablePanelGroup,
 } from "@/components/ui/resizable"
+import { AppContext } from '@/context/AppContext';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { AlertCircle } from 'lucide-react';
 
 
 
@@ -264,15 +267,19 @@ const SmartDoc = () => {
   const [files, setFiles] = useState([]);
   const [activeFile, setActiveFile] = useState(null);
   const [loading,setLoading] = useState(false);
-  const [documentType , setDocumentType]  = useState("process-document")
+  // const [documentType , setDocumentType]  = useState("process-document")p
   const [extractionResults, setExtractionResults] = useState([]);
+  const [error,setError] = useState(null)
   const canvasRef = useRef(null);
+  const { auth , documentType , setDocumentType } = useContext(AppContext)
+  const {token} = auth;
+  const Tool = "SmartDoc"
 
   // console.log(files)
   // console.log(activeFile)
-  console.log(loading)
-  console.log(extractionResults)
-  console.log(JSON.stringify(extractionResults[0]?.file))
+  // console.log(loading)
+  // console.log(extractionResults)
+  // console.log(JSON.stringify(extractionResults[0]?.file))
 
   // const deleteFile = (id) => {
   //   setFiles(prevFiles => prevFiles.filter(file => file.id !== id));
@@ -280,6 +287,28 @@ const SmartDoc = () => {
   //   //   setActiveFile(null);
   //   // }
   // };
+
+
+  // useEffect(() => {
+  //   const fetchPdf = async () => {
+      
+  //     try {
+  //       // Fetch the file metadata
+  //       const response = await fetch(`http://localhost:5000/api/v1/docs/files/6716d957ff65c49f4edf1317`);
+  //       if (!response.ok) {
+  //         throw new Error('File not found');
+  //       }
+
+  //       const fileData = await response.json();
+  //       console.log(fileData);
+
+  //     } catch (error) {
+  //       console.error('Error fetching file:', error);
+  //     }
+  //   }
+
+  //   fetchPdf();
+  // })
 
 
   const onDrop = (acceptedFiles) => {
@@ -376,19 +405,43 @@ const SmartDoc = () => {
     // }
   };
 
+
+  // edit hre 
+  // const TrackUserSubmissions = async () => {
+  //   const response = await fetch("http://localhost:5000/api/v1/activities/track",{
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       'Authorization': `Bearer ${token}`
+  //     },
+  //     body: JSON.stringify({
+  //       "toolCategory": "SmartDoc",
+  //       "toolType": documentType
+  //     }),
+  //   })
+    
+  //   if(!response.ok){
+  //     return false
+  //   }
+  
+  //   const data = await response.json();
+  //   console.log("hhhhhhhhhhhhhhhhh", data.access)
+  //   return data.access
+  // }
+
   const extractDocument = async () => {
       try {
-        setLoading(true)
-        const response = await uploadFilesTest(files,documentType); // [ "data1" , "data2" , "da..],
-        // setExtractionResults(response)
+        const canSubmit = await TrackUserSubmissions(token,Tool,documentType);
+        if (!canSubmit) {
+          console.log('You are not allowed to submit this document.');
+          setError("You have reached the pro limit of 10 submissions for SmartDoc. Please upgrade your membership")
+          return; // Exit the function if not allowed
+        }else {
+          setLoading(true)
+          const response = await uploadFilesTest(files,documentType); // [ "data1" , "data2" , "da..],
+          setExtractionResults(response)
+        }
 
-
-        // const parseData = response.map(item => ({
-        //   ...item,
-        //   file: formatResponse([item.file])
-        // }));
-        setExtractionResults(response)
-        console.log(parseData.file)
         
       } catch (error) {
         console.error('Error extracting document:', error);
@@ -400,18 +453,15 @@ const SmartDoc = () => {
 
   const extractDocumentOnes = async () => {
     try {
+      const canSubmit = await TrackUserSubmissions(token,Tool,documentType);
+        if (!canSubmit) {
+          console.log('You are not allowed to submit this document.');
+          setError("You have reached the pro limit of 10 submissions for SmartDoc. Please upgrade your membership")
+          return; // Exit the function if not allowed
+        }
       setLoading(true)
-      // let Actfile = [activeFile];
       const response = await uploadFilesTest([activeFile],documentType); // [ "data1" , "data2" , "da..],
-      // setExtractionResults(response)
-
-
-      // const parseData = response.map(item => ({
-      //   ...item,
-      //   file: formatResponse([item.file])
-      // }));
       setExtractionResults(response)
-      console.log(parseData.file)
       
     } catch (error) {
       console.error('Error extracting document:', error);
@@ -422,9 +472,27 @@ const SmartDoc = () => {
 
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
+  useEffect(() => {
+    if (error ) {
+      const timer = setTimeout(() => {
+        setError("")
+      }, 10000) // Clear messages after 5 seconds
+      return () => clearTimeout(timer)
+    }
+  }, [error])
+
   return (
 
     <div>
+      <div className="w-full max-w-md fixed top-4 z-50 px-4">
+        {error && (
+          <Alert variant="destructive" className="bg-orange-100 opacity-95 border-orange-400 text-orange-800 animate-in fade-in-50 slide-in-from-top-full duration-300">
+            <AlertCircle className="h-4 w-4" />
+            <AlertTitle>Upgrade membership</AlertTitle>
+            <AlertDescription>{error}</AlertDescription>
+          </Alert>
+        )}
+      </div>
       <ResizablePanelGroup
       direction="horizontal"
       >

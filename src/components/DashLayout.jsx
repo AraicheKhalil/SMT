@@ -4,22 +4,18 @@ import { Outlet, useLocation } from 'react-router-dom'
 import Sidebar from './sidebar'
 import Header from './header'
 import { useContext, useEffect, useState } from 'react';
-import SideBarContext from '@/hooks/context/SideBarContext';
-
+import { AppContext } from '../context/AppContext';
 
 
 function DashLayout() {
   const location = useLocation();
-  const { open, setOpen } = useContext(SideBarContext);
+  const { open, setOpen } = useContext(AppContext);
 
   let noHeaderInSmartDoc = ['/dashboard/smart-doc'];
   let noHeaderInchat = ['/dashboard/chat-doc'];
   let noHeaderInSignOut = ['/dashboard/sign-out'];
 
   let shouldRenderHeader = !noHeaderInSmartDoc.includes(location.pathname) && !noHeaderInchat.includes(location.pathname)  && !noHeaderInSignOut.includes(location.pathname) ;
-
-  // const [open , setOpen] = useState(true)
-
 
 
   return (

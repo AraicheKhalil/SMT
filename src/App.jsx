@@ -1,3 +1,6 @@
+
+
+
 import './App.css'
 
 import React, { useEffect, useState } from 'react'
@@ -25,6 +28,14 @@ import PrivacyPolicy from './components/LandingPage/PrivacyPolicy';
 import TermsOfService from './components/LandingPage/TermsOfServices';
 import FAQ from './components/LandingPage/FAQ';
 import GenAiTool from './GenAiTool';
+import PrivateRoute from './context/PrivateRoute';
+import RequestPasswordReset from './auth/RequestPasswordReset';
+import ResetPassword from './auth/ResetPassword';
+import PreferenceForm from './Pages/Prefrences';
+import LoginPage from './test';
+import UserProfilePage from './Pages/Profile';
+import WelcomePage from './components/Welcome';
+import Prefrences from './Pages/Prefrences';
 
 
 
@@ -39,13 +50,13 @@ export default function App() {
     <Route path='/' >
       <Route index element={<LandingPage />} />
       <Route path='/login' element={<Login />} />
-      <Route path='/register' element={<Register />} />
-      <Route path='/demo-form' element={<DemoForm />} />
-      <Route path='/privacy-policy' element={<PrivacyPolicy />} />
-      <Route path='/terms-of-service' element={<TermsOfService />} />
-      <Route path='/frequently-asked-questions' element={<FAQ />} />
+      <Route path='/prefrences' element={<Prefrences /> } />
+      <Route path='/pro' element={<LoginPage /> } />
+      <Route path='/request-password-reset' element={<RequestPasswordReset />} />
+      <Route path='/auth/us/reset-password/:token' element={<ResetPassword />} />
+      <Route path='welcome' element={<WelcomePage /> } />
       
-      <Route path='dashboard' element={<DashLayout />} >
+      <Route path='dashboard' element={<PrivateRoute> <DashLayout /> </PrivateRoute>} >
         <Route index element={<Dashboard />} />
         <Route path='smart-doc' element={<SmartDoc />} />
         <Route path='tasks' element={<Tasks/>} />
@@ -58,18 +69,33 @@ export default function App() {
           <Route index element={<GenAiTool />} />
         </Route>
         <Route path='chat-doc' element={<ChatDocs/>} />
-        <Route path='settings' element={<Settings/>} />
+        <Route path='settings' element={<UserProfilePage />} />
+        {/* <Route path='profile' element={<UserProfilePage />} /> */}
         <Route path='custom-view' element={<CustomView/>} />
         <Route path='sign-out' element={<SignOut/>} />
       </Route>
     </Route>
   ))
   return (
-    <SideBarContext.Provider value={{ open, setOpen }}>
+    
       <div className='font-Poppins' >
         <RouterProvider router={router} />
       </div>
-     </SideBarContext.Provider> 
+     
   )
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

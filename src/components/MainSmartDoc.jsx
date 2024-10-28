@@ -369,7 +369,7 @@
 // export default MainSmartDoc;
 
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useContext } from 'react';
 import { useDropzone } from 'react-dropzone';
 import Cropper from 'react-cropper';
 import 'cropperjs/dist/cropper.css';
@@ -386,6 +386,7 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { TransformComponent, TransformWrapper, useControls } from "react-zoom-pan-pinch";
+import { AppContext } from '@/context/AppContext';
 
 const Controls = () => {
   const { zoomIn, zoomOut, resetTransform } = useControls();
@@ -410,6 +411,7 @@ const MainSmartDoc = ({ onDrop , activeFile , setActiveFile , setDocumentType  ,
   const [zoom, setZoom] = useState(1);
   const [isCropping, setIsCropping] = useState(false);
   const cropperRef = useRef(null);
+  const { documentType } = useContext(AppContext)
 
 
   const handleCrop = () => {
@@ -463,6 +465,7 @@ const MainSmartDoc = ({ onDrop , activeFile , setActiveFile , setDocumentType  ,
               Reset
             </Button>
             <Select
+                defaultValue={documentType}
                 onValueChange={(value) => {
                     setDocumentType(value)
                 }}
@@ -472,7 +475,7 @@ const MainSmartDoc = ({ onDrop , activeFile , setActiveFile , setDocumentType  ,
                 </SelectTrigger>
                 <SelectContent className="">
                   <SelectGroup>
-                    <SelectItem value="process-document">General Processor </SelectItem>
+                    <SelectItem value={"process-document"}>General Processor </SelectItem>
                     <SelectItem value="process-receipts">Receipts Processor </SelectItem>
                     <SelectItem value="process-invoices">Invoice Processor</SelectItem>
                     <SelectItem value="process-bank-statements">Bank Statements Processor </SelectItem>
@@ -555,11 +558,11 @@ const MainSmartDoc = ({ onDrop , activeFile , setActiveFile , setDocumentType  ,
               
             </div>
           ) : (
-            <div className="w-[full] min-h-[500px] max-h-[90vh]   mb-4 relative">
+            <div className="w-[full] min-h-[500px] max-h-[90vh] overflow-auto   mb-4 relative">
               <TransformWrapper >
                 <Controls />
                 <TransformComponent >
-                  <img className='rendered-image shadow object-cover' src={activeFile.previewUrl} alt="Uploaded"  />
+                  <img className='rendered-image shadow object-cover w-full h-full' src={activeFile.previewUrl} alt="Uploaded"  />
                 </TransformComponent>
 
               </TransformWrapper>

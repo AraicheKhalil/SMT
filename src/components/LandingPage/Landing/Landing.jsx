@@ -4,10 +4,12 @@ import React from 'react'
 import "./Landing.css"
 import SectionTitle from '@/components/SectionTitle'
 import { Link } from 'react-router-dom';
+// import GoogleLogin from '@/test';
 
 export default function Landing() {
   return (
     <div className=" text-black py-16 pt-36 font-Poppins">
+      {/* <GoogleLogin /> */}
       <div className="container  mx-auto flex flex-col md:flex-row items-center justify-between px-16">
         <div className="md:w-1/2 text-center md:text-left">
           <span className="  text-sm font-semibold text-black  rounded-full mb-4 gradient-border px-4 md:mx-0 mx-auto ">

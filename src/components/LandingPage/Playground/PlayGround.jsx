@@ -537,6 +537,8 @@ pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs
 
 
 
+
+
 // Utility functions to convert JSON to table data
 const flattenObject = (obj, parent = '', res = {}) => {
   for (let key in obj) {
