@@ -63,7 +63,7 @@ export default  function Dashboard() {
       name: "GenAI",
       icon: <Brain size={24} />,
       merge: "Total Submissions",
-      count: CardData?.GenAI?.totalSubmissions == "NaN" && 0 ,
+      count: CardData?.GenAI?.totalSubmissions == 0 ,
       incressment: ((CardData?.GenAI?.totalSubmissions / 1000) * 100).toFixed(2) || 0,
       remaining: CardData?.GenAI?.remainingSubmissions || 0
     }

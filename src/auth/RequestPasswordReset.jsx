@@ -11,6 +11,8 @@ export default function RequestPasswordReset() {
   const [error, setError] = useState("")
   const [successMessage, setSuccessMessage] = useState("")
   const [isLoading, setIsLoading] = useState(false)
+  const URL = "http://localhost:5000/api/v1"
+  const Production = "https://dsf-saas.onrender.com/api/v1"
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -19,7 +21,7 @@ export default function RequestPasswordReset() {
     setIsLoading(true)
 
     try {
-      const response = await fetch('http://localhost:5000/api/v1/auth/request-password-reset', {
+      const response = await fetch(`${Production}/auth/request-password-reset`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

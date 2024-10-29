@@ -330,7 +330,7 @@ export default function Login() {
             </div>
             <div className="flex justify-center gap-1.5  items-center py-4  text-[13px] text-muted-foreground  border-t">
               {/* <p>Already have an account ?</p>  */}
-              <Link to={"http://localhost:3001/request-password-reset"} className=" underline text-gray-700 hover:text-gray-500"> Forgot password? </Link>
+              <Link to={"/request-password-reset"} className=" underline text-gray-700 hover:text-gray-500"> Forgot password? </Link>
             </div>
           </div>
         )

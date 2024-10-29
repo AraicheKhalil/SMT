@@ -14,6 +14,8 @@ export default function ResetPassword() {
   const [isLoading, setIsLoading] = useState(false)
 
   let { token } = useParams();
+  const URL = "http://localhost:5000/api/v1"
+  const Production = "https://dsf-saas.onrender.com/api/v1"
 
   console.log(token)
 
@@ -45,7 +47,7 @@ export default function ResetPassword() {
     setIsLoading(true)
 
     try {
-      const response = await fetch(`http://localhost:5000/api/v1/auth/reset-password/${token}`, {
+      const response = await fetch(`${Production}/auth/reset-password/${token}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
