@@ -191,7 +191,7 @@ export default function Login() {
   }
 
   return (
-    <div className="min-h-screen bg-muted flex flex-col items-center justify-center bg-gradient-to-br from-primary-50 to-primary-100  p-4">
+    <div className="min-h-screen bg-gray-50  flex flex-col items-center justify-center bg-gradient-to-br from-primary-50 to-primary-100  p-4">
       <div className="w-full max-w-md fixed top-4 z-50 px-4">
         {error && (
           <Alert variant="destructive" className="bg-red-100 border-red-400 text-red-800 animate-in fade-in-50 slide-in-from-top-full duration-300">

@@ -17,7 +17,7 @@ import { Link, useNavigate } from "react-router-dom"
 export default function UserProfileDrop() {
   const { auth , logout} = useContext(AppContext);
   const navigate = useNavigate()
-
+  
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -36,19 +36,25 @@ export default function UserProfileDrop() {
           <User className="mr-2 h-4 w-4" />
           <span>Profile</span>
         </DropdownMenuItem>
-        <DropdownMenuItem>
-          <Settings className="mr-2 h-4 w-4" />
-          <span>
-            <Link to={"settings"} >
-              Settings
-            </Link>
-          </span>
-        </DropdownMenuItem>
+        <Link to={"settings"}>
+          <DropdownMenuItem>
+            <Settings className="mr-2 h-4 w-4" />
+            <span>            
+                Settings
+            </span>
+          </DropdownMenuItem>
+        </Link>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          <LogOut className="mr-2 h-4 w-4" />
-          <Link to={"/login"} onClick={() => logout()}>Log out</Link>
-        </DropdownMenuItem>
+        <Link 
+          to={"/login"}
+          className="w-full"
+          onClick={() => logout()}>
+          <DropdownMenuItem>
+            <LogOut className="mr-2 h-4 w-4" />
+            <span>Log out</span>
+          </DropdownMenuItem>
+
+        </Link>
       </DropdownMenuContent>
     </DropdownMenu>
   )
