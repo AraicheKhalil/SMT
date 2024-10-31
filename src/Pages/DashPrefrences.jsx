@@ -43,7 +43,7 @@ function Section({ name, description, icon: Icon, items }) {
                   <h3 className="font-semibold text-gray-800 capitalize">{item.name}</h3>
                   <p className="text-sm text-gray-600">{item.description}</p>
                 </div>
-                <ExternalLink className="h-4 w-4 text-gray-400" />
+                {/* <ExternalLink className="h-4 w-4 text-gray-400" /> */}
               </CardContent>
             </Card>
           </Link>

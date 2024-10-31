@@ -11,22 +11,25 @@ import {
 import { AppContext } from "@/context/AppContext"
 import { LogOut, Settings, User } from "lucide-react"
 import { useContext } from "react"
+import { Link, useNavigate } from "react-router-dom"
 
 
 export default function UserProfileDrop() {
-  const { auth } = useContext(AppContext);
+  const { auth , logout} = useContext(AppContext);
+  const navigate = useNavigate()
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="flex items-center space-x-2 px-1 py-1.5">
           <Avatar className="h-8 w-8">
-            <AvatarImage src="https://www.upwork.com/profile-portraits/c1RmQ96SDoNkbNt96V28_LolSWvXt6CI27WMlXsFaK29dxY3BMm6FdDDnVoYctOwnx" alt="@johndoe" />
+            <AvatarImage src="" alt="@johndoe" />
             <AvatarFallback>JD</AvatarFallback>
           </Avatar>
           <span className="hidden md:block text-sm font-medium">{auth?.user?.name} {auth?.user?.lastname}</span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-56">
+      <DropdownMenuContent align="end" className="w-56 mt-2">
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem>
@@ -35,12 +38,16 @@ export default function UserProfileDrop() {
         </DropdownMenuItem>
         <DropdownMenuItem>
           <Settings className="mr-2 h-4 w-4" />
-          <span>Settings</span>
+          <span>
+            <Link to={"settings"} >
+              Settings
+            </Link>
+          </span>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem>
           <LogOut className="mr-2 h-4 w-4" />
-          <span>Log out</span>
+          <Link to={"/login"} onClick={() => logout()}>Log out</Link>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

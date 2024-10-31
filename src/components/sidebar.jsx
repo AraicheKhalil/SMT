@@ -21,8 +21,8 @@ export default function Sidebar() {
     { route: "tools", title: "Tools ", src: <Telescope /> },
     { route: "gen_ai", title: "Gen Ai ", src: <BrainCircuit  /> },
     { route: "chat-doc", title: "Chat Doc", src: <MessagesSquare /> },
-    { route: "settings", title: "Settings", src: <Settings />, gap: true },
-    { route: "sign-out", title: "Sign Out ", src: <Power />, }
+    // { route: "settings", title: "Settings", src: <Settings />, gap: true },
+    // { route: "sign-out", title: "Sign Out ", src: <Power />, }
   ];
 
 
@@ -63,7 +63,7 @@ export default function Sidebar() {
               <NavLink 
                 to={`${Menu.route}`} 
                 className='flex items-center gap-x-4 w-full'
-                onClick={() => Menu.route == "sign-out" && logout() }
+                // onClick={() => Menu.route == "sign-out" && logout() }
                 >
                 <div>{Menu.src}</div>
                 <span

@@ -475,10 +475,14 @@ const MainSmartDoc = ({ onDrop , activeFile , setActiveFile , setDocumentType  ,
                 </SelectTrigger>
                 <SelectContent className="">
                   <SelectGroup>
-                    <SelectItem value={"process-document"}>General Processor </SelectItem>
+                    <SelectItem value="process-document">General Processor </SelectItem>
                     <SelectItem value="process-receipts">Receipts Processor </SelectItem>
                     <SelectItem value="process-invoices">Invoice Processor</SelectItem>
                     <SelectItem value="process-bank-statements">Bank Statements Processor </SelectItem>
+                    <SelectItem value="process-passports">Passport Processor </SelectItem>
+                    <SelectItem value="process-legalForms">Legal Forms Processor </SelectItem>
+                    <SelectItem value="process-bol">Bills of Landing Processor </SelectItem>
+                    <SelectItem value="process-ids">ID's Processor </SelectItem>
                   </SelectGroup>
                 </SelectContent>
               </Select>
@@ -536,7 +540,7 @@ const MainSmartDoc = ({ onDrop , activeFile , setActiveFile , setDocumentType  ,
 
       {/* </TransformWrapper> */}
       {activeFile !== null ? (
-        <div className="flex w-full h-full flex-col mt-2 items-center">
+        <div className={`flex w-full h-full flex-col mt-2 items-center ${!isCropping && "overflow-auto"}`}>
 
           {isCropping ? (
             <div className="flex flex-col items-center  h-full mx-auto 2xl:h-[700px] w-full mb-4 relative mt-2 ">
@@ -558,7 +562,7 @@ const MainSmartDoc = ({ onDrop , activeFile , setActiveFile , setDocumentType  ,
               
             </div>
           ) : (
-            <div className="w-[full] min-h-[500px] max-h-[90vh] overflow-auto   mb-4 relative">
+            <div className="w-[full] min-h-[500px] max-h-[90vh]    mb-4 relative">
               <TransformWrapper >
                 <Controls />
                 <TransformComponent >

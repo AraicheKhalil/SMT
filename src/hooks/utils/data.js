@@ -6,12 +6,14 @@ export const steps = [
     backendKey: 'SmartDocProcessors',
     icon: FileText,
     options: [
+      { name: 'document', description: 'Pre-built extractor', link: 'smart-doc', type: 'process-document' },
       { name: 'invoices', description: 'Pre-built extractor', link: 'smart-doc', type: 'process-invoices' },
       { name: 'Bank Statements', description: 'Pre-built extractor', link: 'smart-doc', type: 'process-bank-statements' },
-      { name: 'ids', description: 'Pre-built extractor',  link: 'smart-doc', type: 'process-ids' },
+      { name: 'Legal Foms', description: 'Pre-built extractor', link: 'smart-doc', type: 'process-legalForms' },
+      { name: "ID's", description: 'Pre-built extractor',  link: 'smart-doc', type: 'process-ids' },
       { name: 'passports', description: 'Pre-built extractor',  link: 'smart-doc', type: 'process-passports' },
       { name: 'receipts', description: 'Pre-built extractor', link: 'smart-doc', type: 'process-receipts' },
-      { name: 'document', description: 'Pre-built extractor', link: 'smart-doc', type: 'process-document' }
+      { name: 'Bills of Landing', description: 'Pre-built extractor', link: 'smart-doc', type: 'process-bol' }
     ]
   },
   { 
