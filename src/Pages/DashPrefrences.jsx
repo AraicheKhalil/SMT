@@ -84,7 +84,7 @@ const Production = "https://dsf-saas.onrender.com/api/v1"
       }
       
       // const data = await response.json();
-      await new Promise((res) => setTimeout(res,5000))
+      await new Promise((res) => setTimeout(res,1000))
       setDashboardData(data?.data);
       
     } finally {
