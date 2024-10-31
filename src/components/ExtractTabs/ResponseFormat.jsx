@@ -481,7 +481,7 @@ export default function ResponseFormat({ data = {} }) {
           onMouseEnter={() => setHoveredIndex(index)}
           onMouseLeave={() => setHoveredIndex(null)}
         >
-          <div className="w-1/3 min-w-[150px]">
+          <div className="w-[45%]">
             {editMode && editMode.index === index && editMode.isKeyEdit ? (
               <input
                 ref={inputRef}
@@ -494,14 +494,14 @@ export default function ResponseFormat({ data = {} }) {
               />
             ) : (
               <div 
-                className="text-gray-500 cursor-pointer" 
+                className="text-gray-500 cursor-pointer text-wrap" 
                 onClick={() => handleEdit(index, true)}
               >
                 {key.replace(/_/g, ' ')}
               </div>
             )}
           </div>
-          <div className="w-1/3 max-w-[200px]">
+          <div className="w-[50%]">
             {editMode && editMode.index === index && !editMode.isKeyEdit ? (
               <input
                 ref={inputRef}
@@ -514,7 +514,7 @@ export default function ResponseFormat({ data = {} }) {
               />
             ) : (
               <div 
-                className="line-clamp-2 cursor-pointer" 
+                className=" cursor-pointer" 
                 onClick={() => handleEdit(index, false)}
               >
                 {value}
