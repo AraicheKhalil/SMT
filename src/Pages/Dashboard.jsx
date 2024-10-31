@@ -56,7 +56,7 @@ export default  function Dashboard() {
       icon: <FileText size={24} />,
       merge: "Total Submissions",
       count: CardData?.SmartDoc?.totalSubmissions || 0,
-      incressment: ((CardData?.SmartDoc?.totalSubmissions / 1000) * 100).toFixed(2) || 0,
+      incressment: CardData?.GenAI ? ((CardData?.SmartDoc?.totalSubmissions / 1000) * 100).toFixed(2) : 0,
       remaining: CardData?.SmartDoc?.remainingSubmissions || 0
     },
     {
@@ -64,7 +64,7 @@ export default  function Dashboard() {
       icon: <Brain size={24} />,
       merge: "Total Submissions",
       count: CardData?.GenAI?.totalSubmissions == 0 ,
-      incressment: ((CardData?.GenAI?.totalSubmissions / 1000) * 100).toFixed(2) || 0,
+      incressment: CardData?.GenAI ? ((CardData?.GenAI?.totalSubmissions / 1000) * 100).toFixed(2) : 0,
       remaining: CardData?.GenAI?.remainingSubmissions || 0
     }
   ]
