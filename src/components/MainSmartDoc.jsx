@@ -483,6 +483,7 @@ const MainSmartDoc = ({ onDrop , activeFile , setActiveFile , setDocumentType  ,
                     <SelectItem value="process-legalForms">Legal Forms Processor </SelectItem>
                     <SelectItem value="process-bol">Bills of Landing Processor </SelectItem>
                     <SelectItem value="process-ids">ID's Processor </SelectItem>
+                    <SelectItem value="process-dun">DUN Processor </SelectItem>
                   </SelectGroup>
                 </SelectContent>
               </Select>

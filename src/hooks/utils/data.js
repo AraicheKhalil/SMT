@@ -13,7 +13,9 @@ export const steps = [
       { name: "ID's", description: 'Pre-built extractor',  link: 'smart-doc', type: 'process-ids' },
       { name: 'passports', description: 'Pre-built extractor',  link: 'smart-doc', type: 'process-passports' },
       { name: 'receipts', description: 'Pre-built extractor', link: 'smart-doc', type: 'process-receipts' },
-      { name: 'Bills of Landing', description: 'Pre-built extractor', link: 'smart-doc', type: 'process-bol' }
+      { name: 'Bills of Landing', description: 'Pre-built extractor', link: 'smart-doc', type: 'process-bol' } ,
+      { name: 'DUN', description: 'Pre-built extractor', link: 'smart-doc', type: 'process-dun' } 
+
     ]
   },
   { 

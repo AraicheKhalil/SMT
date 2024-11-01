@@ -502,7 +502,7 @@ const SmartDoc = () => {
           <MainSmartDoc onDrop={onDrop} setFiles={setFiles} activeFile={activeFile} setActiveFile={setActiveFile} extractDocumentOnes={extractDocumentOnes} documentType={documentType} setDocumentType={setDocumentType}   />
         </div>
       </ResizablePanel>
-      <ResizableHandle withHandle className={"w-0.5"}  />
+      <ResizableHandle withHandle className={"w-0.5 transition-all hover:bg-blue-400"}  />
       <ResizablePanel defaultSize={30} className='min-w-[450px]' >
         <DocResult activeFile={activeFile} extractionResults={extractionResults} loading={loading}  />
       </ResizablePanel>
