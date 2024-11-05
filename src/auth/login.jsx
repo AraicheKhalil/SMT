@@ -213,6 +213,7 @@ export default function Login() {
           <div className="bg-muted rounded-lg shadow-xl">
             <Card className="w-full max-w-md shadow-none">
               <CardHeader className="space-y-1">
+                <img src="" alt="logo" />
                 <CardTitle className="text-[17px] font-Poppins font-bold tracking-tight text-center">OTP Verification</CardTitle>
                 <CardDescription className="text-center text-[13px]">
                   Enter the 6-digit code sent to your email or phone.
@@ -238,7 +239,7 @@ export default function Login() {
                 <CardFooter className="flex flex-col w-full space-y-3">
                   <Button
                     type="submit"
-                    className="w-full transition duration-200 ease-in-out transform hover:scale-105 h-fit text-[13px] py-[6px] px-[12px] shadow bg-gradient-to-t from-purple-700 to-purple-600 hover:bg-purple-400"
+                    className="w-full transition duration-200 ease-in-out transform hover:scale-105 h-fit text-[13px] py-[6px] px-[12px] shadow bg-gradient-to-t from-yellow-700 to-yellow-600 hover:bg-yellow-400"
                     disabled={isLoading || otp.some(digit => digit === "")}
                     onClick={handleOTPSubmit}
                   >
@@ -315,7 +316,7 @@ export default function Login() {
                 <CardFooter className="flex flex-col w-full">
                   <Button
                     type="submit"
-                    className="w-full transition duration-200 ease-in-out transform hover:scale-105  h-fit text-[13px] py-[6px] px-[12px] shadow bg-gradient-to-t from-purple-700 to-purple-600 hover:bg-purple-400 "
+                    className="w-full transition duration-200 ease-in-out transform hover:scale-105  h-fit text-[13px] py-[6px] px-[12px] shadow bg-gradient-to-t from-yellow-700 to-yellow-600 hover:bg-yellow-400 "
                     disabled={isLoading}
                   >
                     {isLoading ? 'Logging in...' : 'Continue'}
@@ -325,8 +326,8 @@ export default function Login() {
               </form>
             </Card>
             <div className="flex justify-center gap-1.5  items-center py-4 text-[13px] text-muted-foreground">
-              <p>Already have an account ?</p> 
-              <Link to={"https://www.dsf-smartdoc.com/register"} className="font-semibold text-purple-700"> Sign in </Link>
+              <p> New to SmartDoc ?</p> 
+              <Link to={"https://www.dsf-smartdoc.com/register"} className="font-semibold text-yellow-700"> Create an account </Link>
             </div>
             <div className="flex justify-center gap-1.5  items-center py-4  text-[13px] text-muted-foreground  border-t">
               {/* <p>Already have an account ?</p>  */}

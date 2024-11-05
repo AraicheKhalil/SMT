@@ -285,8 +285,10 @@
 //   )
 // }
 
+import { Progress } from "@/components/ui/progress"
+import { FileText, Brain, TrendingUp, TrendingDown } from "lucide-react"
 
-import { useState, useEffect, useContext } from 'react'
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -294,6 +296,7 @@ import { Label } from "@/components/ui/label"
 import { Skeleton } from "@/components/ui/skeleton"
 import { Pen, X, Check, User, Briefcase, Mail, Calendar, Phone, MapPin, Building } from "lucide-react"
 import { AppContext } from '@/context/AppContext'
+import { useContext, useEffect, useState } from "react"
 
 export default function ContactInfo() {
   const [userInfo, setUserInfo] = useState(null)
@@ -600,6 +603,107 @@ export default function ContactInfo() {
             </div>
           </CardContent>
         </Card>
+
+      </div>
+        <UserLimits />
+    </div>
+  )
+}
+
+
+
+
+
+ function UserLimits() {
+  const [cardData, setCardData] = useState(null)
+  const [isLoading, setIsLoading] = useState(true)
+  const { auth } = useContext(AppContext)
+  const { token } = auth
+
+  const Production = "https://dsf-saas.onrender.com/api/v1"
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsLoading(true)
+      try {
+        const response = await fetch(`${Production}/activities/dashboard-submissions`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+        })
+        const data = await response.json()
+        setCardData(data.data)
+      } catch (error) {
+        console.error('Error fetching dashboard submission counts:', error)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    fetchData()
+  }, [token])
+
+  const userDataST = [
+    {
+      name: "SmartDoc",
+      icon: <FileText size={20} />,
+      merge: "Total Submissions",
+      count: cardData?.SmartDoc?.totalSubmissions || 0,
+      increment: cardData?.SmartDoc ? ((cardData?.SmartDoc?.totalSubmissions / 1000) * 100).toFixed(2) : 0,
+      remaining: cardData?.SmartDoc?.remainingSubmissions || 0
+    },
+    {
+      name: "GenAI",
+      icon: <Brain size={20} />,
+      merge: "Total Submissions",
+      count: cardData?.GenAI?.totalSubmissions || 0,
+      increment: cardData?.GenAI ? ((cardData?.GenAI?.totalSubmissions / 1000) * 100).toFixed(2) : 0,
+      remaining: cardData?.GenAI?.remainingSubmissions || 0
+    }
+  ]
+
+  return (
+    <div className="mt-6">
+      <h2 className="text-2xl font-bold mb-4 text-gray-800">Usage Limits</h2>
+      <div className="grid gap-4 md:grid-cols-2">
+        {userDataST.map((box, index) => (
+          <Card key={index} className="shadow-md">
+            <CardHeader className="flex flex-row items-center justify-between pb-2">
+              <CardTitle className="text-lg font-normal flex items-center">
+                <div className="mr-2 p-1 bg-gray-100 rounded-md">
+                  {box.icon}
+                </div>
+                {box.name} Credits
+              </CardTitle>
+              <div className={`flex items-center text-sm ${Number(box.increment) > 0 ? "text-green-600" : "text-red-600"}`}>
+                {Number(box.increment) > 0 ? <TrendingUp size={16} className="mr-1" /> : <TrendingDown size={16} className="mr-1" />}
+                {box.increment}%
+              </div>
+            </CardHeader>
+            <CardContent className="pt-2">
+              {isLoading ? (
+                <div className="space-y-2">
+                  <div className="h-4 bg-gray-200 rounded animate-pulse"></div>
+                  <div className="h-4 bg-gray-200 rounded animate-pulse"></div>
+                </div>
+              ) : (
+                <>
+                  <div className="flex justify-between text-sm text-gray-500 mb-1">
+                    <span>{box.merge}</span>
+                    <span>{box.count}</span>
+                  </div>
+                  <Progress value={(box.count / (box.count + box.remaining)) * 100} className="h-2" />
+                  <div className="flex justify-between mt-2 text-sm">
+                    <span className="text-gray-500">Remaining:</span>
+                    <span className="font-semibold">{box.remaining}</span>
+                  </div>
+                </>
+              )}
+            </CardContent>
+          </Card>
+        ))}
       </div>
     </div>
   )

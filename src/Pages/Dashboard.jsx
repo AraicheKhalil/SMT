@@ -50,24 +50,24 @@ export default  function Dashboard() {
   const URL = "http://localhost:5000/api/v1"
   const Production = "https://dsf-saas.onrender.com/api/v1"
 
-  const UserDataST = [
-    {
-      name: "SmartDoc",
-      icon: <FileText size={24} />,
-      merge: "Total Submissions",
-      count: CardData?.SmartDoc?.totalSubmissions || 0,
-      incressment: CardData?.GenAI ? ((CardData?.SmartDoc?.totalSubmissions / 1000) * 100).toFixed(2) : 0,
-      remaining: CardData?.SmartDoc?.remainingSubmissions || 0
-    },
-    {
-      name: "GenAI",
-      icon: <Brain size={24} />,
-      merge: "Total Submissions",
-      count: CardData?.GenAI?.totalSubmissions == 0 ,
-      incressment: CardData?.GenAI ? ((CardData?.GenAI?.totalSubmissions / 1000) * 100).toFixed(2) : 0,
-      remaining: CardData?.GenAI?.remainingSubmissions || 0
-    }
-  ]
+  // const UserDataST = [
+  //   {
+  //     name: "SmartDoc",
+  //     icon: <FileText size={24} />,
+  //     merge: "Total Submissions",
+  //     count: CardData?.SmartDoc?.totalSubmissions || 0,
+  //     incressment: CardData?.SmartDoc ? ((CardData?.SmartDoc?.totalSubmissions / 1000) * 100).toFixed(2) : 0,
+  //     remaining: CardData?.SmartDoc?.remainingSubmissions || 0
+  //   },
+  //   {
+  //     name: "GenAI",
+  //     icon: <Brain size={24} />,
+  //     merge: "Total Submissions",
+  //     count: CardData?.GenAI?.totalSubmissions || 0 ,
+  //     incressment: CardData?.GenAI ? ((CardData?.GenAI?.totalSubmissions / 1000) * 100).toFixed(2) : 0,
+  //     remaining: CardData?.GenAI?.remainingSubmissions || 0
+  //   }
+  // ]
 
   
 
@@ -95,7 +95,7 @@ export default  function Dashboard() {
 
   return (
     <>
-      <div className='dashboard px-4 py-6 md:p-7'>
+      <div className='dashboard p-2 md:px-7'>
         {/* <h1 className='m-0 font-bold text-3xl font-Rubik'>Welcome Back, {auth?.user?.name} 👋</h1> */}
 
         {/* <div className='flex gap-5 pt-2 flex-wrap md:flex-nowrap'>
@@ -123,7 +123,7 @@ export default  function Dashboard() {
           ))}
         </div> */}
 
-        <div className='flex gap-5 pt-2 flex-wrap md:flex-nowrap'>
+        {/* <div className='flex gap-5 pt-2 flex-wrap md:flex-nowrap'>
               {UserDataST.map((box, index) => (
                 <div key={index} className='rounded-xl bg-gray-950 p-5 text-gray-300 flex flex-col w-full justify-between'>
                   <div className='flex justify-between'>
@@ -150,7 +150,7 @@ export default  function Dashboard() {
                   </div>
                 </div>
               ))}
-            </div>
+            </div> */}
 
 
         <div className='flex pt-5 gap-5 flex-wrap md:flex-nowrap '>
