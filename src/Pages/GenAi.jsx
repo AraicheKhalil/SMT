@@ -29,9 +29,6 @@ const GenAi = () => {
                   key={option.id} 
                   className="p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200 flex items-start relative"
                 >
-                  <Badge className='absolute right-2 top-2 rounded-md bg-muted text-gray-600 py-1 hover:bg-muted z-20'>
-                    Favorite <Heart size={14} className='ml-1.5'/>
-                  </Badge>
                   <option.icon className={`text-2xl ${option.color} mr-3`} />
                   <div>
                     <h2 className="text-xl font-semibold mb-2">{option.title}</h2>

@@ -1,9 +1,10 @@
-import { BrainCircuit, ChevronsLeft, Combine, FileBarChart2, LayoutDashboardIcon, ListTodo, MessagesSquare, NotebookTabs, PieChart, Power, Settings, Telescope } from 'lucide-react'
+import { BookMarked, BrainCircuit, ChevronsLeft, Combine, FileBarChart2, LayoutDashboardIcon, ListTodo, MessagesSquare, NotebookTabs, PieChart, Power, Settings, Telescope } from 'lucide-react'
 import React, { useContext, useEffect, useState } from 'react'
 import SideBarContext from '@/hooks/context/SideBarContext';
 import { NavLink, useLocation } from 'react-router-dom';
 import { FaTools } from 'react-icons/fa';
 import { AppContext } from '../context/AppContext';
+import { FaDochub } from "react-icons/fa6";
 
 
 
@@ -20,7 +21,9 @@ export default function Sidebar() {
     { route: "tasks", title: "Tasks ", src: <Combine /> },
     { route: "tools", title: "Tools ", src: <Telescope /> },
     { route: "gen_ai", title: "Gen Ai ", src: <BrainCircuit  /> },
-    { route: "chat-doc", title: "Chat Doc", src: <MessagesSquare /> },
+    { route: "docs_hub", title: "Doc Hub", src: <BookMarked /> },
+
+    // { route: "chat-doc", title: "Chat Doc", src: <MessagesSquare /> },
     // { route: "settings", title: "Settings", src: <Settings />, gap: true },
     // { route: "sign-out", title: "Sign Out ", src: <Power />, }
   ];
@@ -40,7 +43,7 @@ export default function Sidebar() {
       border-2 rounded-full ${!open && "rotate-180"}`}
           onClick={() => setOpen(!open)}
         />
-        <NavLink to="/" className="flex gap-x-4 items-center">
+        <NavLink to="/dashboard" className="flex gap-x-4 items-center">
           <img
             src="/Logo.png"
             className={`w-10 h-10 cursor-pointer duration-500 ${open && "rotate-[360deg]"

@@ -25,7 +25,7 @@ function Section({ name, description, icon: Icon, items }) {
         <h2 className="text-2xl font-semibold">{name}</h2>
         <p className="text-sm text-gray-600">{description}</p>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 2xl:grid-cols-5 gap-2">
         {items.map((item) => (
           <Link 
             onClick={() => { item.type && setDocumentType(item.type)}}
@@ -35,11 +35,11 @@ function Section({ name, description, icon: Icon, items }) {
             <Card 
               className="cursor-pointer transition-all bg-muted hover:bg-muted/80 hover:ring-2 hover:ring-primary"
             >
-              <CardContent className="p-4 flex items-start space-x-4">
+              <CardContent className="p-4 flex items-center space-x-4">
                 <Icon className="h-5 w-5 mt-1 text-gray-700" />
                 <div className="flex-grow">
                   <h3 className="font-semibold text-gray-800 capitalize">{item.name}</h3>
-                  <p className="text-sm text-gray-600">{item.description}</p>
+                  {/* <p className="text-sm text-gray-600">{item.description}</p> */}
                 </div>
                 {/* <ExternalLink className="h-4 w-4 text-gray-400" /> */}
               </CardContent>

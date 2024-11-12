@@ -11,6 +11,8 @@ import { AppContext } from '@/context/AppContext'; // Your AuthProvider context
 import { Link, useNavigate } from "react-router-dom"
 import { FcGoogle } from "react-icons/fc";
 import microsoft from "@/Assets/images/microsoft.png"
+import SmtLogo from "@/Assets/images/logo.png"
+
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 
 const URL = "http://localhost:5000/api/v1"
@@ -239,7 +241,7 @@ export default function Login() {
                 <CardFooter className="flex flex-col w-full space-y-3">
                   <Button
                     type="submit"
-                    className="w-full transition duration-200 ease-in-out transform hover:scale-105 h-fit text-[13px] py-[6px] px-[12px] shadow bg-gradient-to-t from-yellow-700 to-yellow-600 hover:bg-yellow-400"
+                    className="w-full transition duration-200 ease-in-out transform hover:scale-105 h-fit text-[13px] py-[6px] px-[12px] shadow bg-gradient-to-t from-gray-700 to-gray-600 hover:bg-gray-400"
                     disabled={isLoading || otp.some(digit => digit === "")}
                     onClick={handleOTPSubmit}
                   >
@@ -262,12 +264,13 @@ export default function Login() {
           <div className="bg-muted rounded-lg shadow-xl">
             <Card className="w-full  max-w-md shadow-none">
               <CardHeader className="space-y-1">
+                <img src={SmtLogo} className="mx-auto mb-1 w-[3rem] h-[3rem]" />
                 <CardTitle className="text-[17px] font-Poppins font-bold tracking-tight text-center">Login to your account</CardTitle>
                 <CardDescription className="text-center text-[13px]">
                   Welcome Back! Please fill in the details to be Authenticated.
                 </CardDescription>
               </CardHeader>
-              <div className="flex gap-3 items-center  w-full px-6 mt-2 ">
+              {/* <div className="flex gap-3 items-center  w-full px-6 mt-2 ">
                   <Button
                     type="button"
                     className="w-full bg-white text-gray-700 border border-gray-300 hover:bg-gray-100 h-fit text-[13px] py-[6px] px-[12px] shadow  "
@@ -280,10 +283,10 @@ export default function Login() {
                   >
                     <img src={microsoft} className="mr-2 w-[1rem] h-[1rem]" /> Microsoft
                   </Button>
-                </div>
-                <div className="flex items-center my-4 w-full px-5">
+                </div> */}
+                <div className="flex items-center mb-4 w-full px-5">
                   <div className="flex-grow border-t border-gray-300"></div>
-                  <span className="mx-2 text-gray-500 text-[15px]">or</span>
+                  {/* <span className="mx-2 text-gray-500 text-[15px]">or</span> */}
                   <div className="flex-grow border-t border-gray-300"></div>
                 </div>
               <form onSubmit={handleSubmit}>
@@ -316,7 +319,7 @@ export default function Login() {
                 <CardFooter className="flex flex-col w-full">
                   <Button
                     type="submit"
-                    className="w-full transition duration-200 ease-in-out transform hover:scale-105  h-fit text-[13px] py-[6px] px-[12px] shadow bg-gradient-to-t from-yellow-700 to-yellow-600 hover:bg-yellow-400 "
+                    className="w-full transition duration-200 ease-in-out transform hover:scale-105  h-fit text-[13px] py-[6px] px-[12px] shadow bg-gradient-to-t from-gray-700 to-gray-600 hover:bg-gray-400 "
                     disabled={isLoading}
                   >
                     {isLoading ? 'Logging in...' : 'Continue'}
@@ -327,7 +330,7 @@ export default function Login() {
             </Card>
             <div className="flex justify-center gap-1.5  items-center py-4 text-[13px] text-muted-foreground">
               <p> New to SmartDoc ?</p> 
-              <Link to={"https://www.dsf-smartdoc.com/register"} className="font-semibold text-yellow-700"> Create an account </Link>
+              <Link to={"https://www.dsf-smartdoc.com/register"} className="font-semibold text-gray-700"> Create an account </Link>
             </div>
             <div className="flex justify-center gap-1.5  items-center py-4  text-[13px] text-muted-foreground  border-t">
               {/* <p>Already have an account ?</p>  */}
