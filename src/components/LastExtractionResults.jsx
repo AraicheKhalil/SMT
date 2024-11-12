@@ -41,15 +41,14 @@ const dataExtracted = [
 
 export default function CardWithForm() {
   return (
-    <Card className="lg:w-[350px] w-full shadow-xl h-fit">
+    <Card className="w-full  border-0 h-fit">
       <CardHeader>
         <CardTitle className="">Last Extraction Results</CardTitle>
-        <CardDescription>You Can see the latest items that successed extracted Here</CardDescription>
       </CardHeader>
 
       <CardContent className="">
         {dataExtracted.map((item,index) => (
-            <div key={index} className="text-sm py-3 border-b ">
+            <div key={index} className="text-sm py-2 border-b ">
                 <Link to={"/dashboard/tasks"}>
                     <div className="flex justify-between mb-1.5 font-medium">
                         <div className="">{!item.itemName ? "..." : item.itemName}</div>

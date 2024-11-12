@@ -24,8 +24,6 @@ export default function Component() {
   const { token , user } = auth;
   const navigate = useNavigate()
 
-  console.log(token)
-  console.log(preferences)
 
   const handleOptionToggle = (option) => {
     setPreferences(prev => {
@@ -59,7 +57,7 @@ export default function Component() {
         }
 
         const data = await response.json()
-        console.log('Preferences saved:', data)
+        // console.log('Preferences saved:', data)
         toast({
           title: "Success",
           description: "Your preferences have been saved.",

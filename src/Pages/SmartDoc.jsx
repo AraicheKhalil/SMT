@@ -431,17 +431,37 @@ const SmartDoc = () => {
 
   const extractDocument = async () => {
       try {
-        const canSubmit = await TrackUserSubmissions(token,Tool,documentType);
-        if (!canSubmit) {
-          console.log('You are not allowed to submit this document.');
-          setError("You have reached the pro limit of 10 submissions for SmartDoc. Please upgrade your membership")
-          return; // Exit the function if not allowed
-        }else {
           setLoading(true)
           const response = await uploadFilesTest(files,documentType); // [ "data1" , "data2" , "da..],
-          setExtractionResults(response)
-        }
+          console.log(response)
+          
 
+          let nonEmptyItemCount = 0;
+          const processedResponse = response.map(item => {
+            if (item.file !== "") {
+              nonEmptyItemCount++;
+              return item; // Keep non-empty items as they are
+            } else {
+              return { ...item, file: "" }; // Override empty items
+            }
+          });
+
+          // Log or use the count as needed
+          console.log("Number of non-empty items:", nonEmptyItemCount);
+
+          const trackResponse = await TrackUserSubmissions(token, "SmartDoc", documentType, nonEmptyItemCount);
+
+          console.log("tracker : ",trackResponse)
+
+          // console.log("SaaSy", trackResponse)
+
+          // Check the result of TrackUserSubmissions and update the state accordingly
+          if (trackResponse.access) {
+            setExtractionResults(processedResponse)
+          } else {
+            setError(trackResponse.message);
+          }
+          
         
       } catch (error) {
         console.error('Error extracting document:', error);
@@ -453,15 +473,36 @@ const SmartDoc = () => {
 
   const extractDocumentOnes = async () => {
     try {
-      const canSubmit = await TrackUserSubmissions(token,Tool,documentType);
-        if (!canSubmit) {
-          console.log('You are not allowed to submit this document.');
-          setError("You have reached the pro limit of 10 submissions for SmartDoc. Please upgrade your membership")
-          return; // Exit the function if not allowed
-        }
       setLoading(true)
       const response = await uploadFilesTest([activeFile],documentType); // [ "data1" , "data2" , "da..],
       setExtractionResults(response)
+
+      let nonEmptyItemCount = 0;
+          const processedResponse = response.map(item => {
+            if (item.file !== "") {
+              nonEmptyItemCount++;
+              return item; // Keep non-empty items as they are
+            } else {
+              return { ...item, file: "" }; // Override empty items
+            }
+          });
+
+          // Log or use the count as needed
+          console.log("Number of non-empty items:", nonEmptyItemCount);
+
+          const trackResponse = await TrackUserSubmissions(token, "SmartDoc", documentType, nonEmptyItemCount);
+
+          console.log("tracker : ",trackResponse)
+
+          // console.log("SaaSy", trackResponse)
+
+          // Check the result of TrackUserSubmissions and update the state accordingly
+          if (trackResponse.access) {
+            setExtractionResults(processedResponse)
+          } else {
+            setError(trackResponse.message);
+          }
+      
       
     } catch (error) {
       console.error('Error extracting document:', error);

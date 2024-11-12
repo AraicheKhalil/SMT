@@ -8,6 +8,7 @@ import {  FileText, Brain } from 'lucide-react'
 
 import React, { useContext, useEffect, useState } from 'react'
 import DashPrefrences from './DashPrefrences'
+import CardWithForm from '@/components/LastExtractionResults'
 
 
 // const UserDataST = [
@@ -153,15 +154,15 @@ export default  function Dashboard() {
             </div> */}
 
 
-        <div className='flex pt-5 gap-5 flex-wrap md:flex-nowrap '>
+        <div className='flex pt-5 gap-5 flex-wrap lg:flex-nowrap '>
 
-          <div className='md:basis-[40%] basis-[100%] bg-muted rounded-xl border shadow-lg'>
+          <div className='lg:basis-[40%] w-full rounded-xl border shadow-lg'>
             <TinyBarChart />
           </div>
 
         
-          <div className=' basis-[100%] md:basis-[60%] p-2 border shadow-lg bg-muted rounded-xl'>
-            <TinyLineChart />
+          <div className=' basis-[100%] lg:basis-[60%] border shadow-lg  rounded-xl'>
+            <CardWithForm />
           </div>
         </div>
 

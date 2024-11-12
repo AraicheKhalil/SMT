@@ -239,7 +239,7 @@ export const GenIAResponse = async ({ file, text, source_lang  , target_lang , t
 
 const URL = "http://localhost:5000/api/v1"
 const Production = "https://dsf-saas.onrender.com/api/v1"
-export const TrackUserSubmissions = async (token,Tool,documentType) => {
+export const TrackUserSubmissions = async (token,Tool,documentType,responseCount) => {
 
   const response = await fetch(`${Production}/activities/track`,{
     method: 'POST',
@@ -248,18 +248,26 @@ export const TrackUserSubmissions = async (token,Tool,documentType) => {
       'Authorization': `Bearer ${token}`
     },
     body: JSON.stringify({
-      "toolCategory": Tool,
-      "toolType": documentType
+        "toolCategory": Tool,
+        "toolType": documentType,
+        "extractionCount": responseCount
     }),
   })
-  
-  if(!response.ok){
-    return false
-  }
 
   const data = await response.json();
-  console.log("hhhhhhhhhhhhhhhhh", data.access)
-  return data.access
+  
+  if (!response.ok) {
+    // console.log(data)
+    return { 
+      access: data.access,
+      message: data.message
+    };
+  }else {
+    return { 
+      access: data.access,
+      message: data.message
+    };
+  }
 }
 
 

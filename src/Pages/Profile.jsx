@@ -297,6 +297,8 @@ import { Skeleton } from "@/components/ui/skeleton"
 import { Pen, X, Check, User, Briefcase, Mail, Calendar, Phone, MapPin, Building } from "lucide-react"
 import { AppContext } from '@/context/AppContext'
 import { useContext, useEffect, useState } from "react"
+const URL = "http://localhost:5000/api/v1"
+const Production = "https://dsf-saas.onrender.com/api/v1"
 
 export default function ContactInfo() {
   const [userInfo, setUserInfo] = useState(null)
@@ -307,8 +309,6 @@ export default function ContactInfo() {
   const { auth } = useContext(AppContext);
   const { token } = auth;
 
-  const URL = "http://localhost:5000/api/v1"
-  const Production = "https://dsf-saas.onrender.com/api/v1"
 
   useEffect(() => {
     fetchUserInfo()

@@ -24,8 +24,6 @@ export default function RebuildPrefrences({onPostRequest,BtnContent,BtnColor}) {
   const { auth } = useContext(AppContext)
   const { token } = auth
 
-  console.log(token)
-  console.log(preferences)
 
   const handleOptionToggle = (option) => {
     setPreferences(prev => {
@@ -59,7 +57,7 @@ export default function RebuildPrefrences({onPostRequest,BtnContent,BtnColor}) {
         }
 
         const data = await response.json()
-        console.log('Preferences saved:', data)
+        // console.log('Preferences saved:', data)
         toast({
           title: "Success",
           description: "Your preferences have been saved.",

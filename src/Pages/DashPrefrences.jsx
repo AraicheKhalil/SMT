@@ -19,8 +19,6 @@ function Section({ name, description, icon: Icon, items }) {
     return null;
   }
 
-  console.log(documentType)
-
   return (
     <div className="space-y-4 mt-4 ">
       <div className="space-y-1">
@@ -78,7 +76,7 @@ const Production = "https://dsf-saas.onrender.com/api/v1"
       });
       
       const data = await response.json();
-      console.log(data)
+      // console.log(data)
       if (!response.ok) {
         setError(data?.message)
       }
