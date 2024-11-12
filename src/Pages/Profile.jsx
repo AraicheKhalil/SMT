@@ -297,6 +297,9 @@ import { Skeleton } from "@/components/ui/skeleton"
 import { Pen, X, Check, User, Briefcase, Mail, Calendar, Phone, MapPin, Building } from "lucide-react"
 import { AppContext } from '@/context/AppContext'
 import { useContext, useEffect, useState } from "react"
+import { Badge } from "@/components/ui/badge"
+import { CreditCard } from "lucide-react"
+
 const URL = "http://localhost:5000/api/v1"
 const Production = "https://dsf-saas.onrender.com/api/v1"
 
@@ -605,6 +608,7 @@ export default function ContactInfo() {
         </Card>
 
       </div>
+       <MembershipSubscription />
         <UserLimits />
     </div>
   )
@@ -706,5 +710,100 @@ export default function ContactInfo() {
         ))}
       </div>
     </div>
+  )
+}
+
+
+
+
+// Mock data (replace with actual API call later)
+const mockSubscriptionData = {
+  membershipType: "Pro",
+  startDate: "2023-01-01T00:00:00Z",
+  expiryDate: "2024-01-01T00:00:00Z"
+}
+
+function MembershipSubscription() {
+  const [subscriptionData, setSubscriptionData] = useState(null)
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    // Simulating API call with setTimeout
+    const fetchData = async () => {
+      setIsLoading(true)
+      try {
+        // Replace this with actual API call when ready
+        await new Promise(resolve => setTimeout(resolve, 2000)) // 2 second delay
+        setSubscriptionData(mockSubscriptionData)
+      } catch (error) {
+        console.error('Error fetching subscription data:', error)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    fetchData()
+  }, [])
+
+  const formatDate = (dateString) => {
+    return new Date(dateString).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    })
+  }
+
+  const getMembershipColor = (type) => {
+    switch (type.toLowerCase()) {
+      case 'basic':
+        return 'bg-blue-100 text-blue-800'
+      case 'pro':
+        return 'bg-purple-100 text-purple-800'
+      case 'enterprise':
+        return 'bg-green-100 text-green-800'
+      default:
+        return 'bg-gray-100 text-gray-800'
+    }
+  }
+
+  return (
+    <Card className="shadow-md">
+      <CardHeader>
+        <CardTitle className="text-xl font-semibold flex items-center">
+          <CreditCard className="mr-2 h-5 w-5" />
+          Membership Subscription
+        </CardTitle>
+      </CardHeader>
+      <CardContent>
+        {isLoading ? (
+          <div className="space-y-4">
+            <Skeleton className="h-4 w-[200px]" />
+            <Skeleton className="h-4 w-[150px]" />
+            <Skeleton className="h-4 w-[150px]" />
+          </div>
+        ) : subscriptionData ? (
+          <div className="space-y-4">
+            <div className="flex items-center">
+              <span className="text-sm font-medium text-gray-500 mr-2">Membership Type:</span>
+              <Badge className={`${getMembershipColor(subscriptionData.membershipType)}`}>
+                {subscriptionData.membershipType}
+              </Badge>
+            </div>
+            <div className="flex items-center">
+              <Calendar className="mr-2 h-4 w-4 text-gray-500" />
+              <span className="text-sm font-medium text-gray-500 mr-2">Start Date:</span>
+              <span className="text-sm">{formatDate(subscriptionData.startDate)}</span>
+            </div>
+            <div className="flex items-center">
+              <Calendar className="mr-2 h-4 w-4 text-gray-500" />
+              <span className="text-sm font-medium text-gray-500 mr-2">Expiry Date:</span>
+              <span className="text-sm">{formatDate(subscriptionData.expiryDate)}</span>
+            </div>
+          </div>
+        ) : (
+          <p className="text-sm text-gray-500">No subscription data available.</p>
+        )}
+      </CardContent>
+    </Card>
   )
 }
